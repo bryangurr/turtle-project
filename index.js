@@ -6,7 +6,7 @@ let path = require("path");
 
 let authenticated = false;
 
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 app.set("view engine", "ejs");
 
@@ -16,16 +16,17 @@ app.use(express.urlencoded({extended: true}));
 
 //connect to the database
 
-// const knex = require("knex") ({
-//     client : "pg",
-//     connection : {
-//         host : "",
-//         user : "",
-//         password : "",
-//         database : "",
-//         port : 5432
-//     }
-// });
+const knex = require("knex") ({
+  client: "pg",
+  connection: {
+      host: process.env.RDS_HOSTNAME || "localhost",
+      user: process.env.RDS_USERNAME || "postgres",
+      password: process.env.RDS_PASSWORD || "password",
+      database: process.env.RDS_DB_NAME || "TurtleShelterProject",
+      port: process.env.RDS_PORT || 5432,
+      ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false
+    }
+});
 
 // Route to display Pokemon records (root)
 app.get('/', (req, res) => {
