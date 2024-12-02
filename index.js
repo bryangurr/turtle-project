@@ -28,17 +28,10 @@ app.use(express.urlencoded({extended: true}));
 // Route to display Pokemon records (root)
 app.get('/', (req, res) => {
     knex('pokemon')
-      .join('poke_type', 'pokemon.poke_type_id', '=', 'poke_type.id')
       .select(
         'pokemon.id',
-        'pokemon.description',
-        'pokemon.base_total',
-        'pokemon.date_created',
-        'pokemon.active_poke',
-        'pokemon.gender',
-        'pokemon.poke_type_id',
-        'poke_type.description as poke_type_description'
       )
+      // deleted some stuff here 
       .then(pokemon => {
         // Render the index.ejs template and pass the data
         res.render('index', { pokemon });
