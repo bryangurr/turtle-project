@@ -31,4 +31,4 @@ app.get('/', (req, res) => {
 });
 
 // should always come last
-app.listen(port, () => console.log("Server is listening..."));
+app.listen(port, () => console.log(`Server is running at http://localhost:${port}`)); // Start listening
