@@ -52,6 +52,24 @@ app.get('/volunteer', (req, res) => {
   res.render('volunteer');
 });
 
+app.post('/addVolunteer', (req, res) => {
+    //add record to volunteer table
+    knex('volunteers').insert({
+    firstname : req.body.firstName,
+    lastname : req.body.lastName,
+    phone : req.body.phone,
+    email : req.body.email,
+    hours : req.body.availableHours,
+    hearaboutus : req.body.hearAboutUs,
+    sewinglevel : req.body.sewingLevel})
+    .then(() => {
+        res.redirect('/')
+    })
+    .catch(err => {
+        console.error('Error inserting record:', err);
+      })
+});
+
 app.get('/schedule_event', (req, res) => {
   res.render('schedule_event');
 });
