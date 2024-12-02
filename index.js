@@ -4,6 +4,8 @@ let app = express();
 
 let path = require("path");
 
+let authenticated = false;
+
 const port = 5000;
 
 app.set("view engine", "ejs");

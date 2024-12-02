@@ -3,9 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Turtle Shelter Project</title>
+    <title>Login - Turtle Shelter Project</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #004d40, #66bb6a);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .login-container {
+            background: #e8f5e9;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            width: 350px;
+            text-align: center;
+        }
+        .login-container h1 {
+            color: #004d40;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .login-container input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #004d40;
+            border-radius: 8px;
+            outline: none;
+        }
+        .login-container input[type="submit"] {
+            background: #004d40;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .login-container input[type="submit"]:hover {
+            background: #66bb6a;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #004d40;
+        }
+        .footer a {
+            color: #66bb6a;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    
+    <div class="login-container">
+        <h1>Turtle Shelter</h1>
+        <form action="/login" method="post">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="submit" value="Login">
+        </form>
+        <div class="footer">
+        </div>
+    </div>
 </body>
 </html>
