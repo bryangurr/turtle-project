@@ -4,8 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Turtle Shelter Project</title>
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Futura, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        /* Banner Section */
+        .banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #004d40;
+            padding: 10px 20px;
+            color: white;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .banner .title h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #66bb6a;
+        }
+
+        .banner-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .banner-buttons form {
+            margin: 0;
+        }
+
+        .banner-buttons .btn {
+            background-color: #66bb6a;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .banner-buttons .btn:hover {
+            background-color: #004d40;
+        }
+
+        /* Main Dashboard Section */
+        .dashboard {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .dashboard h2 {
+            color: #004d40;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        #tableau-dashboard {
+            margin-top: 20px;
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
-    
+    <!-- Banner Section -->
+    <header class="banner">
+        <div class="title">
+            <h1>Welcome</h1>
+        </div>
+        <div class="banner-buttons">
+            <form action="/manage_employees" method="GET">
+                <button type="submit" class="btn">Manage Employees</button>
+            </form>
+            <form action="/manage_volunteers" method="GET">
+                <button type="submit" class="btn">Manage Volunteers</button>
+            </form>
+            <form action="/manage_events" method="GET">
+                <button type="submit" class="btn">Manage Events</button>
+            </form>
+        </div>
+    </header>
+  
+    <!-- Main Content -->
+    <main class="dashboard">
+        <h2>Effectiveness Dashboard</h2>
+        <div id="tableau-dashboard">
+            <!-- Tableau dashboard link will be added here later -->
+        </div>
+    </main>
 </body>
 </html>
