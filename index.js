@@ -27,21 +27,8 @@ app.use(express.urlencoded({extended: true}));
 
 // Route to display Pokemon records (root)
 app.get('/', (req, res) => {
-    knex('pokemon')
-      .select(
-        'pokemon.id',
-      )
-      // deleted some stuff here 
-      .then(pokemon => {
-        // Render the index.ejs template and pass the data
-        res.render('index', { pokemon });
-      })
-      // copy and paste error catching for the test
-      .catch(error => {
-        console.error('Error querying database:', error);
-        res.status(500).send('Internal Server Error');
-      });
-  });
+  res.render('home');
+});
 
 // should always come last
 app.listen(port, () => console.log("Server is listening..."));
