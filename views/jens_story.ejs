@@ -19,6 +19,9 @@
       color: #fff;
       padding: 15px 0;
       text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
     header nav a {
@@ -27,6 +30,11 @@
       text-decoration: none;
       font-size: 1.1em;
       font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    header nav a:hover {
+      color: #c3e6cb;
     }
 
     .container {
@@ -86,7 +94,7 @@
   <header>
     <nav>
       <a href="/">Home</a>
-      <a href="/jens-story">Jen's Story</a>
+      <a href="/jens_story">Jen's Story</a>
       <a href="/sponsors">Sponsors</a>
       <a href="/about">About</a>
       <a href="/contact">Contact</a>
