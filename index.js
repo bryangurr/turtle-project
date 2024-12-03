@@ -263,14 +263,18 @@ app.get('/manage_volunteers', (req, res) => {
   })
 });
 
-
 app.get('/manage_events', (req, res) => {
-  knex('events').select().orderBy('Event_Date', 'desc')
-    .then((events) => {
-      res.render('manage_events', { events: events });
-    })
-
+  knex('event')
+  .select()
+  .then((event) => {
+    res.render('manage_events', {event : event})
+  })
+  .catch(error => {
+    console.error('Error querying database:', error);
+    res.status(500).send('Internal Server Error');
+  })
 });
+
 
 app.get('/edit_event', (req, res) => {
   res.render('edit_event');
