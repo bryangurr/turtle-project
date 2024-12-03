@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,7 +56,7 @@ header nav a:hover {
       background: #fff;
     }
 
-    h1, h2 {
+    h2 {
       color: #2e8b57;
       text-align: center;
       margin-bottom: 20px;
@@ -188,7 +187,6 @@ header nav a:hover {
 
   </style>
 </head>
-
 <body>
 
   <!-- Top Navigation Bar -->
@@ -204,15 +202,12 @@ header nav a:hover {
   </header>
 
   <!-- Hero Section -->
-  <section class="hero" style="background-color: #fff; color: #2e8b57; text-align: center; padding: 100px 20px;">
-    <h1 style="font-size: 2.8em; margin-bottom: 20px;">Helping to Save Lives of People Experiencing Homelessness</h1>
-    <p style="font-size: 1.3em; margin-bottom: 30px;">Providing insulated vests as portable shelters to those in need.</p>
+  
+  <section class="hero" style="background-color: #fff; color: #ffffff; text-align: center; padding: 100px 20px;">
+    <div class="hero-content">
+    <h1 style="font-size: 2.8em; margin-bottom: 20px;">Helping to Save The Lives of People Experiencing Homelessness</h1>
+    <p style="font-size: 1.3em; margin-bottom: 30px;">Providing Insulated Vests as Portable Shelters to Those in Need.</p>
     <a href="https://turtleshelterproject.org/donate" style="background: #2e8b57; color: #fff; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-size: 1.2em; font-weight: bold; transition: background 0.3s ease, color 0.3s ease;">Donate Now</a>
-  </section>
-
-
-  <!-- What is a Turtle Shelter Vest Section -->
-  <section>
     <h1>Database Configuration</h1>
     <table border="1">
       <tr>
@@ -244,49 +239,42 @@ header nav a:hover {
         <td><%= dbConfig.ssl %></td>
       </tr>
     </table>
-    
+  </div>
+  </section>
+  
 
+  <!-- What is a Turtle Shelter Vest Section -->
+  <section>
     <h2>What is a Turtle Shelter Vest?</h2>
-    <p>A high-tech but simple solution to help save lives - a portable "shelter" you can carry with you, just like a
-      turtle...</p>
+    <p>A high-tech but simple solution to help save lives - a portable "shelter" you can carry with you, just like a turtle...</p>
     <p>And YOU can help!</p>
     <p>One winter when Jen was homeless, 7 of her friends froze to death.</p>
     <p>Jen is no longer homeless and has figured out a solution:</p>
-    <p>High-tech foam vests that are inexpensive, keep a person warm to 10 degrees below zero, help SAVE lives, and
-      alleviate suffering.</p>
-    <p>YOU can request vests for your community - and you can make vests and have your friends, business colleagues,
-      church members, or club make vests, too!</p>
+    <p>High-tech foam vests that are inexpensive, keep a person warm to 10 degrees below zero, help SAVE lives, and alleviate suffering.</p>
+    <p>YOU can request vests for your community - and you can make vests and have your friends, business colleagues, church members, or club make vests, too!</p>
   </section>
 
   <!-- How You Can Help Section -->
   <section>
     <h2>Contact Us</h2>
     <p>
-      Turtle Shelter Project, PO Box 382, Kaysville, UT 84037 | 801-872-3190 |
+      Turtle Shelter Project, PO Box 382, Kaysville, UT 84037 | 801-872-3190 | 
       <a href="mailto:turtleshelterproject@gmail.com">turtleshelterproject@gmail.com</a>
     </p>
     <a href="https://www.facebook.com/TurtleShelterProject" target="_blank">
-      <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"
-        style="width: 40px; height: 40px;">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" style="width: 40px; height: 40px;">
     </a>
     <p style="margin-top: 10px; font-size: 0.8em;">
       <a href="https://www.flaticon.com/free-icons/facebook" title="facebook icons" style="color: #fff; text-decoration: none;">
-        Facebook icons created by Freepik - Flaticon
+        
       </a>
     </p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    © 2024 Turtle Shelter Project. All rights reserved.
   </footer>
 
-  <script>
-    function showlogs() {
-      console.log('Hostname: ' + process.env.RDS_HOSTNAME + ' ' +
-        'Username: ' + process.env.RDS_USERNAME + ' ' +
-        'Password: ' + process.env.RDS_PASSWORD + ' ' +
-        'DB Name: ' + process.env.RDS_DB_NAME + ' ' +
-        'Port: ' + process.env.RDS_PORT + ' ' +
-        'DB SSL: ' + process.env.DB_SSL
-      )
-    }
-  </script>
 </body>
-
 </html>
