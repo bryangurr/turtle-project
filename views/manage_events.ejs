@@ -36,29 +36,36 @@
         <th>Event Date</th>
         <th>Event City</th>
         <th>Event State</th>
-        <th>Total Estimated Participants</th>
+        <th>Adult Participants</th>
+        <th>Child Participants</th>
         <th>Coordinator First Name</th>
         <th>Coordinator Last Name</th>
         <th>Coordinator Phone</th>
         <th>Share Story?</th>
+        <th>Number of People Who Can Sew</th>
+        <th>Number of Sewing Machines</th>
+        <th>Number of Serger Machines</th>
       </tr>
     </thead>
     <tbody>
 
-      <% if (events.length > 0) { %>
-        <% events.forEach(event => { %>
+      <% if (event.length > 0) { %>
+        <% event.forEach(event => { %>
           <tr>
             <input type="hidden" value="event.id">
-            <input type="hidden" value="event.poke_type_id">
-            <td><%= event.Event_Status %></td>
-            <td><%= event.Event_Date %></td>
-            <td><%= event.Event_City %></td> 
-            <td><%= event.Event_State %></td>
-            <td><%= event.Total_Participants %></td>
-            <td><%= event.Coordinator_First_Name %></td>
-            <td><%= event.Coordinator_Last_Name %></td>
-            <td><%= event.Coordinator_Phone %></td>
-            <td><%= event.Share_Story %></td>
+            <td><%= event.event_status %></td>
+            <td><%= event.event_date %></td>
+            <td><%= event.event_city %></td> 
+            <td><%= event.event_state %></td>
+            <td><%= event.adult_participants %></td>
+            <td><%= event.child_participants %></td>
+            <td><%= event.coordinator_first_name %></td>
+            <td><%= event.coordinator_last_name %></td>
+            <td><%= event.coordinator_phone %></td>
+            <td><%= event.share_story %></td>
+            <td><%= event.num_sewers %></td>
+            <td><%= event.num_sewing_machine %></td>
+            <td><%= event.num_serger_machine %></td>
             <td>
              
               <form action="/edit_event/<%= event.id %>" method="GET" style="display:inline;">
