@@ -3,9 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schedule an Event</title>
+    <title>Request an Event</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #004d40 0%, #66bb6a 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        .container {
+            background-color: white;
+            width: 100%;
+            max-width: 600px;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .form-title {
+            text-align: center;
+            color: #004d40;
+            margin-bottom: 1.5rem;
+            font-size: 2.25rem;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #004d40;
+            font-weight: 600;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #66bb6a;
+            border-radius: 6px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #004d40;
+            box-shadow: 0 0 0 3px rgba(0, 77, 64, 0.2);
+        }
+        .name-row {
+            display: flex;
+            gap: 1rem;
+        }
+        .name-row > div {
+            flex: 1;
+        }
+        .location-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 1rem;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: #004d40;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        .submit-btn:hover {
+            background-color: #66bb6a;
+            transform: scale(1.02);
+        }
+        .submit-btn:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(102, 187, 106, 0.4);
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .checkbox-group input {
+            margin-right: 0.5rem;
+        }
+    </style>
 </head>
 <body>
-    
+    <div class="container">
+        <h2 class="form-title">Request Your Own Event</h2>
+        <form action="/schedule_event" method="POST">
+            <div class="form-group">
+                <label for="eventDate">Event Date</label>
+                <input type="date" id="eventDate" name="eventDate" required>
+            </div>
+            
+            <div class="location-row">
+                <div class="form-group">
+                    <label for="eventAddress">Event Address</label>
+                    <input type="text" id="eventAddress" name="eventAddress" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventCity">City</label>
+                    <input type="text" id="eventCity" name="eventCity" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventState">State</label>
+                    <input type="text" id="eventState" name="eventState" required>
+                </div>
+            </div>
+
+            <div class="name-row">
+                <div class="form-group">
+                    <label for="startTime">Start Time</label>
+                    <input type="time" id="startTime" name="startTime" required>
+                </div>
+                <div class="form-group">
+                    <label for="duration">Approximate Duration (hours)</label>
+                    <input type="number" id="duration" name="duration" min="0.5" step="0.5" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="numberOfAttendees">Number of Attendees</label>
+                <input type="number" id="numberOfAttendees" name="numberOfAttendees" min="1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="eventType">Event Type</label>
+                <select id="eventType" name="eventType" required>
+                    <option value="">Select Event Type</option>
+                    <option value="sewing">Sewing Event</option>
+                    <option value="non-sewing">Non-Sewing Event</option>
+                </select>
+            </div>
+
+            <div class="name-row">
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+            </div>
+
+            <div class="name-row">
+                <div class="form-group">
+                    <label for="phoneNumber">Phone Number</label>
+                    <input type="tel" id="phoneNumber" name="phoneNumber" required>
+                </div>
+                <div class="form-group">
+                    <label for="secondaryPhone">Secondary Phone (Optional)</label>
+                    <input type="tel" id="secondaryPhone" name="secondaryPhone">
+                </div>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="shareStory" name="shareStory">
+                <label for="shareStory">Allow Founder to Share Story</label>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Event Request</button>
+        </form>
+    </div>
 </body>
 </html>
