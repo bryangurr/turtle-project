@@ -135,10 +135,10 @@
             </tr>
         </thead>
         <tbody>
-            <% employees.forEach(employee => { %>
+            <% admins.forEach(admin => { %>
                 <tr>
-                    <td><%= employee.username %></td>
-                    <td><%= employee.password %></td>
+                    <td><%= admin.username %></td>
+                    <td><%= admin.password %></td>
                     <td>
                         <form action="/edit_employee" method="GET" style="display: inline;">
                             <button class="btn edit" type="submit">Edit</button>
