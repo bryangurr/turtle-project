@@ -175,6 +175,49 @@ app.get('report_event', (req, res) => {
   res.render('report_event');
 });
 
+app.get('/edit_volunteer/:id', (req, res) => {
+  const { id } = req.params;
+
+  knex('volunteers')
+    .where({ id })
+    .first()
+    .then(volunteer => {
+      if (volunteer) {
+        res.render('edit_volunteer', { volunteer });
+      } else {
+        res.status(404).send('Volunteer not found');
+      }
+    })
+    .catch(err => {
+      console.error('Error fetching volunteer:', err);
+      res.status(500).send('Error retrieving volunteer information');
+    });
+});
+
+
+app.post('/edit_volunteer/:id', (req, res) => {
+  const { id } = req.params;
+  const { firstName, lastName, phone, email, availableHours, hearAboutUs, sewingLevel } = req.body;
+
+  knex('volunteers')
+    .where({ id })
+    .update({
+      firstname: firstName,
+      lastname: lastName,
+      phone,
+      email,
+      hours: availableHours,
+      hearaboutus: hearAboutUs,
+      sewinglevel: sewingLevel
+    })
+    .then(() => {
+      res.redirect('/manage_volunteers'); // Redirect to the manage volunteers page
+    })
+    .catch(err => {
+      console.error('Error updating volunteer:', err);
+      res.status(500).send('Error updating volunteer information');
+    });
+});
 
 
 

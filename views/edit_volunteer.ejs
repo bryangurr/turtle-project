@@ -3,9 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Turtle Shelter Project</title>
+    <title>Edit Volunteer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #004d40, #66bb6a);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-box {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            max-width: 100%;
+            text-align: center;
+        }
+
+        .form-box h1 {
+            margin-bottom: 20px;
+            color: #004d40;
+        }
+
+        .form-box label {
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .form-box input[type="text"], 
+        .form-box input[type="email"], 
+        .form-box input[type="tel"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-box button {
+            background-color: #66bb6a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-box button:hover {
+            background-color: #004d40;
+        }
+    </style>
 </head>
 <body>
-    
+    <div class="form-box">
+        <h1>Edit Volunteer</h1>
+        <form action="/update_volunteer" method="POST">
+            <input type="hidden" name="id" value="<%= volunteer.id %>">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" value="<%= volunteer.name %>" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" value="<%= volunteer.email %>" required>
+
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" value="<%= volunteer.phone %>" required>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
 </body>
 </html>
