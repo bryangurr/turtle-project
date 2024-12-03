@@ -217,8 +217,8 @@ app.get('/manage_employees', async (req, res) => {
   try {
     await knex.raw('SELECT 1+1 AS result');
     console.log('Database connected successfully!');
-    const employees = await knex('employees').select('*');
-    res.render('manage_employees', { employees });
+    const admins = await knex('admin').select('*');
+    res.render('manage_employees', { admins });
   } catch (error) {
     console.error('Error querying database:', error);
     res.status(500).send('Internal Server Error');
