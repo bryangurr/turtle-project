@@ -27,13 +27,14 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 const knex = require("knex")({
   client: "pg",
   connection: {
-    host: process.env.RDS_HOSTNAME || "hostname",
-    user: process.env.RDS_USERNAME || "username",
-    password: process.env.RDS_PASSWORD || "password",
-    database: process.env.RDS_DB_NAME || "database",
+    host: process.env.RDS_HOSTNAME || "localhost",
+    user: process.env.RDS_USERNAME || "postgres",
+    password: process.env.RDS_PASSWORD || "Never1:3",
+    database: process.env.RDS_DB_NAME || "turtleshelter",
     port: process.env.RDS_PORT || 5432,
     ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false
-  }
+  },
+  debug: true,
 });
 
 knex.raw("SELECT 1")
@@ -72,8 +73,21 @@ app.post('/pay', async (req, res) => {
 
 // Route to display Pokemon records (root)
 app.get('/', (req, res) => {
-  res.render('home');
+  const dbConfig = {
+    hostname: process.env.RDS_HOSTNAME,
+    username: process.env.RDS_USERNAME,
+    password: process.env.RDS_PASSWORD,
+    dbName: process.env.RDS_DB_NAME,
+    port: process.env.RDS_PORT,
+    ssl: process.env.DB_SSL
+  };
+
+  console.log(dbConfig);
+
+  // Pass dbConfig to the EJS file
+  res.render('home', { dbConfig });
 });
+
 
 app.get('/about', (req, res) => {
   res.render('about');
@@ -251,8 +265,8 @@ app.get('/report_event', (req, res) => {
 app.post('/report_event/:id', (req, res) => {
   //const id = req.params.id;
   //knex('events').update({
-    //actual event stats
-//}).where('id', id)
+  //actual event stats
+  //}).where('id', id)
 })
 
 app.get('/edit_volunteer/:id', (req, res) => {
