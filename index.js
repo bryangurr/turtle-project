@@ -27,14 +27,18 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 const knex = require("knex")({
   client: "pg",
   connection: {
-    host: process.env.RDS_HOSTNAME || "awseb-e-re8pandf3g-stack-awsebrdsdatabase-ecioajoqedu4.cxygm0cc2xh7.us-east-1.rds.amazonaws.com",
-    user: process.env.RDS_USERNAME || "turtleroot",
-    password: process.env.RDS_PASSWORD || "uEoN1QfWHwr8THfUYu8u",
-    database: process.env.RDS_DB_NAME || "ebdb",
+    host: process.env.RDS_HOSTNAME || "hostname",
+    user: process.env.RDS_USERNAME || "username",
+    password: process.env.RDS_PASSWORD || "password",
+    database: process.env.RDS_DB_NAME || "database",
     port: process.env.RDS_PORT || 5432,
     ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false
   }
 });
+
+knex.raw("SELECT 1")
+  .then(() => console.log("Database connection successful"))
+  .catch((err) => console.error("Database connection failed", err));
 
 app.get('/donate', (req, res) => {
   res.render('donate');
