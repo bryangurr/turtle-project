@@ -159,19 +159,23 @@ app.get('/edit_volunteer', (req, res) => {
   res.render('edit_volunteer');
 });
 
-app.get('manage_events', (req, res) => {
-  res.render('manage_events');
+app.get('/manage_events', (req, res) => {
+  knex('events').select().orderBy('Event_Date', 'desc')
+  .then((events) => {
+    res.render('manage_events', {events : events});
+  })
+
 });
 
-app.get('edit_event', (req, res) => {
+app.get('/edit_event', (req, res) => {
   res.render('edit_event');
 });
 
-app.get('create_event', (req, rew) => {
+app.get('/create_event', (req, rew) => {
   res.render('create_event');
 });
 
-app.get('report_event', (req, res) => {
+app.get('/report_event', (req, res) => {
   res.render('report_event');
 });
 
