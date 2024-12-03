@@ -14,27 +14,38 @@
     }
 
     header {
-      background: #2e8b57;
-      color: #fff;
-      padding: 15px 0;
-      text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
+  background: #2e8b57;
+  color: #fff;
+  padding: 15px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex; /* Enables flexible layout */
+  align-items: center; /* Centers content vertically */
+}
 
-    header nav a {
-      color: #fff;
-      margin: 0 15px;
-      text-decoration: none;
-      font-size: 1.1em;
-      font-weight: bold;
-      transition: color 0.3s ease;
-    }
+header img {
+  height: 50px; /* Adjust as needed */
+  margin-left: 15px; /* Adds some spacing from the edge */
+}
 
-    header nav a:hover {
-      color: #c3e6cb;
-    }
+header nav {
+  flex-grow: 1; /* Makes the nav section expand to fill available space */
+  text-align: center; /* Centers the content horizontally */
+}
+
+header nav a {
+  color: #fff;
+  margin: 0 15px;
+  text-decoration: none;
+  font-size: 1.1em;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+header nav a:hover {
+  color: #c3e6cb;
+}
 
     section {
       padding: 50px 20px;
@@ -45,11 +56,18 @@
       background: #fff;
     }
 
-    h1, h2 {
+    h2 {
       color: #2e8b57;
       text-align: center;
       margin-bottom: 20px;
     }
+
+    h1 {
+      color: #ffffff;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
 
     p {
       font-size: 1.2em;
@@ -60,7 +78,7 @@
 
     .hero {
       background: #fff;
-      color: #2e8b57;
+      color: rgb(255, 255, 255);
       text-align: center;
       padding: 100px 20px;
     }
@@ -90,6 +108,41 @@
       background: #2e8b57;
       color: #fff;
     }
+
+    .hero {
+  position: relative; /* Allows for an overlay */
+  background: url('images/Picture11.jpg') no-repeat center center / cover;
+  height: 50vh; /* Example height: full viewport height */
+  color: #fff; /* Ensures text is readable on dark background */
+  display: flex; /* Centers content inside the section */
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Dark haze effect */
+  z-index: 1; /* Ensures the overlay is behind content */
+}
+
+.hero-content {
+  position: relative; /* Keeps it above the overlay */
+  z-index: 2; /* Ensures content appears on top of the overlay */
+}
+
+.hero h1,
+.hero p {
+  z-index: 2; /* Ensures text stays on top of the haze */
+  color: #ffffff !important; /* Forces text to be white */
+}
+
+
 
     ul {
       list-style: none;
@@ -129,6 +182,9 @@
     footer a:hover {
       color: #c3e6cb;
     }
+
+    
+
   </style>
 </head>
 <body>
@@ -136,7 +192,6 @@
   <!-- Top Navigation Bar -->
   <header>
     <nav>
-      <img src="images/Original+logo+low+resolution.png" alt="turtle_logo"></a>
       <a href="/jens_story">Jen's Story</a>
       <a href="/sponsors">Sponsors</a>
       <a href="/about">About</a>
@@ -147,10 +202,13 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="hero" style="background-color: #fff; color: #2e8b57; text-align: center; padding: 100px 20px;">
-    <h1 style="font-size: 2.8em; margin-bottom: 20px;">Helping to Save Lives of People Experiencing Homelessness</h1>
-    <p style="font-size: 1.3em; margin-bottom: 30px;">Providing insulated vests as portable shelters to those in need.</p>
+  
+  <section class="hero" style="background-color: #fff; color: #ffffff; text-align: center; padding: 100px 20px;">
+    <div class="hero-content">
+    <h1 style="font-size: 2.8em; margin-bottom: 20px;">Helping to Save The Lives of People Experiencing Homelessness</h1>
+    <p style="font-size: 1.3em; margin-bottom: 30px;">Providing Insulated Vests as Portable Shelters to Those in Need.</p>
     <a href="https://turtleshelterproject.org/donate" style="background: #2e8b57; color: #fff; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-size: 1.2em; font-weight: bold; transition: background 0.3s ease, color 0.3s ease;">Donate Now</a>
+  </div>
   </section>
   
 
