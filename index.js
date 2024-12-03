@@ -4,6 +4,10 @@ let app = express();
 
 let path = require("path");
 
+const bodyParser = require('body-parser');
+const stripe = require('stripe')('sk_test_51QRlsmAe0EglwwiJYbVjdKmn1KRcMSeorCaWrNKRYiB1T0kQslBg6ocayIqDhZQIXnami5kdKLV4miC1DlZYfhLr00hCkegHWZ');
+
+
 let authenticated = false;
 
 const port = process.env.PORT || 5000;
@@ -28,6 +32,36 @@ const knex = require("knex") ({
     }
 });
 
+app.get('/donate', (req, res) => {
+  res.render('donate');
+});
+
+app.post('/pay', async (req, res) => {
+  const { payment_method_id, amount } = req.body;
+
+  if (!payment_method_id || !amount || amount <= 0) {
+      return res.status(400).json({ error: 'Invalid payment details.' });
+  }
+
+  try {
+      // Create a Payment Intent
+      const paymentIntent = await stripe.paymentIntents.create({
+          amount, // Amount in cents
+          currency: 'usd',
+          payment_method: payment_method_id,
+          confirmation_method: 'manual',
+          confirm: true,
+      });
+
+      // Send a success response
+      res.json({ success: true, client_secret: paymentIntent.client_secret });
+  } catch (err) {
+      console.error('Error processing payment:', err.message);
+      res.status(500).json({ error: err.message });
+  }
+});
+
+
 // Route to display Pokemon records (root)
 app.get('/', (req, res) => {
   res.render('home');
@@ -37,9 +71,6 @@ app.get('/about', (req, res) => {
   res.render('about');
 });
 
-app.get('/donate', (req, res) => {
-  res.render('donate');
-});
 
 app.get('/jens_story', (req, res) => {
   res.render('jens_story');

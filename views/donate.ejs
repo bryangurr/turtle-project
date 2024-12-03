@@ -3,9 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Turtle Shelter Project</title>
+    <title>Payment Page</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #004d40, #66bb6a);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#logo {
+    width: 150px;
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+/* Main Content */
+main {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    color: #004d40;
+    margin-bottom: 5px;
+}
+
+#payment-options label {
+    display: block;
+    margin-bottom: 5px;
+    color: #004d40;
+}
+
+#payment-options input[type="number"] {
+    margin-top: 5px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+#card-element {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Button Styles */
+button {
+    width: 100%;
+    background: #004d40;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #66bb6a;
+}
+
+#payment-message {
+    margin-top: 20px;
+    font-size: 1rem;
+    color: #004d40;
+}
+
+</style>
 </head>
 <body>
+    <header>
+        <img src="https://stripe.com/img/v3/newsroom/social.png" alt="Stripe Logo" id="logo">
+        <h1>Donate Today</h1>
+    </header>
+    <main>
+        <form id="payment-form">
+            <!-- Payment Options -->
+            <div class="form-group">
+                <label for="amount">Choose Payment Amount:</label>
+                <div id="payment-options">
+                    <label><input type="radio" name="amount" value="500" checked> $5.00</label>
+                    <label><input type="radio" name="amount" value="1000"> $10.00</label>
+                    <label><input type="radio" name="amount" value="custom"> Custom Amount:</label>
+                    <input type="number" id="custom-amount" placeholder="Enter amount" disabled>
+                </div>
+            </div>
 
+            <!-- Card Details -->
+            <div class="form-group">
+                <label for="card-element">Card Details:</label>
+                <div id="card-element"></div>
+            </div>
+
+            <!-- Submit Button -->
+            <button id="submit">Pay</button>
+            <p id="payment-message" class="hidden"></p>
+        </form>
+    </main>
+
+    <script>
+        const stripe = Stripe('your-publishable-key'); // Replace with your Stripe publishable key
+        const elements = stripe.elements();
+        const cardElement = elements.create('card');
+        cardElement.mount('#card-element');
+
+        const form = document.getElementById('payment-form');
+        const customAmountInput = document.getElementById('custom-amount');
+        const paymentOptions = document.getElementsByName('amount');
+
+        // Enable custom amount input when selected
+        paymentOptions.forEach(option => {
+            option.addEventListener('change', () => {
+                if (option.value === 'custom') {
+                    customAmountInput.disabled = false;
+                } else {
+                    customAmountInput.disabled = true;
+                    customAmountInput.value = '';
+                }
+            });
+        });
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            let amount = 0;
+            const selectedOption = Array.from(paymentOptions).find(option => option.checked);
+            if (selectedOption.value === 'custom') {
+                amount = parseInt(customAmountInput.value || 0) * 100; // Convert to cents
+            } else {
+                amount = parseInt(selectedOption.value);
+            }
+
+            if (amount <= 0) {
+                alert('Please enter a valid payment amount.');
+                return;
+            }
+
+            const { error, paymentMethod } = await stripe.createPaymentMethod({
+                type: 'card',
+                card: cardElement,
+            });
+
+            if (error) {
+                console.error(error);
+            } else {
+                const response = await fetch('/pay', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ payment_method_id: paymentMethod.id, amount }),
+                });
+
+                const paymentResult = await response.json();
+                if (paymentResult.error) {
+                    console.error(paymentResult.error);
+                } else {
+                    document.getElementById('payment-message').innerText = 'Payment Successful!';
+                }
+            }
+        });
+    </script>
 </body>
 </html>
