@@ -1,11 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Turtle Shelter Project</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Sponsors</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #2e8b57;
+      color: #fff;
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    header nav a {
+      color: #fff;
+      margin: 0 15px;
+      text-decoration: none;
+    }
+
+    main {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .sponsors-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      padding: 20px;
+    }
+
+    .sponsors-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px 0;
+      background: #2e8b57;
+      color: #fff;
+    }
+  </style>
 </head>
 <body>
-    
+  <!-- Top Navigation Bar -->
+  <header>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/jens_story">Jen's Story</a>
+      <a href="/sponsors">Sponsors</a>
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
+      <a href="/login">Login</a>
+    </nav>
+  </header>
+
+  <!-- Sponsors Section -->
+  <main>
+    <section style="padding: 20px; text-align: center;">
+      <h1 style="color: #2e8b57;">Thanks to Our Sponsors</h1>
+      <p>We deeply appreciate the support of our generous sponsors who help us achieve our mission. Click on the logo to go to their website</p>
+
+      <div class="sponsors-container">
+        <!-- Sponsor Logos -->
+        <a href="http://www.goodshepherdogden.org/">
+            <img src="https://images.squarespace-cdn.com/content/v1/5b5a266fcef372310148d6d6/1545161805835-B7ZI9CKKZWXGD9DFKAL2/Episcopal+Church+Ogden.PNG" alt="Episcopal Church Ogden">
+        </a>
+        <a href="https://www.softminkyblankets.com/">
+            <img src="https://images.squarespace-cdn.com/content/v1/5b5a266fcef372310148d6d6/1537489924807-SDTR5HUU9CWITZ3KZYH8/image1.jpeg" alt="Minky Couture">
+        </a>
+        <a href="http://www.givemeachanceutah.org/">
+            <img src="https://images.squarespace-cdn.com/content/v1/5b5a266fcef372310148d6d6/1545161552654-A5P160D6LC7ZNJ1CWPKE/GMAC.PNG" alt="Give Me A Chance">
+        </a>
+        <a href="http://www.owfinc.com">
+            <img src="https://images.squarespace-cdn.com/content/v1/5b5a266fcef372310148d6d6/1545161808738-K088BO18U058G1EFALS2/Outdoor+Wilderness+Fabrics+Logo.PNG" alt="Outdoor Wilderness Fabrics">
+        </a>
+        <a href="https://designsourceslc.com">
+            <img src="https://images.squarespace-cdn.com/content/v1/5b5a266fcef372310148d6d6/1545162701365-7ISCD3LJF25HJM8DLL6J/Design+Source.PNG" alt="Design Source">        
+        </a>
+        <a href="https://www.cheneybrothersconstruction.com/">
+            <img src="https://images.squarespace-cdn.com/content/v1/5b5a266fcef372310148d6d6/1545163228039-3N23G47RI79RST9IIX51/cheney+brothers+construction.PNG" alt="Cheney Brothers Construction">
+        </a>
+        <a href="http://www.futurefoam.com/">
+            <img src="https://images.squarespace-cdn.com/content/v1/5b5a266fcef372310148d6d6/1545161803530-FPI3Q6LRMB986RZLGR2F/Future+Foam+Logo.PNG" alt="Future Foam">
+        </a>
+    </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; <%= new Date().getFullYear() %> Turtle Shelter Project. All rights reserved.</p>
+  </footer>
 </body>
 </html>
