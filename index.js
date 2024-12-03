@@ -219,6 +219,49 @@ app.post('/edit_volunteer/:id', (req, res) => {
     });
 });
 
+app.get('/edit_event/:id', (req, res) => {
+  const { id } = req.params;
+
+  knex('events')
+    .where({ id })
+    .first()
+    .then(event => {
+      if (event) {
+        res.render('edit_event', { event });
+      } else {
+        res.status(404).send('Event not found');
+      }
+    })
+    .catch(err => {
+      console.error('Error fetching event:', err);
+      res.status(500).send('Error retrieving event information');
+    });
+});
+
+app.post('/edit_event/:id', (req, res) => {
+  const { id } = req.params;
+  const { eventDate, eventAddress, eventCity, eventState, startTime, duration, numberOfAttendees, eventType, firstName, lastName, phoneNumber, secondaryPhone, shareStory } = req.body;
+
+  knex('events')
+    .where({ id })
+    .update({
+      event_date: eventDate, event_address: eventAddress, event_city: eventCity,
+      event_state: eventState, start_time: startTime, run_time: duration,
+      num_attendees: numberOfAttendees, sewing_non: eventType, 
+      coordinator_first_name: firstName, coordinator_last_name: lastName,
+      coordinator_phone: phoneNumber, coordinator_secondary_phone: secondaryPhone,
+      share_story: shareStory ? true : false
+    })
+    .then(() => {
+      res.redirect('/manage_events'); // Redirect to manage events page
+    })
+    .catch(err => {
+      console.error('Error updating event:', err);
+      res.status(500).send('Error updating event information');
+    });
+});
+
+
 
 
 // should always come last
