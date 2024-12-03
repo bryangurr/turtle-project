@@ -138,18 +138,18 @@
                     <tr>
                         <td><%= volunteer.state %></td>
                         <td><%= volunteer.city %></td>
-                        <td><%= volunteer.first_name %></td>
-                        <td><%= volunteer.last_name %></td>
+                        <td><%= volunteer.vol_first_name %></td>
+                        <td><%= volunteer.vol_last_name %></td>
                         <td><%= volunteer.phone %></td>
                         <td><%= volunteer.email %></td>
                         <td><%= volunteer.sewing_level %></td>
                         <td><%= volunteer.num_vol_hours %></td>
-                        <td><%= volunteer.employee_YN %></td>
+                        <td><%= volunteer.employee_yn %></td>
                         <td>
-                            <form action="/edit_volunteer" method="GET" style="display: inline;">
+                            <form action="/edit_volunteer/<%= volunteer.id %>" method="GET" style="display: inline;">
                                 <button class="btn edit" type="submit">Edit</button>
                             </form>
-                            <form action="/delete_volunteer" method="POST" style="display: inline;">
+                            <form action="/delete_volunteer/<%= volunteer.id %>" method="POST" style="display: inline;">
                                 <button class="btn delete" type="submit">Delete</button>
                             </form>
                         </td>

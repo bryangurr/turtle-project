@@ -27,10 +27,10 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 const knex = require("knex")({
   client: "pg",
   connection: {
-    host: process.env.RDS_HOSTNAME || "hostname",
-    user: process.env.RDS_USERNAME || "username",
-    password: process.env.RDS_PASSWORD || "password",
-    database: process.env.RDS_DB_NAME || "database",
+    host: process.env.RDS_HOSTNAME || "localhost",
+    user: process.env.RDS_USERNAME || "postgres",
+    password: process.env.RDS_PASSWORD || "Winter12!",
+    database: process.env.RDS_DB_NAME || "turtletest",
     port: process.env.RDS_PORT || 5432,
     ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false
   }
@@ -96,13 +96,13 @@ app.post('/addVolunteer', (req, res) => {
   //add record to volunteer table
   knex('volunteers').insert({
     // REPLACE WITH ACTUAL COLUMN NAMES
-    firstname: req.body.firstName,
-    lastname: req.body.lastName,
+    vol_first_name: req.body.vol_first_name,
+    vol_last_name: req.body.vol_last_name,
     phone: req.body.phone,
     email: req.body.email,
-    hours: req.body.availableHours,
-    hearaboutus: req.body.hearAboutUs,
-    sewinglevel: req.body.sewingLevel
+    num_vol_hours: req.body.num_vol_hours,
+    how_did_you_hear_id: req.body.how_did_you_hear_id,
+    sewing_level: req.body.sewing_level
   })
     .then(() => {
       res.redirect('/')
@@ -199,12 +199,17 @@ app.get('/edit_employee', (req, res) => {
 });
 
 app.get('/manage_volunteers', (req, res) => {
-  res.render('manage_volunteers');
+  knex('volunteers')
+  .select()
+  .then((volunteers) => {
+    res.render('manage_volunteers', {volunteers : volunteers})
+  })
+  .catch(error => {
+    console.error('Error querying database:', error);
+    res.status(500).send('Internal Server Error');
+  })
 });
 
-app.get('/edit_volunteer', (req, res) => {
-  res.render('edit_volunteer');
-});
 
 app.get('/manage_events', (req, res) => {
   knex('events').select().orderBy('Event_Date', 'desc')
@@ -241,7 +246,7 @@ app.get('/edit_volunteer/:id', (req, res) => {
     .first()
     .then(volunteer => {
       if (volunteer) {
-        res.render('edit_volunteer', { volunteer });
+        res.render('edit_volunteer', { volunteer : volunteer });
       } else {
         res.status(404).send('Volunteer not found');
       }
@@ -255,18 +260,22 @@ app.get('/edit_volunteer/:id', (req, res) => {
 
 app.post('/edit_volunteer/:id', (req, res) => {
   const { id } = req.params;
-  const { firstName, lastName, phone, email, availableHours, hearAboutUs, sewingLevel } = req.body;
+  const { vol_first_name, vol_last_name, phone, email, state, city, sewing_level } = req.body;
+
+  console.log('Request Params:', req.params);
+  console.log('Request Body:', req.body);
 
   knex('volunteers')
     .where({ id })
+    .first()
     .update({
-      firstname: firstName,
-      lastname: lastName,
-      phone,
-      email,
-      hours: availableHours,
-      hearaboutus: hearAboutUs,
-      sewinglevel: sewingLevel
+      vol_first_name: vol_first_name,
+      vol_last_name: vol_last_name,
+      phone : phone,
+      email : email,
+      state : state,
+      city : city,
+      sewing_level : sewing_level
     })
     .then(() => {
       res.redirect('/manage_volunteers'); // Redirect to the manage volunteers page
@@ -275,6 +284,21 @@ app.post('/edit_volunteer/:id', (req, res) => {
       console.error('Error updating volunteer:', err);
       res.status(500).send('Error updating volunteer information');
     });
+});
+
+app.post('/delete_volunteer/:id', (req, res) => {
+  const id = req.params.id;
+
+  knex('volunteers')
+  .where('id', id)
+  .delete()
+  .then(() => {
+    res.redirect('/manage_volunteers');
+  })
+  .catch(err => {
+    console.error('Error deleting volunteer:', err);
+    res.status(500).send('Error updating volunteer information');
+  });
 });
 
 app.get('/edit_event/:id', (req, res) => {
