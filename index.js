@@ -4,6 +4,8 @@ let app = express();
 
 let path = require("path");
 
+require('dotenv').config();
+
 const bodyParser = require('body-parser');
 const stripe = require('stripe')('sk_test_51QRlsmAe0EglwwiJYbVjdKmn1KRcMSeorCaWrNKRYiB1T0kQslBg6ocayIqDhZQIXnami5kdKLV4miC1DlZYfhLr00hCkegHWZ');
 
@@ -16,20 +18,20 @@ app.set("view engine", "ejs");
 
 app.set("views", path.join(__dirname, "views"));
 
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 //connect to the database
 
-const knex = require("knex") ({
+const knex = require("knex")({
   client: "pg",
   connection: {
-      host: process.env.RDS_HOSTNAME || "localhost",
-      user: process.env.RDS_USERNAME || "postgres",
-      password: process.env.RDS_PASSWORD || "password",
-      database: process.env.RDS_DB_NAME || "ebdb",
-      port: process.env.RDS_PORT || 5432,
-      ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false
-    }
+    host: process.env.RDS_HOSTNAME || "awseb-e-re8pandf3g-stack-awsebrdsdatabase-ecioajoqedu4.cxygm0cc2xh7.us-east-1.rds.amazonaws.com",
+    user: process.env.RDS_USERNAME || "turtleroot",
+    password: process.env.RDS_PASSWORD || "uEoN1QfWHwr8THfUYu8u",
+    database: process.env.RDS_DB_NAME || "ebdb",
+    port: process.env.RDS_PORT || 5432,
+    ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false
+  }
 });
 
 app.get('/donate', (req, res) => {
@@ -40,24 +42,24 @@ app.post('/pay', async (req, res) => {
   const { payment_method_id, amount } = req.body;
 
   if (!payment_method_id || !amount || amount <= 0) {
-      return res.status(400).json({ error: 'Invalid payment details.' });
+    return res.status(400).json({ error: 'Invalid payment details.' });
   }
 
   try {
-      // Create a Payment Intent
-      const paymentIntent = await stripe.paymentIntents.create({
-          amount, // Amount in cents
-          currency: 'usd',
-          payment_method: payment_method_id,
-          confirmation_method: 'manual',
-          confirm: true,
-      });
+    // Create a Payment Intent
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount, // Amount in cents
+      currency: 'usd',
+      payment_method: payment_method_id,
+      confirmation_method: 'manual',
+      confirm: true,
+    });
 
-      // Send a success response
-      res.json({ success: true, client_secret: paymentIntent.client_secret });
+    // Send a success response
+    res.json({ success: true, client_secret: paymentIntent.client_secret });
   } catch (err) {
-      console.error('Error processing payment:', err.message);
-      res.status(500).json({ error: err.message });
+    console.error('Error processing payment:', err.message);
+    res.status(500).json({ error: err.message });
   }
 });
 
@@ -85,54 +87,85 @@ app.get('/volunteer', (req, res) => {
 });
 
 app.post('/addVolunteer', (req, res) => {
-    //add record to volunteer table
-    knex('volunteers').insert({
+  //add record to volunteer table
+  knex('volunteers').insert({
     // REPLACE WITH ACTUAL COLUMN NAMES
-    firstname : req.body.firstName,
-    lastname : req.body.lastName,
-    phone : req.body.phone,
-    email : req.body.email,
-    hours : req.body.availableHours,
-    hearaboutus : req.body.hearAboutUs,
-    sewinglevel : req.body.sewingLevel})
+    firstname: req.body.firstName,
+    lastname: req.body.lastName,
+    phone: req.body.phone,
+    email: req.body.email,
+    hours: req.body.availableHours,
+    hearaboutus: req.body.hearAboutUs,
+    sewinglevel: req.body.sewingLevel
+  })
     .then(() => {
-        res.redirect('/')
+      res.redirect('/')
     })
     .catch(err => {
-        console.error('Error inserting record:', err);
-      })
+      console.error('Error inserting record:', err);
+    })
 });
 
 app.get('/schedule_event', (req, res) => {
   res.render('schedule_event');
 });
 
-app.post('/schedule_event', (req, res) =>{
+app.post('/schedule_event', (req, res) => {
   knex('events').insert({
-    Event_Date : req.body.eventDate,
-    Address : req.body.eventAddress,
-    Event_City : req.body.eventCity,
-    Event_State : req.body.eventState,
-    Start_Time : req.body.startTime,
-    Run_Time : req.body.duration,
-    Num_Attendees : req.body.numberOfAttendees,
-    Sewing_Non : req.body.eventType,
-    Coordinator_First_Name : req.body.firstName,
-    Coordinator_Last_Name : req.body.lastName,
-    Coordinator_Phone : req.body.phoneNumber,
-    Coordinator_Secondary_Phone : req.body.secondaryPhone,
-    Share_Story : req.body.shareStory
+    Event_Date: req.body.eventDate,
+    Address: req.body.eventAddress,
+    Event_City: req.body.eventCity,
+    Event_State: req.body.eventState,
+    Start_Time: req.body.startTime,
+    Run_Time: req.body.duration,
+    Num_Attendees: req.body.numberOfAttendees,
+    Sewing_Non: req.body.eventType,
+    Coordinator_First_Name: req.body.firstName,
+    Coordinator_Last_Name: req.body.lastName,
+    Coordinator_Phone: req.body.phoneNumber,
+    Coordinator_Secondary_Phone: req.body.secondaryPhone,
+    Share_Story: req.body.shareStory
   })
-  .then(() =>{
-    res.redirect('/')
-  })
-  .catch(err => {
-    console.error('Error adding event:', err);
-  })
+    .then(() => {
+      res.redirect('/')
+    })
+    .catch(err => {
+      console.error('Error adding event:', err);
+    })
 });
 
 app.get('/login', (req, res) => {
   res.render('login');
+});
+
+app.post('/login', (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+  console.log(`Credentials received: Username ${username}, Password ${password}`);
+  knex('employees')
+    .select('*')
+    .where('username', username)
+    .first()
+    .then(credentials => {
+      if (!credentials) {
+        console.log('Invalid credentials');
+        return res.status(401).send('Unauthorized');
+
+      }
+      if (password === credentials.password) {
+        console.log('Valid credentials');
+        res.render('employee_home.ejs');
+      }
+      else {
+        res.render('home');
+      }
+    })
+    .catch(error => {
+      console.log('Errrrrror!')
+      console.error('Error querying database:', error);
+      res.status(500).send('Internal Server Error');
+    });
+
 });
 
 app.get('/employee_home', (req, res) => {
@@ -140,7 +173,15 @@ app.get('/employee_home', (req, res) => {
 });
 
 app.get('/manage_employees', (req, res) => {
-  res.render('manage_employees');
+  knex('employees')
+    .select('*')
+    .then(employees => {
+      res.render('manage_employees', { employees });
+    })
+    .catch(error => {
+      console.error('Error querying database:', error);
+      res.status(500).send('Internal Server Error');
+    });
 });
 
 app.get('/create_employee', (req, res) => {
@@ -161,9 +202,9 @@ app.get('/edit_volunteer', (req, res) => {
 
 app.get('/manage_events', (req, res) => {
   knex('events').select().orderBy('Event_Date', 'desc')
-  .then((events) => {
-    res.render('manage_events', {events : events});
-  })
+    .then((events) => {
+      res.render('manage_events', { events: events });
+    })
 
 });
 
@@ -251,7 +292,7 @@ app.post('/edit_event/:id', (req, res) => {
     .update({
       event_date: eventDate, event_address: eventAddress, event_city: eventCity,
       event_state: eventState, start_time: startTime, run_time: duration,
-      num_attendees: numberOfAttendees, sewing_non: eventType, 
+      num_attendees: numberOfAttendees, sewing_non: eventType,
       coordinator_first_name: firstName, coordinator_last_name: lastName,
       coordinator_phone: phoneNumber, coordinator_secondary_phone: secondaryPhone,
       share_story: shareStory ? true : false
