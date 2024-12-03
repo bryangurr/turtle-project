@@ -162,7 +162,7 @@ app.post('/login', (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   console.log(`Credentials received: Username ${username}, Password ${password}`);
-  knex('employees')
+  knex('admin')
     .select('*')
     .where('username', username)
     .first()
