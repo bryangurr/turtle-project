@@ -56,6 +56,7 @@ app.get('/volunteer', (req, res) => {
 app.post('/addVolunteer', (req, res) => {
     //add record to volunteer table
     knex('volunteers').insert({
+    // REPLACE WITH ACTUAL COLUMN NAMES
     firstname : req.body.firstName,
     lastname : req.body.lastName,
     phone : req.body.phone,
