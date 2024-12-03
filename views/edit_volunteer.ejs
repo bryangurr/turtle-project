@@ -68,16 +68,29 @@
 <body>
     <div class="form-box">
         <h1>Edit Volunteer</h1>
-        <form action="/update_volunteer" method="POST">
+        <form action="/edit_volunteer/<%= volunteer.id %>" method="POST">
             <input type="hidden" name="id" value="<%= volunteer.id %>">
-            <label for="name">Full Name</label>
-            <input type="text" id="name" name="name" value="<%= volunteer.name %>" required>
+            <label for="vol_first_name">First Name</label>
+            <input type="text" id="vol_first_name" name="vol_first_name" value="<%= volunteer.vol_first_name %>" required>
 
+            <label for="name">Last Name</label>
+            <input type="text" id="vol_last_name" name="vol_last_name" value="<%= volunteer.vol_last_name %>" required>
+            
             <label for="email">Email</label>
             <input type="email" id="email" name="email" value="<%= volunteer.email %>" required>
 
             <label for="phone">Phone Number</label>
             <input type="tel" id="phone" name="phone" value="<%= volunteer.phone %>" required>
+
+            <label for="city">City</label>
+            <input type="text" id="city" name="city" value="<%= volunteer.city %>" required>
+
+            <label for="state">State</label>
+            <input type="text" id="state" name="state" value="<%= volunteer.state %>" required>
+
+            <label for="sewing_level">Sewing Level</label>
+            <input type="number" id="sewing_level" name="sewing_level" value="<%= volunteer.sewing_level %>" required>
+
 
             <button type="submit">Submit</button>
         </form>
