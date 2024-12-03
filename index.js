@@ -12,7 +12,7 @@ const stripe = require('stripe')('sk_test_51QRlsmAe0EglwwiJYbVjdKmn1KRcMSeorCaWr
 
 let authenticated = false;
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5003;
 
 app.set("view engine", "ejs");
 
@@ -29,8 +29,8 @@ const knex = require("knex")({
   connection: {
     host: process.env.RDS_HOSTNAME || "localhost",
     user: process.env.RDS_USERNAME || "postgres",
-    password: process.env.RDS_PASSWORD || "Never1:3",
-    database: process.env.RDS_DB_NAME || "turtleshelter",
+    password: process.env.RDS_PASSWORD || "admin",
+    database: process.env.RDS_DB_NAME || "turtletest",
     port: process.env.RDS_PORT || 5432,
     ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false
   },
