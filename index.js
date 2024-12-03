@@ -179,6 +179,13 @@ app.get('/report_event', (req, res) => {
   res.render('report_event');
 });
 
+app.post('/report_event/:id', (req, res) => {
+  //const id = req.params.id;
+  //knex('events').update({
+    //actual event stats
+//}).where('id', id)
+})
+
 app.get('/edit_volunteer/:id', (req, res) => {
   const { id } = req.params;
 

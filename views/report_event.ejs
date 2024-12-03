@@ -1,11 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Turtle Shelter Project</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report Past Events</title>
+  <style>
+    /* Add your CSS styling for tables and forms */
+    table {
+      width: 80%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    form {
+      display: inline-block;
+      margin: 10px;
+    }
+    input, button {
+      padding: 8px 12px;
+      margin: 5px;
+    }
+  </style>
 </head>
 <body>
-    
+  <h1 style="text-align: center;">Report Past Events</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Event Date</th>
+        <th>Event City</th>
+        <th>Event State</th>
+        <th>People Attended</th>
+        <th>Pockets Sewn</th>
+        <th>Collars</th>
+        <th>Envelopes</th>
+        <th>Vests</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% events.forEach(event => { %>
+        <tr>
+          <form action="/report_event/<%= event.id %>" method="POST">
+            <td><%= event.Event_Date %></td>
+            <td><%= event.Event_City %></td>
+            <td><%= event.Event_State %></td>
+            <td><input type="number" name="people_attended" required /></td>
+            <td><input type="number" name="pockets_sewn" required /></td>
+            <td><input type="number" name="collars" required /></td>
+            <td><input type="number" name="envelopes" required /></td>
+            <td><input type="number" name="vests" required /></td>
+            <td><button type="submit">Submit Report</button></td>
+          </form>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
 </body>
 </html>
