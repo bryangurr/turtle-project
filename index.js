@@ -76,6 +76,30 @@ app.get('/schedule_event', (req, res) => {
   res.render('schedule_event');
 });
 
+app.post('/schedule_event', (req, res) =>{
+  knex('events').insert({
+    Event_Date : req.body.eventDate,
+    Address : req.body.eventAddress,
+    Event_City : req.body.eventCity,
+    Event_State : req.body.eventState,
+    Start_Time : req.body.startTime,
+    Run_Time : req.body.duration,
+    Num_Attendees : req.body.numberOfAttendees,
+    Sewing_Non : req.body.eventType,
+    Coordinator_First_Name : req.body.firstName,
+    Coordinator_Last_Name : req.body.lastName,
+    Coordinator_Phone : req.body.phoneNumber,
+    Coordinator_Secondary_Phone : req.body.secondaryPhone,
+    Share_Story : req.body.shareStory
+  })
+  .then(() =>{
+    res.redirect('/')
+  })
+  .catch(err => {
+    console.error('Error adding event:', err);
+  })
+});
+
 app.get('/login', (req, res) => {
   res.render('login');
 });
