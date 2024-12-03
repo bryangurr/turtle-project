@@ -6,84 +6,111 @@
     <title>Turtle Shelter Volunteer Signup</title>
     <style>
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #004d40 0%, #66bb6a 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            line-height: 1.6;
-        }
-        .container {
-            background-color: white;
-            width: 100%;
-            max-width: 500px;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-        .form-title {
-            text-align: center;
-            color: #004d40;
-            margin-bottom: 1.5rem;
-            font-size: 2.25rem;
-        }
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #004d40;
-            font-weight: 600;
-        }
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #66bb6a;
-            border-radius: 6px;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-        .form-group input:focus,
-        .form-group select:focus {
-            border-color: #004d40;
-            box-shadow: 0 0 0 3px rgba(0, 77, 64, 0.2);
-        }
-        .name-row {
-            display: flex;
-            gap: 1rem;
-        }
-        .name-row > div {
-            flex: 1;
-        }
-        .submit-btn {
-            width: 100%;
-            padding: 1rem;
-            background-color: #004d40;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: bold;
-        }
-        .submit-btn:hover {
-            background-color: #66bb6a;
-            transform: scale(1.02);
-        }
-        .submit-btn:focus {
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(102, 187, 106, 0.4);
-        }
-
-    </style>
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+ }
+ body {
+     font-family: Arial, sans-serif;
+     background: linear-gradient(135deg, #004d40 0%, #66bb6a 100%);
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     min-height: 100vh;
+     line-height: 1.6;
+     padding: 2rem; /* Adds space around the container */
+ }
+ 
+ .container {
+     background-color: white;
+     width: 100%;
+     max-width: 600px;
+     padding: 2rem;
+     border-radius: 12px;
+     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+ }
+ 
+ .form-title {
+     text-align: center;
+     color: #004d40;
+     margin-bottom: 1.5rem;
+     font-size: 2.25rem;
+ }
+ 
+ .form-group {
+     margin-bottom: 1rem;
+ }
+ 
+ .form-group label {
+     display: block;
+     margin-bottom: 0.5rem;
+     color: #004d40;
+     font-weight: 600;
+ }
+ 
+ .form-group input,
+ .form-group select {
+     width: 100%;
+     padding: 0.75rem;
+     border: 1px solid #66bb6a;
+     border-radius: 6px;
+     outline: none;
+     transition: all 0.3s ease;
+ }
+ 
+ .form-group input:focus,
+ .form-group select:focus {
+     border-color: #004d40;
+     box-shadow: 0 0 0 3px rgba(0, 77, 64, 0.2);
+ }
+ 
+ .name-row {
+     display: flex;
+     gap: 1rem;
+ }
+ 
+ .name-row > div {
+     flex: 1;
+ }
+ 
+ .location-row {
+     display: grid;
+     grid-template-columns: 2fr 1fr 1fr;
+     gap: 1rem;
+ }
+ 
+ .submit-btn {
+     width: 100%;
+     padding: 1rem;
+     background-color: #004d40;
+     color: white;
+     border: none;
+     border-radius: 6px;
+     cursor: pointer;
+     transition: all 0.3s ease;
+     font-weight: bold;
+ }
+ 
+ .submit-btn:hover {
+     background-color: #66bb6a;
+     transform: scale(1.02);
+ }
+ 
+ .submit-btn:focus {
+     outline: none;
+     box-shadow: 0 0 0 3px rgba(102, 187, 106, 0.4);
+ }
+ 
+ .checkbox-group {
+     display: flex;
+     align-items: center;
+     margin-bottom: 1rem;
+ }
+ 
+ .checkbox-group input {
+     margin-right: 0.5rem;
+ }
+ </style>
 </head>
 <body>
 

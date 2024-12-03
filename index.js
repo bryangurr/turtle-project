@@ -12,7 +12,7 @@ const stripe = require('stripe')('sk_test_51QRlsmAe0EglwwiJYbVjdKmn1KRcMSeorCaWr
 
 let authenticated = false;
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5003;
 
 app.set("view engine", "ejs");
 
@@ -29,11 +29,12 @@ const knex = require("knex")({
   connection: {
     host: process.env.RDS_HOSTNAME || "localhost",
     user: process.env.RDS_USERNAME || "postgres",
-    password: process.env.RDS_PASSWORD || "Winter12!",
+    password: process.env.RDS_PASSWORD || "admin",
     database: process.env.RDS_DB_NAME || "turtletest",
     port: process.env.RDS_PORT || 5432,
     ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false
-  }
+  },
+  debug: true,
 });
 
 knex.raw("SELECT 1")
@@ -72,8 +73,21 @@ app.post('/pay', async (req, res) => {
 
 // Route to display Pokemon records (root)
 app.get('/', (req, res) => {
-  res.render('home');
+  const dbConfig = {
+    hostname: process.env.RDS_HOSTNAME,
+    username: process.env.RDS_USERNAME,
+    password: process.env.RDS_PASSWORD,
+    dbName: process.env.RDS_DB_NAME,
+    port: process.env.RDS_PORT,
+    ssl: process.env.DB_SSL
+  };
+
+  console.log(dbConfig);
+
+  // Pass dbConfig to the EJS file
+  res.render('home', { dbConfig });
 });
+
 
 app.get('/about', (req, res) => {
   res.render('about');
@@ -178,6 +192,7 @@ app.get('/employee_home', (req, res) => {
   res.render('employee_home');
 });
 
+/*
 app.get('/manage_employees', (req, res) => {
   knex('employees')
     .select('*')
@@ -189,6 +204,27 @@ app.get('/manage_employees', (req, res) => {
       res.status(500).send('Internal Server Error');
     });
 });
+*/
+
+app.get('/manage_employees', async (req, res) => {
+  console.log({
+    host: process.env.RDS_HOSTNAME,
+    user: process.env.RDS_USERNAME,
+    database: process.env.RDS_DB_NAME,
+    ssl: process.env.DB_SSL,
+  });
+
+  try {
+    await knex.raw('SELECT 1+1 AS result');
+    console.log('Database connected successfully!');
+    const employees = await knex('employees').select('*');
+    res.render('manage_employees', { employees });
+  } catch (error) {
+    console.error('Error querying database:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 
 app.get('/create_employee', (req, res) => {
   res.render('create_employee');
@@ -234,8 +270,8 @@ app.get('/report_event', (req, res) => {
 app.post('/report_event/:id', (req, res) => {
   //const id = req.params.id;
   //knex('events').update({
-    //actual event stats
-//}).where('id', id)
+  //actual event stats
+  //}).where('id', id)
 })
 
 app.get('/edit_volunteer/:id', (req, res) => {
