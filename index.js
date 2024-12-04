@@ -167,7 +167,7 @@ app.post('/login', (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   console.log(`Credentials received: Username ${username}, Password ${password}`);
-  knex('employees')
+  knex('admin')
     .select('*')
     .where('username', username)
     .first()
@@ -222,8 +222,8 @@ app.get('/manage_employees', async (req, res) => {
   try {
     await knex.raw('SELECT 1+1 AS result');
     console.log('Database connected successfully!');
-    const employees = await knex('employees').select('*');
-    res.render('manage_employees', { employees });
+    const admins = await knex('admin').select('*');
+    res.render('manage_employees', { admins });
   } catch (error) {
     console.error('Error querying database:', error);
     res.status(500).send('Internal Server Error');
@@ -233,6 +233,23 @@ app.get('/manage_employees', async (req, res) => {
 
 app.get('/create_employee', (req, res) => {
   res.render('create_employee');
+});
+
+app.post('/create_employee', (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+  knex('admin')
+  .insert({
+    username: username,
+    password: password
+  })
+  .then(() => {
+    res.redirect('/manage_employees');
+  })
+  .catch(error => {
+    console.error('Error querying database:', error);
+    res.status(500).send('Internal Server Error');
+  });
 });
 
 app.get('/edit_employee', (req, res) => {
@@ -251,14 +268,18 @@ app.get('/manage_volunteers', (req, res) => {
   })
 });
 
-
 app.get('/manage_events', (req, res) => {
-  knex('events').select().orderBy('Event_Date', 'desc')
-    .then((events) => {
-      res.render('manage_events', { events: events });
-    })
-
+  knex('event')
+  .select()
+  .then((event) => {
+    res.render('manage_events', {event : event})
+  })
+  .catch(error => {
+    console.error('Error querying database:', error);
+    res.status(500).send('Internal Server Error');
+  })
 });
+
 
 app.get('/edit_event', (req, res) => {
   res.render('edit_event');

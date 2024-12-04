@@ -110,6 +110,13 @@ body {
 .checkbox-group input {
     margin-right: 0.5rem;
 }
+
+.checkbox-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #004d40;
+    font-weight: 600;
+}
 </style>
 </head>
 <body>
@@ -117,76 +124,103 @@ body {
         <h2 class="form-title">Request Your Own Event</h2>
         <form action="/schedule_event" method="POST">
             <div class="form-group">
-                <label for="eventDate">Event Date</label>
-                <input type="date" id="eventDate" name="eventDate" required>
+                <label for="Event_Date">Event Date</label>
+                <input type="date" id="Event_Date" name="Event_Date" required>
             </div>
             
             <div class="location-row">
                 <div class="form-group">
-                    <label for="eventAddress">Event Address</label>
-                    <input type="text" id="eventAddress" name="eventAddress" required>
+                    <label for="Address">Event Address</label>
+                    <input type="text" id="Address" name="Address" required>
                 </div>
                 <div class="form-group">
-                    <label for="eventCity">City</label>
-                    <input type="text" id="eventCity" name="eventCity" required>
+                    <label for="Event_City">City</label>
+                    <input type="text" id="Event_City" name="Event_City" required>
                 </div>
                 <div class="form-group">
-                    <label for="eventState">State</label>
-                    <input type="text" id="eventState" name="eventState" required>
+                    <label for="Event_State">State</label>
+                    <input type="text" id="Event_State" name="Event_State" required>
                 </div>
             </div>
 
             <div class="name-row">
                 <div class="form-group">
-                    <label for="startTime">Start Time</label>
-                    <input type="time" id="startTime" name="startTime" required>
+                    <label for="Start_Time">Start Time</label>
+                    <input type="time" id="Start_Time" name="Start_Time" required>
                 </div>
                 <div class="form-group">
-                    <label for="duration">Approximate Duration (hours)</label>
-                    <input type="number" id="duration" name="duration" min="0.5" step="0.5" required>
+                    <label for="Event_Duration">Approximate Duration (hours)</label>
+                    <input type="number" id="Event_Duration" name="Event_Duration" min="1" step="1" required>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="numberOfAttendees">Number of Attendees</label>
-                <input type="number" id="numberOfAttendees" name="numberOfAttendees" min="1" required>
+                <label for="Adult_Participants">Number of Adult Participants</label>
+                <input type="number" id="Adult_Participants" name="Adult_Participants" min="1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="Child_Participants">Number of Child Participants</label>
+                <input type="number" id="Child_Participants" name="Child_Participants" min="1" required>
             </div>
 
             <div class="form-group">
                 <label for="eventType">Event Type</label>
                 <select id="eventType" name="eventType" required>
                     <option value="">Select Event Type</option>
-                    <option value="sewing">Sewing Event</option>
-                    <option value="non-sewing">Non-Sewing Event</option>
+                    <option value="S">Sewing Event</option>
+                    <option value="N">Non-Sewing Event</option>
+                    <option value="B">Both</option>
                 </select>
             </div>
 
             <div class="name-row">
                 <div class="form-group">
-                    <label for="firstName">First Name</label>
-                    <input type="text" id="firstName" name="firstName" required>
+                    <label for="Coordinator_First_Name">First Name</label>
+                    <input type="text" id="Coordinator_First_Name" name="Coordinator_First_Name" required>
                 </div>
                 <div class="form-group">
-                    <label for="lastName">Last Name</label>
-                    <input type="text" id="lastName" name="lastName" required>
+                    <label for="Coordinator_Last_Name">Last Name</label>
+                    <input type="text" id="Coordinator_First_Name" name="Coordinator_First_Name" required>
                 </div>
             </div>
 
             <div class="name-row">
                 <div class="form-group">
-                    <label for="phoneNumber">Phone Number</label>
-                    <input type="tel" id="phoneNumber" name="phoneNumber" required>
+                    <label for="Coordinator_Phone">Phone Number</label>
+                    <input type="tel" id="Coordinator_Phone" name="Coordinator_Phone" required>
                 </div>
                 <div class="form-group">
-                    <label for="secondaryPhone">Secondary Phone (Optional)</label>
-                    <input type="tel" id="secondaryPhone" name="secondaryPhone">
+                    <label for="Coordinator_Secondary_Phone">Secondary Phone (Optional)</label>
+                    <input type="tel" id="Coordinator_Secondary_Phone" name="Coordinator_Secondary_Phone">
                 </div>
             </div>
 
             <div class="checkbox-group">
                 <input type="checkbox" id="shareStory" name="shareStory">
-                <label for="shareStory">Allow Founder to Share Story</label>
+                <label for="shareStory">Ask Founder to Share Her Story</label>
             </div>
+
+            <div class="form-group">
+                <label for="Event_Desc">Event Description. Please describe where the event will be held, how many people are willing to come early and help set up, and any other important details.</label>
+                <input type="text" id="Event_Desc" name="Event_Desc" required>
+            </div>
+
+            <div class="form-group">
+                <label for="Num_Sewers">How Many Participants can Sew?</label>
+                <input type="number" id="Num_Sewers" name="Num_Sewers" required>
+            </div>
+
+            <div class="form-group">
+                <label for="Num_Sewing_Machine">How Many Sewing Machines Do You Plan On Bringing?</label>
+                <input type="number" id="Num_Sewing_Machine" name="Num_Sewing_Machine" required>
+            </div>
+
+            <div class="form-group">
+                <label for="Num_Serger_Machine">How Many Serger Machines Do You Plan On Bringing?</label>
+                <input type="number" id="Num_Serger_Machine" name="Num_Serger_Machine" required>
+            </div>
+
 
             <button type="submit" class="submit-btn">Submit Event Request</button>
         </form>
