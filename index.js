@@ -317,7 +317,15 @@ app.post("/create_employee", (req, res) => {
 app.get("/edit_employee/:id", (req, res) => {
   const id = req.params.id;
   knex("admin")
-    .where("id", id)
+  .leftJoin("volunteers", "admin.username", "=", "volunteers.email")
+  .select(
+    "admin.id as id",
+    "admin.username as username",
+    "volunteers.vol_first_name as first_name",
+    "volunteers.vol_last_name as last_name",
+    "volunteers.phone as phone"
+  )
+  .where("id", id)
     .first()
     .then((admin) => {
       res.render("edit_employee", { admin });
