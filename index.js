@@ -74,19 +74,7 @@ app.post("/pay", async (req, res) => {
 
 // Route to display Pokemon records (root)
 app.get("/", (req, res) => {
-  const dbConfig = {
-    hostname: process.env.RDS_HOSTNAME,
-    username: process.env.RDS_USERNAME,
-    password: process.env.RDS_PASSWORD,
-    dbName: process.env.RDS_DB_NAME,
-    port: process.env.RDS_PORT,
-    ssl: process.env.DB_SSL,
-  };
-
-  console.log(dbConfig);
-
-  // Pass dbConfig to the EJS file
-  res.render("home", { dbConfig });
+  res.render("home");
 });
 
 app.get("/about", (req, res) => {
@@ -172,6 +160,161 @@ app.post("/schedule_event", (req, res) => {
     });
 });
 
+// adding security to login page and authentication
+const session = require('express-session');
+
+// Configure session middleware
+app.use(session({
+  secret: 'fortnite', // Replace with a strong secret key
+  resave: false, // Prevents session being saved on every request if unmodified
+  saveUninitialized: false, // Only saves sessions when initialized
+  cookie: { secure: false } // Set to true if using HTTPS
+}));
+
+// POST route to handle login
+app.post('/login', (req, res) => {
+  const { username, password } = req.body; // Extract username and password
+
+  // Query the database for the user
+  knex('admin') // Replace 'admin' with your table name if different
+    .where({ username }) // Check if username exists
+    .first() // Fetch the first matching record
+    .then(admin => {
+      if (!admin) {
+        // No matching username found
+        console.error('Invalid username');
+        return res.status(401).send('Invalid username or password.');
+      }
+
+      // Compare the entered plain-text password with the stored password
+      if (password === admin.password) {
+        console.log('Login successful:', username);
+        
+        // Store user info in the session
+        req.session.user = { username: admin.username };
+
+        // Redirect to a protected page
+        res.redirect('/employee_home');
+      } else {
+        console.error('Invalid password');
+        res.status(401).send('Invalid username or password.');
+      }
+    })
+    .catch(err => {
+      console.error('Error during login:', err);
+      res.status(500).send('Internal server error.');
+    });
+});
+
+// Authentication middleware
+function isAuthenticated(req, res, next) {
+  if (req.session.user) {
+    return next(); // User is authenticated, proceed
+  }
+  res.redirect('/login'); // Redirect to login if not authenticated
+}
+
+// Protected employee routes
+app.get('/employee_home', isAuthenticated, (req, res) => {
+  res.render('employee_home', { user: req.session.user });
+});
+
+
+
+// Employee Pages
+app.get('/create_employee', isAuthenticated, (req, res) => {
+  res.render('create_employee', { user: req.session.user });
+});
+
+app.get('/edit_employee/:id', isAuthenticated, (req, res) => {
+  knex('admin')
+    .where({ id: req.params.id })
+    .first()
+    .then(employee => {
+      if (employee) {
+        res.render('edit_employee', { user: req.session.user, employee });
+      } else {
+        res.status(404).send('Employee not found');
+      }
+    })
+    .catch(err => {
+      console.error('Error fetching employee:', err);
+      res.status(500).send('Internal server error.');
+    });
+});
+
+// Event Management
+app.get('/manage_events', isAuthenticated, (req, res) => {
+  knex('events')
+    .select()
+    .then(events => {
+      res.render('manage_events', { user: req.session.user, events });
+    })
+    .catch(err => {
+      console.error('Error fetching events:', err);
+      res.status(500).send('Internal server error.');
+    });
+});
+
+app.get('/edit_event/:id', isAuthenticated, (req, res) => {
+  knex('events')
+    .where({ id: req.params.id })
+    .first()
+    .then(event => {
+      if (event) {
+        res.render('edit_event', { user: req.session.user, event });
+      } else {
+        res.status(404).send('Event not found');
+      }
+    })
+    .catch(err => {
+      console.error('Error fetching event:', err);
+      res.status(500).send('Internal server error.');
+    });
+});
+
+// Volunteer Management
+app.get('/manage_volunteers', isAuthenticated, (req, res) => {
+  knex('volunteers')
+    .select()
+    .then(volunteers => {
+      res.render('manage_volunteers', { user: req.session.user, volunteers });
+    })
+    .catch(err => {
+      console.error('Error fetching volunteers:', err);
+      res.status(500).send('Internal server error.');
+    });
+});
+
+// Event Reporting
+app.get('/report_event/:id', isAuthenticated, (req, res) => {
+  knex('events')
+    .where({ id: req.params.id })
+    .first()
+    .then(event => {
+      if (event) {
+        res.render('report_event', { user: req.session.user, event });
+      } else {
+        res.status(404).send('Event not found');
+      }
+    })
+    .catch(err => {
+      console.error('Error fetching event:', err);
+      res.status(500).send('Internal server error.');
+    });
+});
+
+
+app.post('/logout', (req, res) => {
+  req.session.destroy(err => {
+    if (err) {
+      console.error('Error during logout:', err);
+      return res.status(500).send('Error during logout.');
+    }
+    res.redirect('/'); // Redirect to home page after logout
+  });
+});
+
 app.get("/login", (req, res) => {
   res.render("login");
 });
@@ -209,7 +352,11 @@ app.get("/employee_home", (req, res) => {
   res.render("employee_home");
 });
 
-app.get("/manage_employees", (req, res) => {
+// app.get('/manage_employees', isAuthenticated, (req, res) => {
+//   res.render('manage_employees', { user: req.session.user });
+// });
+
+app.get("/manage_employees", isAuthenticated, (req, res) => {
   knex("admin")
     .leftJoin("volunteers", "admin.username", "=", "volunteers.email")
     .select(
@@ -220,7 +367,7 @@ app.get("/manage_employees", (req, res) => {
       "volunteers.phone as phone"
     )
     .then((admins) => {
-      res.render("manage_employees", { admins });
+      res.render("manage_employees", { admins, user: req.session.user });
     })
     .catch((error) => {
       console.error("Error querying database:", error);
@@ -228,32 +375,7 @@ app.get("/manage_employees", (req, res) => {
     });
 });
 
-app.get("/manage_employees", async (req, res) => {
-  console.log({
-    host: process.env.RDS_HOSTNAME,
-    user: process.env.RDS_USERNAME,
-    database: process.env.RDS_DB_NAME,
-    ssl: process.env.DB_SSL,
-  });
 
-  try {
-    await knex.raw("SELECT 1+1 AS result");
-    console.log("Database connected successfully!");
-    const admins = await knex("admin").select();
-    res.render("manage_employees", { admins });
-  } catch (error) {
-    console.error("Error querying database:", error);
-    res.status(500).send("Internal Server Error");
-  }
-});
-
-// .select(
-//   'admin.id as id',
-//   'admin.email as email',
-//   'volunteers.vol_first_name as first_name',
-//   'volunteers.vol_last_name as last_name',
-//   'volunteers.phone as phone'
-// )
 
 app.get("/create_employee", (req, res) => {
   res.render("create_employee");
@@ -291,7 +413,15 @@ app.post("/create_employee", (req, res) => {
 app.get("/edit_employee/:id", (req, res) => {
   const id = req.params.id;
   knex("admin")
-    .where("id", id)
+  .leftJoin("volunteers", "admin.username", "=", "volunteers.email")
+  .select(
+    "admin.id as id",
+    "admin.username as username",
+    "volunteers.vol_first_name as first_name",
+    "volunteers.vol_last_name as last_name",
+    "volunteers.phone as phone"
+  )
+  .where("id", id)
     .first()
     .then((admin) => {
       res.render("edit_employee", { admin });

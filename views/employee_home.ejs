@@ -79,22 +79,26 @@
     <!-- Banner Section -->
     <header class="banner">
         <div class="title">
-            <h1>Welcome</h1>
+          <h1>Welcome</h1>
         </div>
         <div class="banner-buttons">
-            <form action="/home" method="GET">
-                <button type="submit" class="btn">Return to Home Page</button>
-            <form action="/manage_employees" method="GET">
-                <button type="submit" class="btn">Manage Admin Accounts</button>
-            </form>
-            <form action="/manage_volunteers" method="GET">
-                <button type="submit" class="btn">Manage Volunteers</button>
-            </form>
-            <form action="/manage_events" method="GET">
-                <button type="submit" class="btn">Manage Events</button>
-            </form>
+          <form action="/" method="GET" style="display: inline;">
+            <button type="submit" class="btn">Return to Home Page</button>
+          </form>
+          <form action="/manage_employees" method="GET" style="display: inline;">
+            <button type="submit" class="btn">Manage Admin Accounts</button>
+          </form>
+          <form action="/manage_volunteers" method="GET" style="display: inline;">
+            <button type="submit" class="btn">Manage Volunteers</button>
+          </form>
+          <form action="/manage_events" method="GET" style="display: inline;">
+            <button type="submit" class="btn">Manage Events</button>
+          </form>
+          <form action="/logout" method="POST" style="display: inline;">
+            <button type="submit" class="btn">Logout</button>
+          </form>
         </div>
-    </header>
+      </header>      
   
     <!-- Main Content -->
     <main class="dashboard">
