@@ -209,26 +209,9 @@ app.get('/manage_employees', (req, res) => {
       res.status(500).send('Internal Server Error');
     });
 });
-*/
 
-app.get('/manage_employees', async (req, res) => {
-  console.log({
-    host: process.env.RDS_HOSTNAME,
-    user: process.env.RDS_USERNAME,
-    database: process.env.RDS_DB_NAME,
-    ssl: process.env.DB_SSL,
-  });
 
-  try {
-    await knex.raw('SELECT 1+1 AS result');
-    console.log('Database connected successfully!');
-    const admins = await knex('admin').select('*');
-    res.render('manage_employees', { admins });
-  } catch (error) {
-    console.error('Error querying database:', error);
-    res.status(500).send('Internal Server Error');
-  }
-});
+
 
 
 app.get('/create_employee', (req, res) => {
