@@ -7,98 +7,158 @@
     <style>
         /* General Styles */
         body {
-            margin: 0;
-            font-family: Futura, sans-serif;
-            background-color: #f5f5f5;
-        }
+    margin: 0;
+    font-family: Futura, sans-serif;
+    background-color: #f5f5f5;
+}
 
-        /* Banner Section */
-        .banner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #004d40;
-            padding: 10px 20px;
-            color: white;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        }
+/* Banner Section */
+.banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #004d40;
+    padding: 10px 20px;
+    color: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
 
-        .banner .title h1 {
-            margin: 0;
-            font-size: 24px;
-            color: #66bb6a;
-        }
+.banner .title h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #66bb6a;
+}
 
-        .banner-buttons {
-            display: flex;
-            gap: 10px;
-        }
+/* Align buttons container to the right */
+.banner-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end; /* Align to the right */
+    align-items: center;
+}
 
-        .banner-buttons form {
-            margin: 0;
-        }
+/* Dropdown container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
 
-        .banner-buttons .btn {
-            background-color: #66bb6a;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+/* Dropdown button */
+.dropdown .btn {
+    background-color: #66bb6a;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 
-        .banner-buttons .btn:hover {
-            background-color: #004d40;
-        }
+/* Dropdown button hover effect */
+.dropdown .btn:hover {
+    background-color: #004d40;
+}
 
-        /* Main Dashboard Section */
-        .dashboard {
-            padding: 20px;
-            text-align: center;
-        }
+/* Dropdown menu (initially hidden) */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    z-index: 1;
+    text-align: left;
+    right: 0; /* Align dropdown menu to the right */
+}
 
-        .dashboard h2 {
-            color: #004d40;
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
+/* Dropdown menu links */
+.dropdown-menu a {
+    color: #004d40;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+}
 
-        #tableau-dashboard {
-            margin-top: 20px;
-            background-color: #ffffff;
-            border: 1px solid #e0e0e0;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-        }
+/* Dropdown menu links hover effect */
+.dropdown-menu a:hover {
+    background-color: #f1f1f1;
+    color: #004d40;
+}
+
+/* Show dropdown menu on hover */
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/* Button styles */
+.banner-buttons .btn {
+    background-color: #66bb6a;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Button hover effect */
+.banner-buttons .btn:hover {
+    background-color: #004d40;
+}
+
+/* Main Dashboard Section */
+.dashboard {
+    padding: 20px;
+    text-align: center;
+}
+
+.dashboard h2 {
+    color: #004d40;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+#tableau-dashboard {
+    margin-top: 20px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
     </style>
 </head>
 <body>
     <!-- Banner Section -->
     <header class="banner">
         <div class="title">
-          <h1>Welcome</h1>
+            <h1>Employee Home</h1>
         </div>
         <div class="banner-buttons">
-          <form action="/" method="GET" style="display: inline;">
-            <button type="submit" class="btn">Return to Home Page</button>
-          </form>
-          <form action="/manage_employees" method="GET" style="display: inline;">
-            <button type="submit" class="btn">Manage Admin Accounts</button>
-          </form>
-          <form action="/manage_volunteers" method="GET" style="display: inline;">
-            <button type="submit" class="btn">Manage Volunteers</button>
-          </form>
-          <form action="/manage_events" method="GET" style="display: inline;">
-            <button type="submit" class="btn">Manage Events</button>
-          </form>
-          <form action="/logout" method="POST" style="display: inline;">
-            <button type="submit" class="btn">Logout</button>
-          </form>
+            <form action="/" method="GET" style="display: inline;">
+                <button type="submit" class="btn">Return to Home Page</button>
+            </form>
+            <div class="dropdown">
+                <button class="btn">Manage</button>
+                <div class="dropdown-menu">
+                    <a href="/manage_employees">Manage Admin Accounts</a>
+                    <a href="/manage_volunteers">Manage Volunteers</a>
+                    <a href="/manage_events">Manage Events</a>
+                </div>
+            </div>
+            <form action="/logout" method="POST" style="display: inline;">
+                <button type="submit" class="btn">Logout</button>
+            </form>
         </div>
-      </header>      
+    </header>
+    
+          
   
     <!-- Main Content -->
     <main class="dashboard">

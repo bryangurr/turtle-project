@@ -30,7 +30,7 @@ const knex = require("knex")({
   connection: {
     host: process.env.RDS_HOSTNAME || "localhost",
     user: process.env.RDS_USERNAME || "postgres",
-    password: process.env.RDS_PASSWORD || "Winter12!",
+    password: process.env.RDS_PASSWORD || "AFlacrosse#6",
     database: process.env.RDS_DB_NAME || "turtletest",
     port: process.env.RDS_PORT || 5432,
     ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false,
@@ -221,13 +221,23 @@ app.get("/create_employee", isAuthenticated, (req, res) => {
   res.render("create_employee", { user: req.session.user });
 });
 
-app.get("/edit_employee/:id", isAuthenticated, (req, res) => {
-  knex("admin")
-    .where({ id: req.params.id })
+app.get('/edit_employee/:id', isAuthenticated, (req, res) => {
+  const id = req.params.id
+  knex('admin')
+    .where('admin.id', id)
+    .leftJoin("volunteers", "admin.username", "=", "volunteers.email")
+    .select(
+      "admin.id as id",
+      "admin.username as username",
+      "admin.password as password",
+      "volunteers.vol_first_name as first_name",
+      "volunteers.vol_last_name as last_name",
+      "volunteers.phone as phone"
+    )
     .first()
-    .then((employee) => {
-      if (employee) {
-        res.render("edit_employee", { user: req.session.user, employee });
+    .then(admin => {
+      if (admin) {
+        res.render('edit_employee', { user: req.session.user, admin });
       } else {
         res.status(404).send("Employee not found");
       }
@@ -238,6 +248,36 @@ app.get("/edit_employee/:id", isAuthenticated, (req, res) => {
     });
 });
 
+app.post("/edit_employee/:id", async (req, res) => {
+  const id = req.params.id;
+  const { username, password, phone, first_name, last_name, old_email } = req.body;
+
+  try {
+    // Update `admin` table
+    await knex("admin")
+      .where("id", id)
+      .update({
+        username,
+        password,
+        
+      });
+
+    // Update `volunteers` table
+    await knex("volunteers")
+      .where("email", old_email) // Assuming email in `volunteers` is the join condition
+      .update({
+        email: username,
+        vol_first_name: first_name,
+        vol_last_name: last_name,
+        phone
+      });
+
+    res.redirect("/manage_employees");
+  } catch (error) {
+    console.error("Error updating employee:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
 // Event Management
 app.get("/manage_events", isAuthenticated, (req, res) => {
   knex("event")
@@ -425,28 +465,9 @@ app.get("/edit_employee/:id", (req, res) => {
     });
 });
 
-app.get("/edit_employee", (req, res) => {
-  res.render("edit_employee");
-});
 
-app.post("/edit_employee/:id", (req, res) => {
-  const id = req.params.id;
-  const username = req.body.username;
-  const password = req.body.password;
-  knex("admin")
-    .where("id", id)
-    .update({
-      username: username,
-      password: password,
-    })
-    .then(() => {
-      res.redirect("/manage_employees");
-    })
-    .catch((error) => {
-      console.error("Error updating employee:", error);
-      res.status(500).send("Internal Server Error");
-    });
-});
+
+
 
 app.get("/manage_volunteers", (req, res) => {
   knex("volunteers")
