@@ -117,11 +117,11 @@ app.post('/addVolunteer', (req, res) => {
     num_vol_hours: req.body.num_vol_hours,
     how_did_you_hear_id: req.body.how_did_you_hear_id,
     sewing_level: req.body.sewing_level,
-    city : req.body.city,
-    state : req.body.state,
-    vol_address : req.body.vol_address,
-    teach_sewing : req.body.teach_sewing,
-    lead_event : req.body.lead_event
+    city: req.body.city,
+    state: req.body.state,
+    vol_address: req.body.vol_address,
+    teach_sewing: req.body.teach_sewing,
+    lead_event: req.body.lead_event
   })
     .then(() => {
       res.redirect('/')
@@ -197,12 +197,19 @@ app.get('/employee_home', (req, res) => {
   res.render('employee_home');
 });
 
-/*
+
 app.get('/manage_employees', (req, res) => {
-  knex('employees')
-    .select('*')
-    .then(employees => {
-      res.render('manage_employees', { employees });
+  knex('admin')
+    .leftJoin('volunteers', 'admin.username', '=', 'volunteers.email')
+    .select(
+      'admin.id as id',
+      'admin.username as username',
+      'volunteers.vol_first_name as first_name', 
+      'volunteers.vol_last_name as last_name',
+      'volunteers.phone as phone'
+    )
+    .then(admins => {
+      res.render('manage_employees', { admins });
     })
     .catch(error => {
       console.error('Error querying database:', error);
@@ -211,7 +218,13 @@ app.get('/manage_employees', (req, res) => {
 });
 
 
-
+// .select(
+//   'admin.id as id',
+//   'admin.email as email',
+//   'volunteers.vol_first_name as first_name', 
+//   'volunteers.vol_last_name as last_name',
+//   'volunteers.phone as phone'
+// )
 
 
 app.get('/create_employee', (req, res) => {
@@ -222,63 +235,76 @@ app.post('/create_employee', (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   knex('admin')
-  .insert({
-    username: username,
-    password: password
-  })
-  .then(() => {
-    res.redirect('/manage_employees');
-  })
-  .catch(error => {
-    console.error('Error creating employee:', error);
-    res.status(500).send('Internal Server Error');
-  });
+    .insert({
+      username: username,
+      password: password
+    })
+    .then(() => {
+      res.redirect('/manage_employees');
+    })
+    .catch(error => {
+      console.error('Error creating employee:', error);
+      res.status(500).send('Internal Server Error');
+    });
 });
 
-app.get('/edit_employee/:username', (req, res) => {
-  const username = req.params.username;
+app.get('/edit_employee/:id', (req, res) => {
+  const id = req.params.id;
   knex('admin')
-  .where('username', username)
-  .first()
-  .then(admin => {
-    res.render('edit_employee', {admin});
-  })
-  .catch(error => {
-    console.error('Error finding employee:', error);
-    res.status(500).send('Internal Server Error');
-  });
+    .where('id', id)
+    .first()
+    .then(admin => {
+      res.render('edit_employee', { admin });
+    })
+    .catch(error => {
+      console.error('Error finding employee:', error);
+      res.status(500).send('Internal Server Error');
+    });
 });
 
-app.post('/edit_employee', (req, res) => {
+app.post('/edit_employee/:id', (req, res) => {
+  const id = req.params.id;
   const username = req.body.username;
   const password = req.body.password;
   knex('admin')
-  .where('username', username)
-  
+    .where('id', id)
+    .update({
+      username: username,
+      password: password
+    })
+    .then(() => {
+      res.redirect('/manage_employees');
+    })
+    .catch(error => {
+      console.error('Error updating employee:', error);
+      res.status(500).send('Internal Server Error');
+    });
+
+
 });
 
 app.get('/manage_volunteers', (req, res) => {
   knex('volunteers')
-  .select()
-  .then((volunteers) => {
-    res.render('manage_volunteers', {volunteers : volunteers})
-  })
-  .catch(error => {
-    console.error('Error querying database:', error);
-    res.status(500).send('Internal Server Error');
-  })
+    .select()
+    .then((volunteers) => {
+      res.render('manage_volunteers', { volunteers: volunteers })
+    })
+    .catch(error => {
+      console.error('Error querying database:', error);
+      res.status(500).send('Internal Server Error');
+    });
 });
 
 app.get('/manage_events', (req, res) => {
   knex('event')
-  .select()
-  .then((event) => {
-    res.render('manage_events', {event : event})
-  })
-  .catch(error => {
-    console.error('Error querying database:', error);
-    res.status(500).send('Internal Server Error');
-  })
+    .select()
+    .then((event) => {
+      res.render('manage_events', { event: event })
+    })
+    .catch(error => {
+      console.error('Error querying database:', error);
+      res.status(500).send('Internal Server Error');
+    })
 });
 
 
@@ -322,7 +348,7 @@ app.get('/edit_volunteer/:id', (req, res) => {
             .then(how_did_you_hear => {
               // Render the page with all the fetched data
               res.render('edit_volunteer', { volunteer, sewing_level, how_did_you_hear }
-            );
+              );
             })
             .catch(err => {
               console.error('Error fetching "how_did_you_hear" data:', err);
@@ -352,16 +378,16 @@ app.post('/edit_volunteer/:id', (req, res) => {
     .update({
       vol_first_name: vol_first_name,
       vol_last_name: vol_last_name,
-      phone : phone,
-      email : email,
-      vol_address : vol_address,
-      state : state,
-      city : city,
-      num_vol_hours : num_vol_hours,
-      how_did_you_hear_id : how_did_you_hear_id,
-      sewing_level : sewing_level,
-      teach_sewing : teach_sewing,
-      lead_event : lead_event
+      phone: phone,
+      email: email,
+      vol_address: vol_address,
+      state: state,
+      city: city,
+      num_vol_hours: num_vol_hours,
+      how_did_you_hear_id: how_did_you_hear_id,
+      sewing_level: sewing_level,
+      teach_sewing: teach_sewing,
+      lead_event: lead_event
     })
     .then(() => {
       res.redirect('/manage_volunteers'); // Redirect to the manage volunteers page
@@ -376,15 +402,15 @@ app.post('/delete_volunteer/:id', (req, res) => {
   const id = req.params.id;
 
   knex('volunteers')
-  .where('id', id)
-  .delete()
-  .then(() => {
-    res.redirect('/manage_volunteers');
-  })
-  .catch(err => {
-    console.error('Error deleting volunteer:', err);
-    res.status(500).send('Error updating volunteer information');
-  });
+    .where('id', id)
+    .delete()
+    .then(() => {
+      res.redirect('/manage_volunteers');
+    })
+    .catch(err => {
+      console.error('Error deleting volunteer:', err);
+      res.status(500).send('Error updating volunteer information');
+    });
 });
 
 app.get('/edit_event/:id', (req, res) => {

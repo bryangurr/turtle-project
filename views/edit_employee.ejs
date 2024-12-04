@@ -66,8 +66,8 @@
 <body>
     <div class="form-box">
         <h1>Edit Admin</h1>
-        <form action="/update_employee" method="POST">
-            <input type="hidden" name="id" value="<%= admin.username %>">
+        <form action="/edit_employee/<%=admin.id%>" method="POST">
+            <input type="hidden" name="id" value="<%= admin.id %>">
             <label for="username">Username</label>
             <input type="text" id="username" name="username" value="<%= admin.username %>" required>
             <label for="password">Password</label>

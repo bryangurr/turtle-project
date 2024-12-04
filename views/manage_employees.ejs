@@ -138,8 +138,9 @@
         <table>
             <thead>
                 <tr>
-                    <th>Username</th>
-                    <th>Password</th>
+                    <th>Name</th>
+                    <th>Username (Email)</th>
+                    <th>Phone</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -147,16 +148,19 @@
                 <% admins.forEach(admin=> { %>
                     <tr>
                         <td>
+                            <%= admin.first_name %> <%= admin.last_name %>
+                        </td>
+                        <td>
                             <%= admin.username %>
                         </td>
                         <td>
-                            <%= admin.password %>
+                            <%= admin.phone %>
                         </td>
                         <td>
-                            <form action="/edit_employee/<%=admin.username%>" method="GET" style="display: inline;">
+                            <form action="/edit_employee/<%=admin.id%>" method="GET" style="display: inline;">
                                 <button class="btn edit" type="submit">Edit</button>
                             </form>
-                            <form action="/delete_employee/<%=admin.username%>" method="POST" style="display: inline;">
+                            <form action="/delete_employee/<%=admin.id%>" method="POST" style="display: inline;">
                                 <button class="btn delete" type="submit">Delete</button>
                             </form>
                         </td>
