@@ -557,6 +557,21 @@ app.post("/edit_event/:id", (req, res) => {
     });
 });
 
+app.post("/delete_event/:id", isAuthenticated, (req, res) => {
+  const id = req.params.id;
+
+  knex("event")
+    .where("id", id)
+    .delete()
+    .then(() => {
+      res.redirect("/manage_events");
+    })
+    .catch((err) => {
+      console.error("Error deleting event:", err);
+      res.status(500).send("Error updating event information");
+    });
+});
+
 // Event Reporting
 app.get("/report_event/:id", isAuthenticated, (req, res) => {
   knex("event")
