@@ -29,7 +29,7 @@ const knex = require("knex")({
   connection: {
     host: process.env.RDS_HOSTNAME || "localhost",
     user: process.env.RDS_USERNAME || "postgres",
-    password: process.env.RDS_PASSWORD || "admin",
+    password: process.env.RDS_PASSWORD || "Winter12!",
     database: process.env.RDS_DB_NAME || "turtletest",
     port: process.env.RDS_PORT || 5432,
     ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false
@@ -116,7 +116,12 @@ app.post('/addVolunteer', (req, res) => {
     email: req.body.email,
     num_vol_hours: req.body.num_vol_hours,
     how_did_you_hear_id: req.body.how_did_you_hear_id,
-    sewing_level: req.body.sewing_level
+    sewing_level: req.body.sewing_level,
+    city : req.body.city,
+    state : req.body.state,
+    vol_address : req.body.vol_address,
+    teach_sewing : req.body.teach_sewing,
+    lead_event : req.body.lead_event
   })
     .then(() => {
       res.redirect('/')
@@ -281,25 +286,43 @@ app.get('/edit_volunteer/:id', (req, res) => {
     .where({ id })
     .first()
     .then(volunteer => {
-      if (volunteer) {
-        res.render('edit_volunteer', { volunteer : volunteer });
-      } else {
-        res.status(404).send('Volunteer not found');
+      if (!volunteer) {
+        return res.status(404).send('Volunteer not found');
       }
+
+      // Fetch data from the 'sewing_level' table
+      knex('sewing_level')
+        .select()
+        .then(sewing_level => {
+          // Fetch data from the 'how_did_you_hear' table
+          knex('how_did_you_hear')
+            .select()
+            .then(how_did_you_hear => {
+              // Render the page with all the fetched data
+              res.render('edit_volunteer', { volunteer, sewing_level, how_did_you_hear }
+            );
+            })
+            .catch(err => {
+              console.error('Error fetching "how_did_you_hear" data:', err);
+              res.status(500).send('Error retrieving "How Did You Hear" information');
+            });
+        })
+        .catch(err => {
+          console.error('Error fetching sewing levels:', err);
+          res.status(500).send('Error retrieving sewing level information');
+        });
     })
-    .catch(err => {
-      console.error('Error fetching volunteer:', err);
+    .catch(error => {
+      console.error('Error fetching volunteer:', error);
       res.status(500).send('Error retrieving volunteer information');
     });
 });
 
 
+
 app.post('/edit_volunteer/:id', (req, res) => {
   const { id } = req.params;
-  const { vol_first_name, vol_last_name, phone, email, state, city, sewing_level } = req.body;
-
-  console.log('Request Params:', req.params);
-  console.log('Request Body:', req.body);
+  const { vol_first_name, vol_last_name, phone, email, vol_address, state, city, num_vol_hours, how_did_you_hear_id, sewing_level, teach_sewing, lead_event } = req.body;
 
   knex('volunteers')
     .where({ id })
@@ -309,9 +332,14 @@ app.post('/edit_volunteer/:id', (req, res) => {
       vol_last_name: vol_last_name,
       phone : phone,
       email : email,
+      vol_address : vol_address,
       state : state,
       city : city,
-      sewing_level : sewing_level
+      num_vol_hours : num_vol_hours,
+      how_did_you_hear_id : how_did_you_hear_id,
+      sewing_level : sewing_level,
+      teach_sewing : teach_sewing,
+      lead_event : lead_event
     })
     .then(() => {
       res.redirect('/manage_volunteers'); // Redirect to the manage volunteers page
