@@ -3,7 +3,7 @@
 <head>
   <title>Manage Events</title>
   <style>
-    body {
+body {
     font-family: Futura, sans-serif;
     margin: 0;
     background-color: #f5f5f5;
@@ -39,6 +39,24 @@ h1 {
     background-color: #004d40;
 }
 
+/*  Delete Button Styling */
+/* Delete Button Styling */
+.btn.delete {
+    background-color: #e57373 !important; /* 
+    color: white;
+    border: none;
+    padding: 8px 15px; /* Match padding with other buttons */
+    border-radius: 5px;
+    font-size: 12px; /* Match font size with other buttons */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn.delete:hover {
+    background-color: #d32f2f !important; /* Darker red on hover with higher specificity */
+}
+
+/* Table Container */
 .table-container {
     margin: 0 auto;
     width: 100%;
@@ -57,33 +75,35 @@ h1 {
     border: 1px solid #e0e0e0;
 }
 
-th, td {
-    padding: 8px 16px;  /* Reduced padding */
+th,
+td {
+    padding: 8px 16px; /* Reduced padding */
     text-align: left;
     border-bottom: 1px solid #e0e0e0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 150px;
-    line-height: 1.3;  /* Tighter line height */
+    line-height: 1.3; /* Tighter line height */
 }
 
 th {
     background-color: #66bb6a;
     color: white;
     font-size: 13px;
-    padding: 10px 9px;  /* Slightly more padding for headers */
+    padding: 10px 9px; /* Slightly more padding for headers */
 }
 
 td {
-    font-size: 12px;  /* Smaller font size */
+    font-size: 12px; /* Smaller font size */
     color: #333;
 }
 
+/* Add Event Button */
 .add-event-btn {
     margin-top: 10px;
     display: inline-block;
-    padding: 6px 12px;  /* Smaller button */
+    padding: 6px 12px; /* Smaller button */
     background-color: #66bb6a;
     color: white;
     border: none;
@@ -191,6 +211,7 @@ td {
 }
 
 
+
 </style>
     
 </head>
@@ -254,11 +275,11 @@ td {
             <td>
              
               <form action="/edit_event/<%= event.id %>" method="GET" style="display:inline;">
-                <button class="add-event-btn" type="submit">Edit</button>
+                <button class="btn edit" type="submit">Edit</button>
               </form>
               <form action="/delete_event/<%= event.id %>" method="POST" style="display:inline;">
-                <button class="add-event-btn" type="submit" onclick="return confirm('Are you sure you want to delete this event?');">Delete</button>
-              </form>
+                <button class="btn delete" type="submit" onclick="return confirm('Are you sure you want to delete this event?');">Delete</button>
+              </form>              
             </td>
           </tr>
         <% }) %>
