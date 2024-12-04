@@ -39,7 +39,6 @@ h1 {
     background-color: #004d40;
 }
 
-/*  Delete Button Styling */
 /* Delete Button Styling */
 .btn.delete {
     background-color: #e57373 !important; /* 
@@ -134,7 +133,7 @@ td {
 .banner .title h1 {
     margin: 0;
     font-size: 24px;
-    color: #66bb6a; /* Matches theme */
+    color: #66bb6a; 
     text-align: left; /* Align title to the left */
 }
 
@@ -160,7 +159,6 @@ td {
     background-color: #004d40;
 }
 
-/* Dropdown Styling */
 /* Dropdown Container */
 .dropdown {
     position: relative;
@@ -210,8 +208,6 @@ td {
     z-index: 2;
 }
 
-
-
 </style>
     
 </head>
@@ -246,13 +242,12 @@ td {
   <table>
     <thead>
       <tr>
-        <th>Event Status</th>
-        <th>Event Date & Time</th>
+        <th>Status</th>
+        <th>Date & Time</th>
         <th>Location</th>
-        <th>Sewing, Non-Sewing, or Both</th>
-        <th>Coordinator First Name</th>
-        <th>Coordinator Last Name</th>
-        <th>Event Duration</th>
+        <th>Type</th>
+        <th>Coordinator</th>
+        <th>Duration</th>
         <th>Total People</th>
         <th>Actions</th>
       </tr>
@@ -274,8 +269,7 @@ td {
                       : 'Non-Sewing' 
               %>
             </td>
-            <td><%= event.coordinator_first_name %></td>
-            <td><%= event.coordinator_last_name %></td>
+            <td><%= event.coordinator_first_name %> <%= event.coordinator_last_name %></td>
             <td><%= event.event_duration %></td>
             <td><%= event.adult_participants + event.child_participants%></td>
            
