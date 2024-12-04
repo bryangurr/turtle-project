@@ -30,8 +30,8 @@ const knex = require("knex")({
   connection: {
     host: process.env.RDS_HOSTNAME || "localhost",
     user: process.env.RDS_USERNAME || "postgres",
-    password: process.env.RDS_PASSWORD || "Never1:3",
-    database: process.env.RDS_DB_NAME || "turtleshelter",
+    password: process.env.RDS_PASSWORD || "AFlacrosse#6",
+    database: process.env.RDS_DB_NAME || "turtletest",
     port: process.env.RDS_PORT || 5432,
     ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false,
   },
@@ -158,6 +158,79 @@ app.post("/schedule_event", (req, res) => {
     .catch((err) => {
       console.error("Error adding event:", err);
     });
+});
+
+// adding security to login page and authentication
+const session = require('express-session');
+
+// Configure session middleware
+app.use(session({
+  secret: 'fortnite', // Replace with a strong secret key
+  resave: false, // Prevents session being saved on every request if unmodified
+  saveUninitialized: false, // Only saves sessions when initialized
+  cookie: { secure: false } // Set to true if using HTTPS
+}));
+
+// POST route to handle login
+app.post('/login', (req, res) => {
+  const { username, password } = req.body; // Extract username and password
+
+  // Query the database for the user
+  knex('admin') // Replace 'admin' with your table name if different
+    .where({ username }) // Check if username exists
+    .first() // Fetch the first matching record
+    .then(admin => {
+      if (!admin) {
+        // No matching username found
+        console.error('Invalid username');
+        return res.status(401).send('Invalid username or password.');
+      }
+
+      // Compare the entered plain-text password with the stored password
+      if (password === admin.password) {
+        console.log('Login successful:', username);
+        
+        // Store user info in the session
+        req.session.user = { username: admin.username };
+
+        // Redirect to a protected page
+        res.redirect('/employee_home');
+      } else {
+        console.error('Invalid password');
+        res.status(401).send('Invalid username or password.');
+      }
+    })
+    .catch(err => {
+      console.error('Error during login:', err);
+      res.status(500).send('Internal server error.');
+    });
+});
+
+// Authentication middleware
+function isAuthenticated(req, res, next) {
+  if (req.session.user) {
+    return next(); // User is authenticated, proceed
+  }
+  res.redirect('/login'); // Redirect to login if not authenticated
+}
+
+// Protected employee routes
+app.get('/employee_home', isAuthenticated, (req, res) => {
+  res.render('employee_home', { user: req.session.user });
+});
+
+app.get('/manage_employees', isAuthenticated, (req, res) => {
+  res.render('manage_employees', { user: req.session.user });
+});
+
+app.post('/logout', (req, res) => {
+  req.session.destroy(err => {
+    if (err) {
+      console.error('Error during logout:', err);
+      return res.status(500).send('Error during logout.');
+    }
+    res.redirect('/'); // Redirect to home page after logout
+  });
 });
 
 app.get("/login", (req, res) => {
