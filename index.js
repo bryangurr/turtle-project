@@ -186,7 +186,7 @@ app.post('/login', (req, res) => {
       // Compare the entered plain-text password with the stored password
       if (password === admin.password) {
         console.log('Login successful:', username);
-        
+
         // Store user info in the session
         req.session.user = { username: admin.username };
 
@@ -224,12 +224,22 @@ app.get('/create_employee', isAuthenticated, (req, res) => {
 });
 
 app.get('/edit_employee/:id', isAuthenticated, (req, res) => {
+  const id = req.params.id
   knex('admin')
-    .where({ id: req.params.id })
+    .where('admin.id', id)
+    .leftJoin("volunteers", "admin.username", "=", "volunteers.email")
+    .select(
+      "admin.id as id",
+      "admin.username as username",
+      "admin.password as password",
+      "volunteers.vol_first_name as first_name",
+      "volunteers.vol_last_name as last_name",
+      "volunteers.phone as phone"
+    )
     .first()
-    .then(employee => {
-      if (employee) {
-        res.render('edit_employee', { user: req.session.user, employee });
+    .then(admin => {
+      if (admin) {
+        res.render('edit_employee', { user: req.session.user, admin });
       } else {
         res.status(404).send('Employee not found');
       }
@@ -240,6 +250,36 @@ app.get('/edit_employee/:id', isAuthenticated, (req, res) => {
     });
 });
 
+app.post("/edit_employee/:id", async (req, res) => {
+  const id = req.params.id;
+  const { username, password, phone, first_name, last_name, old_email } = req.body;
+
+  try {
+    // Update `admin` table
+    await knex("admin")
+      .where("id", id)
+      .update({
+        username,
+        password,
+        
+      });
+
+    // Update `volunteers` table
+    await knex("volunteers")
+      .where("email", old_email) // Assuming email in `volunteers` is the join condition
+      .update({
+        email: username,
+        vol_first_name: first_name,
+        vol_last_name: last_name,
+        phone
+      });
+
+    res.redirect("/manage_employees");
+  } catch (error) {
+    console.error("Error updating employee:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
 // Event Management
 app.get('/manage_events', isAuthenticated, (req, res) => {
   knex('events')
@@ -407,50 +447,10 @@ app.post("/create_employee", (req, res) => {
     });
 });
 
-app.get("/edit_employee/:id", (req, res) => {
-  const id = req.params.id;
-  knex("admin")
-  .leftJoin("volunteers", "admin.username", "=", "volunteers.email")
-  .select(
-    "admin.id as id",
-    "admin.username as username",
-    "volunteers.vol_first_name as first_name",
-    "volunteers.vol_last_name as last_name",
-    "volunteers.phone as phone"
-  )
-  .where("id", id)
-    .first()
-    .then((admin) => {
-      res.render("edit_employee", { admin });
-    })
-    .catch((error) => {
-      console.error("Error finding employee:", error);
-      res.status(500).send("Internal Server Error");
-    });
-});
 
-app.get("/edit_employee", (req, res) => {
-  res.render("edit_employee");
-});
 
-app.post("/edit_employee/:id", (req, res) => {
-  const id = req.params.id;
-  const username = req.body.username;
-  const password = req.body.password;
-  knex("admin")
-    .where("id", id)
-    .update({
-      username: username,
-      password: password,
-    })
-    .then(() => {
-      res.redirect("/manage_employees");
-    })
-    .catch((error) => {
-      console.error("Error updating employee:", error);
-      res.status(500).send("Internal Server Error");
-    });
-});
+
+
 
 app.get("/manage_volunteers", (req, res) => {
   knex("volunteers")
