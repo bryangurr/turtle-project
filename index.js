@@ -30,18 +30,15 @@ const knex = require("knex")({
   connection: {
     host: process.env.RDS_HOSTNAME || "localhost",
     user: process.env.RDS_USERNAME || "postgres",
-    password: process.env.RDS_PASSWORD || "Winter12!",
-    database: process.env.RDS_DB_NAME || "turtletest",
+    password: process.env.RDS_PASSWORD || "Never1:3",
+    database: process.env.RDS_DB_NAME || "turtleshelter",
     port: process.env.RDS_PORT || 5432,
     ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false,
   },
   debug: true,
 });
 
-knex
-  .raw("SELECT 1")
-  .then(() => console.log("Database connection successful"))
-  .catch((err) => console.error("Database connection failed", err));
+
 
 app.get("/donate", (req, res) => {
   res.render("donate");
@@ -540,11 +537,6 @@ app.get("/edit_volunteer/:id", (req, res) => {
             .select()
             .then((how_did_you_hear) => {
               // Render the page with all the fetched data
-              res.render("edit_volunteer", {
-                volunteer,
-                sewing_level,
-                how_did_you_hear,
-              });
               res.render("edit_volunteer", {
                 volunteer,
                 sewing_level,
