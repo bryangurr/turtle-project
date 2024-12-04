@@ -92,13 +92,13 @@
             <input type="text" id="state" name="state" value="<%= volunteer.state %>" required>
 
             <label for="num_vol_hours">Monthly Volunteer Hours</label>
-            <input type="number" id="num_vol_hours" name="num_vol_hours" value="<%= volunteer.num_vol_hours %>" required>
+            <input type="number" id="num_vol_hours" name="num_vol_hours" value="<%= volunteer.est_vol_hours %>" required>
 
             <label for="how_did_you_hear_id">How did you hear about us?</label>
             <select id="how_did_you_hear_id" name="how_did_you_hear_id">
                 <% how_did_you_hear.forEach(item => { %>
-                    <option value = "<% item.description %>" <%= item.how_did_you_hear_id === volunteer.how_did_you_hear_id ? 'selected' : '' %>>
-                        <%= item.description %>
+                    <option value = "<% item.how_did_you_hear_id %>" <%= item.how_did_you_hear_id === volunteer.how_did_you_hear_id ? 'selected' : '' %>> 
+                        <%= item.description %>"
                     </option>
                 <% }) %>
             </select>
@@ -107,7 +107,7 @@
             <label for="sewing_level">Sewing Level</label>
             <select id="sewing_level" name="sewing_level">
                 <% sewing_level.forEach(level => { %>
-                    <option value = "<% level.description %>" <%= level.sewing_level == volunteer.sewing_level ? 'selected' : '' %>>
+                    <option value = "<% level.sewing_level %>" <%= level.sewing_level === volunteer.sewing_level ? 'selected' : '' %> >
                         <%= level.description %>
                     </option>
                 <% }) %>
