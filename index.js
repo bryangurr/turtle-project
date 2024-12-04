@@ -131,7 +131,7 @@ app.get("/schedule_event", (req, res) => {
 });
 
 app.post("/schedule_event", (req, res) => {
-  knex("events")
+  knex("event")
     .insert({
       Event_Date: req.body.eventDate,
       Address: req.body.eventAddress,
@@ -240,8 +240,9 @@ app.get("/edit_employee/:id", isAuthenticated, (req, res) => {
 
 // Event Management
 app.get("/manage_events", isAuthenticated, (req, res) => {
-  knex("events")
+  knex("event")
     .select()
+    .orderBy("event_date")
     .then((events) => {
       res.render("manage_events", { user: req.session.user, events });
     })
@@ -252,7 +253,7 @@ app.get("/manage_events", isAuthenticated, (req, res) => {
 });
 
 app.get("/edit_event/:id", isAuthenticated, (req, res) => {
-  knex("events")
+  knex("event")
     .where({ id: req.params.id })
     .first()
     .then((event) => {
@@ -283,7 +284,7 @@ app.get("/manage_volunteers", isAuthenticated, (req, res) => {
 
 // Event Reporting
 app.get("/report_event/:id", isAuthenticated, (req, res) => {
-  knex("events")
+  knex("event")
     .where({ id: req.params.id })
     .first()
     .then((event) => {
@@ -617,7 +618,7 @@ app.post("/delete_volunteer/:id", (req, res) => {
 app.get("/edit_event/:id", (req, res) => {
   const { id } = req.params;
 
-  knex("events")
+  knex("event")
     .where({ id })
     .first()
     .then((event) => {
@@ -651,7 +652,7 @@ app.post("/edit_event/:id", (req, res) => {
     shareStory,
   } = req.body;
 
-  knex("events")
+  knex("event")
     .where({ id })
     .update({
       event_date: eventDate,
