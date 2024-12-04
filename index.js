@@ -223,6 +223,90 @@ app.get('/manage_employees', isAuthenticated, (req, res) => {
   res.render('manage_employees', { user: req.session.user });
 });
 
+// Employee Pages
+app.get('/create_employee', isAuthenticated, (req, res) => {
+  res.render('create_employee', { user: req.session.user });
+});
+
+app.get('/edit_employee/:id', isAuthenticated, (req, res) => {
+  knex('admin')
+    .where({ id: req.params.id })
+    .first()
+    .then(employee => {
+      if (employee) {
+        res.render('edit_employee', { user: req.session.user, employee });
+      } else {
+        res.status(404).send('Employee not found');
+      }
+    })
+    .catch(err => {
+      console.error('Error fetching employee:', err);
+      res.status(500).send('Internal server error.');
+    });
+});
+
+// Event Management
+app.get('/manage_events', isAuthenticated, (req, res) => {
+  knex('events')
+    .select()
+    .then(events => {
+      res.render('manage_events', { user: req.session.user, events });
+    })
+    .catch(err => {
+      console.error('Error fetching events:', err);
+      res.status(500).send('Internal server error.');
+    });
+});
+
+app.get('/edit_event/:id', isAuthenticated, (req, res) => {
+  knex('events')
+    .where({ id: req.params.id })
+    .first()
+    .then(event => {
+      if (event) {
+        res.render('edit_event', { user: req.session.user, event });
+      } else {
+        res.status(404).send('Event not found');
+      }
+    })
+    .catch(err => {
+      console.error('Error fetching event:', err);
+      res.status(500).send('Internal server error.');
+    });
+});
+
+// Volunteer Management
+app.get('/manage_volunteers', isAuthenticated, (req, res) => {
+  knex('volunteers')
+    .select()
+    .then(volunteers => {
+      res.render('manage_volunteers', { user: req.session.user, volunteers });
+    })
+    .catch(err => {
+      console.error('Error fetching volunteers:', err);
+      res.status(500).send('Internal server error.');
+    });
+});
+
+// Event Reporting
+app.get('/report_event/:id', isAuthenticated, (req, res) => {
+  knex('events')
+    .where({ id: req.params.id })
+    .first()
+    .then(event => {
+      if (event) {
+        res.render('report_event', { user: req.session.user, event });
+      } else {
+        res.status(404).send('Event not found');
+      }
+    })
+    .catch(err => {
+      console.error('Error fetching event:', err);
+      res.status(500).send('Internal server error.');
+    });
+});
+
+
 app.post('/logout', (req, res) => {
   req.session.destroy(err => {
     if (err) {
