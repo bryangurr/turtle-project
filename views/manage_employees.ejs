@@ -13,12 +13,11 @@ body {
     background-color: #f5f5f5;
     padding: 20px;
 }
-/* General Body Style */
 
 /* Banner Section */
 .banner {
     display: flex;
-    justify-content: space-between; /* Align title and buttons on opposite sides */
+    justify-content: space-between; /* Align title and buttons */
     align-items: center;
     background-color: #004d40;
     padding: 10px 20px;
@@ -27,21 +26,21 @@ body {
     margin-bottom: 20px;
 }
 
-/* Title Styling */
 .banner .title h1 {
     margin: 0;
     font-size: 24px;
-    color: #66bb6a;
+    color: #66bb6a; /* Matches theme */
+    text-align: left; /* Align title to the left */
 }
 
 /* Banner Buttons */
 .banner-buttons {
     display: flex;
-    gap: 10px;
+    gap: 10px; /* Spacing between buttons */
 }
 
-/* General Button Styling */
-.banner-buttons .btn {
+/* Standard Button Styling */
+.banner .btn {
     background-color: #66bb6a;
     color: white;
     border: none;
@@ -52,7 +51,7 @@ body {
     transition: background-color 0.3s ease;
 }
 
-.banner-buttons .btn:hover {
+.banner .btn:hover {
     background-color: #004d40;
 }
 
@@ -132,7 +131,18 @@ td {
     color: #333;
 }
 
-/* Edit and Delete Buttons (Unchanged) */
+/* Edit and Delete Buttons */
+.btn.edit,
+.btn.delete {
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 15px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
 .btn.edit {
     background-color: #66bb6a;
 }
@@ -168,6 +178,7 @@ td {
 .add-event-btn:hover {
     background-color: #004d40;
 }
+
 
     </style>
 

@@ -99,14 +99,127 @@ td {
     background-color: #004d40;
 }
 
+/* Banner Section */
+.banner {
+    display: flex;
+    justify-content: space-between; /* Align buttons to the right */
+    align-items: center;
+    background-color: #004d40;
+    padding: 10px 20px;
+    color: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.banner .title h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #66bb6a; /* Matches theme */
+    text-align: left; /* Align title to the left */
+}
+
+/* Banner Buttons */
+.banner-buttons {
+    display: flex;
+    gap: 10px; /* Spacing between buttons */
+}
+
+/* Standard Button Styling */
+.banner .btn {
+    background-color: #66bb6a;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.banner .btn:hover {
+    background-color: #004d40;
+}
+
+/* Dropdown Styling */
+/* Dropdown Container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin-right: 10px; /* Add spacing to separate other buttons */
+}
+
+/* Dropdown Menu Styling */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%; /* Align directly below the button */
+    left: 0;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    z-index: 1;
+    padding: 5px 0; /* Add padding inside the dropdown */
+    pointer-events: auto; /* Ensure clickable */
+}
+
+/* Dropdown Menu Links */
+.dropdown-menu a {
+    color: #004d40;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f1f1f1;
+    color: #004d40;
+}
+
+/* Show Dropdown Menu on Hover */
+.dropdown:hover .dropdown-menu {
+    display: block;
+    pointer-events: auto; /* Ensure smooth interaction */
+}
+
+/* Add slight overlap to ensure hover */
+.dropdown .btn {
+    position: relative;
+    z-index: 2;
+}
+
+
 </style>
     
 </head>
 <body>
 
-  <div class="header-buttons">
-    <a href="/employee_home" class="btn">Return to Dashboard</a>
-</div>
+  <header class="banner">
+    <div class="title">
+        <h1>Manage Events</h1>
+    </div>
+    <div class="banner-buttons">
+        <form action="/employee_home" method="GET" style="display: inline;">
+            <button type="submit" class="btn">Employee Home</button>
+        </form>
+        <div class="dropdown">
+            <button class="btn">Manage</button>
+            <div class="dropdown-menu">
+                <a href="/manage_employees">Manage Admin Accounts</a>
+                <a href="/manage_volunteers">Manage Volunteers</a>
+                <a href="/manage_events">Manage Events</a>
+            </div>
+        </div>
+        <form action="/logout" method="POST" style="display: inline;">
+            <button type="submit" class="btn">Logout</button>
+        </form>
+    </div>
+</header>
+
+
+
 <div class="table-container">
   <h1 style="text-align: center;">All Events</h1>
   <table>
