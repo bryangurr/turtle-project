@@ -171,7 +171,7 @@ app.post("/login", (req, res) => {
     `Credentials received: Username ${username}, Password ${password}`
   );
   knex("admin")
-    .select("*")
+    .select()
     .where("username", username)
     .first()
     .then((credentials) => {
@@ -197,26 +197,24 @@ app.get("/employee_home", (req, res) => {
   res.render("employee_home");
 });
 
-
-app.get('/manage_employees', (req, res) => {
-  knex('admin')
-    .leftJoin('volunteers', 'admin.username', '=', 'volunteers.email')
+app.get("/manage_employees", (req, res) => {
+  knex("admin")
+    .leftJoin("volunteers", "admin.username", "=", "volunteers.email")
     .select(
-      'admin.id as id',
-      'admin.username as username',
-      'volunteers.vol_first_name as first_name', 
-      'volunteers.vol_last_name as last_name',
-      'volunteers.phone as phone'
+      "admin.id as id",
+      "admin.username as username",
+      "volunteers.vol_first_name as first_name",
+      "volunteers.vol_last_name as last_name",
+      "volunteers.phone as phone"
     )
-    .then(admins => {
-      res.render('manage_employees', { admins });
+    .then((admins) => {
+      res.render("manage_employees", { admins });
     })
-    .catch(error => {
-      console.error('Error querying database:', error);
-      res.status(500).send('Internal Server Error');
+    .catch((error) => {
+      console.error("Error querying database:", error);
+      res.status(500).send("Internal Server Error");
     });
 });
-*/
 
 app.get("/manage_employees", async (req, res) => {
   console.log({
@@ -229,7 +227,7 @@ app.get("/manage_employees", async (req, res) => {
   try {
     await knex.raw("SELECT 1+1 AS result");
     console.log("Database connected successfully!");
-    const admins = await knex("admin").select("*");
+    const admins = await knex("admin").select();
     res.render("manage_employees", { admins });
   } catch (error) {
     console.error("Error querying database:", error);
@@ -237,11 +235,10 @@ app.get("/manage_employees", async (req, res) => {
   }
 });
 
-
 // .select(
 //   'admin.id as id',
 //   'admin.email as email',
-//   'volunteers.vol_first_name as first_name', 
+//   'volunteers.vol_first_name as first_name',
 //   'volunteers.vol_last_name as last_name',
 //   'volunteers.phone as phone'
 // )
@@ -265,55 +262,55 @@ app.post("/create_employee", (req, res) => {
       console.error("Error querying database:", error);
       res.status(500).send("Internal Server Error");
     });
-  knex('admin')
+  knex("admin")
     .insert({
       username: username,
-      password: password
+      password: password,
     })
     .then(() => {
-      res.redirect('/manage_employees');
+      res.redirect("/manage_employees");
     })
-    .catch(error => {
-      console.error('Error creating employee:', error);
-      res.status(500).send('Internal Server Error');
+    .catch((error) => {
+      console.error("Error creating employee:", error);
+      res.status(500).send("Internal Server Error");
     });
 });
 
-app.get('/edit_employee/:id', (req, res) => {
+app.get("/edit_employee/:id", (req, res) => {
   const id = req.params.id;
-  knex('admin')
-    .where('id', id)
+  knex("admin")
+    .where("id", id)
     .first()
-    .then(admin => {
-      res.render('edit_employee', { admin });
+    .then((admin) => {
+      res.render("edit_employee", { admin });
     })
-    .catch(error => {
-      console.error('Error finding employee:', error);
-      res.status(500).send('Internal Server Error');
+    .catch((error) => {
+      console.error("Error finding employee:", error);
+      res.status(500).send("Internal Server Error");
     });
 });
 
 app.get("/edit_employee", (req, res) => {
   res.render("edit_employee");
-app.post('/edit_employee/:id', (req, res) => {
+});
+
+app.post("/edit_employee/:id", (req, res) => {
   const id = req.params.id;
   const username = req.body.username;
   const password = req.body.password;
-  knex('admin')
-    .where('id', id)
+  knex("admin")
+    .where("id", id)
     .update({
       username: username,
-      password: password
+      password: password,
     })
     .then(() => {
-      res.redirect('/manage_employees');
+      res.redirect("/manage_employees");
     })
-    .catch(error => {
-      console.error('Error updating employee:', error);
-      res.status(500).send('Internal Server Error');
+    .catch((error) => {
+      console.error("Error updating employee:", error);
+      res.status(500).send("Internal Server Error");
     });
-
-
 });
 
 app.get("/manage_volunteers", (req, res) => {
@@ -326,15 +323,16 @@ app.get("/manage_volunteers", (req, res) => {
       console.error("Error querying database:", error);
       res.status(500).send("Internal Server Error");
     });
-app.get('/manage_volunteers', (req, res) => {
-  knex('volunteers')
+});
+app.get("/manage_volunteers", (req, res) => {
+  knex("volunteers")
     .select()
     .then((volunteers) => {
-      res.render('manage_volunteers', { volunteers: volunteers })
+      res.render("manage_volunteers", { volunteers: volunteers });
     })
-    .catch(error => {
-      console.error('Error querying database:', error);
-      res.status(500).send('Internal Server Error');
+    .catch((error) => {
+      console.error("Error querying database:", error);
+      res.status(500).send("Internal Server Error");
     });
 });
 
@@ -348,16 +346,17 @@ app.get("/manage_events", (req, res) => {
       console.error("Error querying database:", error);
       res.status(500).send("Internal Server Error");
     });
-app.get('/manage_events', (req, res) => {
-  knex('event')
+});
+app.get("/manage_events", (req, res) => {
+  knex("event")
     .select()
     .then((event) => {
-      res.render('manage_events', { event: event })
+      res.render("manage_events", { event: event });
     })
-    .catch(error => {
-      console.error('Error querying database:', error);
-      res.status(500).send('Internal Server Error');
-    })
+    .catch((error) => {
+      console.error("Error querying database:", error);
+      res.status(500).send("Internal Server Error");
+    });
 });
 
 app.get("/edit_event", (req, res) => {
@@ -404,8 +403,11 @@ app.get("/edit_volunteer/:id", (req, res) => {
                 sewing_level,
                 how_did_you_hear,
               });
-              res.render('edit_volunteer', { volunteer, sewing_level, how_did_you_hear }
-              );
+              res.render("edit_volunteer", {
+                volunteer,
+                sewing_level,
+                how_did_you_hear,
+              });
             })
             .catch((err) => {
               console.error('Error fetching "how_did_you_hear" data:', err);
@@ -469,7 +471,7 @@ app.post("/edit_volunteer/:id", (req, res) => {
       how_did_you_hear_id: how_did_you_hear_id,
       sewing_level: sewing_level,
       teach_sewing: teach_sewing,
-      lead_event: lead_event
+      lead_event: lead_event,
     })
     .then(() => {
       res.redirect("/manage_volunteers"); // Redirect to the manage volunteers page
@@ -493,15 +495,15 @@ app.post("/delete_volunteer/:id", (req, res) => {
       console.error("Error deleting volunteer:", err);
       res.status(500).send("Error updating volunteer information");
     });
-  knex('volunteers')
-    .where('id', id)
+  knex("volunteers")
+    .where("id", id)
     .delete()
     .then(() => {
-      res.redirect('/manage_volunteers');
+      res.redirect("/manage_volunteers");
     })
-    .catch(err => {
-      console.error('Error deleting volunteer:', err);
-      res.status(500).send('Error updating volunteer information');
+    .catch((err) => {
+      console.error("Error deleting volunteer:", err);
+      res.status(500).send("Error updating volunteer information");
     });
 });
 
@@ -571,4 +573,4 @@ app.post("/edit_event/:id", (req, res) => {
 // should always come last
 app.listen(port, () =>
   console.log(`Server is running at http://localhost:${port}`)
-); // Start listening
+);
