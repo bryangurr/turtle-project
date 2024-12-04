@@ -215,22 +215,17 @@ select {
                 <a href="/volunteer" class="btn">Add a Volunteer</a>
             </div>
         </div>
-        
+        <br>
         <!-- Volunteers Table -->
         <table>
             <thead>
                 <tr>
-                    <th>Email</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Address</th>
                     <th>City</th>
                     <th>State</th>
                     <th>Phone</th>
-                    <th>How I heard about it</th>
-                    <th>Sewing Experience</th>
-                    <th>Lead Event?</th>
-                    <th>Teach Sewing?</th>
                     <th>Number of Volunteer Hours</th>
                     <th>Actions</th>
                 </tr>
@@ -238,17 +233,12 @@ select {
             <tbody>
                 <% volunteers.forEach(volunteer => { %>
                     <tr>
-                        <td><%= volunteer.email %></td>
                         <td><%= volunteer.vol_first_name %></td>
                         <td><%= volunteer.vol_last_name %></td>
                         <td><%= volunteer.vol_address %></td>
                         <td><%= volunteer.city %></td>
                         <td><%= volunteer.state %></td>
                         <td><%= volunteer.phone %></td>
-                        <td><%= volunteer.how_did_you_hear_id %></td>
-                        <td><%= volunteer.sewing_level %></td>
-                        <td><%= volunteer.lead_event ? 'Yes' : 'No' %>%></td>
-                        <td><%= volunteer.teach_sewing ? 'Yes' : 'No' %></td>
                         <td><%= volunteer.est_vol_hours %></td>
                         <td>
                             <form action="/edit_volunteer/<%= volunteer.id %>" method="GET" style="display: inline;">
