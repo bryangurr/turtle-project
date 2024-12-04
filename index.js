@@ -30,7 +30,7 @@ const knex = require("knex")({
   connection: {
     host: process.env.RDS_HOSTNAME || "localhost",
     user: process.env.RDS_USERNAME || "postgres",
-    password: process.env.RDS_PASSWORD || "AFlacrosse#6",
+    password: process.env.RDS_PASSWORD || "Winter12!",
     database: process.env.RDS_DB_NAME || "turtletest",
     port: process.env.RDS_PORT || 5432,
     ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false,
@@ -131,21 +131,29 @@ app.get("/schedule_event", (req, res) => {
 });
 
 app.post("/schedule_event", (req, res) => {
+  console.log(req.body);
+
   knex("event")
     .insert({
-      Event_Date: req.body.eventDate,
-      Address: req.body.eventAddress,
-      Event_City: req.body.eventCity,
-      Event_State: req.body.eventState,
-      Start_Time: req.body.startTime,
-      Run_Time: req.body.duration,
-      Num_Attendees: req.body.numberOfAttendees,
-      Sewing_Non: req.body.eventType,
-      Coordinator_First_Name: req.body.firstName,
-      Coordinator_Last_Name: req.body.lastName,
-      Coordinator_Phone: req.body.phoneNumber,
-      Coordinator_Secondary_Phone: req.body.secondaryPhone,
-      Share_Story: req.body.shareStory,
+      event_date: req.body.event_date,
+      address: req.body.address,
+      event_city: req.body.event_city,
+      event_state: req.body.event_state,
+      start_time: req.body.start_time,
+      event_duration: req.body.event_duration,
+      child_participants: req.body.child_participants || 0,
+      adult_participants: req.body.adult_participants,
+      sewing_non: req.body.sewing_non,
+      coordinator_first_name: req.body.coordinator_first_name,
+      coordinator_last_name: req.body.coordinator_last_name,
+      coordinator_phone: req.body.coordinator_phone,
+      coordinator_secondary_phone: req.body.coordinator_secondary_phone || "",
+      share_story: req.body.share_story || false,
+      event_desc: req.body.event_desc || "",
+      num_sewers: req.body.num_sewers || 0,
+      num_sewing_machine: req.body.num_sewing_machine || 0,
+      num_serger_machine: req.body.num_serger_machine || 0,
+      event_status: "P",
     })
     .then(() => {
       res.redirect("/");
@@ -221,10 +229,10 @@ app.get("/create_employee", isAuthenticated, (req, res) => {
   res.render("create_employee", { user: req.session.user });
 });
 
-app.get('/edit_employee/:id', isAuthenticated, (req, res) => {
-  const id = req.params.id
-  knex('admin')
-    .where('admin.id', id)
+app.get("/edit_employee/:id", isAuthenticated, (req, res) => {
+  const id = req.params.id;
+  knex("admin")
+    .where("admin.id", id)
     .leftJoin("volunteers", "admin.username", "=", "volunteers.email")
     .select(
       "admin.id as id",
@@ -235,9 +243,9 @@ app.get('/edit_employee/:id', isAuthenticated, (req, res) => {
       "volunteers.phone as phone"
     )
     .first()
-    .then(admin => {
+    .then((admin) => {
       if (admin) {
-        res.render('edit_employee', { user: req.session.user, admin });
+        res.render("edit_employee", { user: req.session.user, admin });
       } else {
         res.status(404).send("Employee not found");
       }
@@ -250,17 +258,15 @@ app.get('/edit_employee/:id', isAuthenticated, (req, res) => {
 
 app.post("/edit_employee/:id", async (req, res) => {
   const id = req.params.id;
-  const { username, password, phone, first_name, last_name, old_email } = req.body;
+  const { username, password, phone, first_name, last_name, old_email } =
+    req.body;
 
   try {
     // Update `admin` table
-    await knex("admin")
-      .where("id", id)
-      .update({
-        username,
-        password,
-        
-      });
+    await knex("admin").where("id", id).update({
+      username,
+      password,
+    });
 
     // Update `volunteers` table
     await knex("volunteers")
@@ -269,7 +275,7 @@ app.post("/edit_employee/:id", async (req, res) => {
         email: username,
         vol_first_name: first_name,
         vol_last_name: last_name,
-        phone
+        phone,
       });
 
     res.redirect("/manage_employees");
@@ -465,10 +471,6 @@ app.get("/edit_employee/:id", (req, res) => {
     });
 });
 
-
-
-
-
 app.get("/manage_volunteers", (req, res) => {
   knex("volunteers")
     .select()
@@ -515,9 +517,9 @@ app.get("/manage_events", (req, res) => {
     });
 });
 
-app.get("/edit_event", (req, res) => {
-  res.render("edit_event");
-});
+// app.get("/edit_event", (req, res) => {
+//   res.render("edit_event");
+// });
 
 app.get("/create_event", (req, rew) => {
   res.render("create_event");
@@ -636,59 +638,61 @@ app.post("/delete_volunteer/:id", (req, res) => {
     });
 });
 
-app.get("/edit_event/:id", (req, res) => {
-  const { id } = req.params;
+// app.get("/edit_event/:id", (req, res) => {
+//   const { id } = req.params;
 
-  knex("event")
-    .where({ id })
-    .first()
-    .then((event) => {
-      if (event) {
-        res.render("edit_event", { event });
-      } else {
-        res.status(404).send("Event not found");
-      }
-    })
-    .catch((err) => {
-      console.error("Error fetching event:", err);
-      res.status(500).send("Error retrieving event information");
-    });
-});
+//   knex("event")
+//     .where({ id })
+//     .first()
+//     .then((event) => {
+//       if (event) {
+//         res.render("edit_event", { event });
+//       } else {
+//         res.status(404).send("Event not found");
+//       }
+//     })
+//     .catch((err) => {
+//       console.error("Error fetching event:", err);
+//       res.status(500).send("Error retrieving event information");
+//     });
+// });
 
 app.post("/edit_event/:id", (req, res) => {
   const { id } = req.params;
   const {
-    eventDate,
-    eventAddress,
-    eventCity,
-    eventState,
-    startTime,
-    duration,
-    numberOfAttendees,
-    eventType,
-    firstName,
-    lastName,
-    phoneNumber,
-    secondaryPhone,
-    shareStory,
+    event_date,
+    address,
+    event_city,
+    event_state,
+    start_time,
+    event_duration,
+    child_participants,
+    adult_participants,
+    sewing_non,
+    coordinator_first_name,
+    coordinator_last_name,
+    coordinator_phone,
+    coordinator_secondary_phone,
+    share_story,
   } = req.body;
 
   knex("event")
     .where({ id })
     .update({
-      event_date: eventDate,
-      event_address: eventAddress,
-      event_city: eventCity,
-      event_state: eventState,
-      start_time: startTime,
-      run_time: duration,
-      num_attendees: numberOfAttendees,
-      sewing_non: eventType,
-      coordinator_first_name: firstName,
-      coordinator_last_name: lastName,
-      coordinator_phone: phoneNumber,
-      coordinator_secondary_phone: secondaryPhone,
-      share_story: shareStory ? true : false,
+      event_date: event_date,
+      address: address,
+      event_city: event_city,
+      event_state: event_state,
+      start_time: start_time,
+      event_duration: event_duration,
+      child_participants: child_participants,
+      adult_participants: adult_participants,
+      sewing_non: sewing_non,
+      coordinator_first_name: coordinator_first_name,
+      coordinator_last_name: coordinator_last_name,
+      coordinator_phone: coordinator_phone,
+      coordinator_secondary_phone: coordinator_secondary_phone,
+      share_story: share_story ? true : false,
     })
     .then(() => {
       res.redirect("/manage_events"); // Redirect to manage events page
