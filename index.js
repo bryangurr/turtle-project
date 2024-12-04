@@ -38,10 +38,7 @@ const knex = require("knex")({
   debug: true,
 });
 
-knex
-  .raw("SELECT 1")
-  .then(() => console.log("Database connection successful"))
-  .catch((err) => console.error("Database connection failed", err));
+
 
 app.get("/donate", (req, res) => {
   res.render("donate");
