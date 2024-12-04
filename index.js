@@ -30,8 +30,8 @@ const knex = require("knex")({
   connection: {
     host: process.env.RDS_HOSTNAME || "localhost",
     user: process.env.RDS_USERNAME || "postgres",
-    password: process.env.RDS_PASSWORD || "Never1:3",
-    database: process.env.RDS_DB_NAME || "turtleshelter",
+    password: process.env.RDS_PASSWORD || "Winter12!",
+    database: process.env.RDS_DB_NAME || "turtletest",
     port: process.env.RDS_PORT || 5432,
     ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false,
   },
@@ -107,21 +107,33 @@ app.get("/volunteer", (req, res) => {
 
 app.post("/addVolunteer", (req, res) => {
   //add record to volunteer table
+  const vol_first_name = req.body.vol_first_name;
+  const vol_last_name = req.body.vol_last_name;
+  const phone = req.body.phone;
+  const email = req.body.email;
+  const est_vol_hours = req.body.num_vol_hours;
+  const how_did_you_hear_id = req.body.how_did_you_hear_id;
+  const sewing_level = req.body.sewing_level;
+  const city = req.body.city;
+  const state = req.body.state;
+  const vol_address = req.body.vol_address;
+  const teach_sewing = req.body.teach_sewing === "true";
+  const lead_event = req.body.lead_event === "true";
   knex("volunteers")
     .insert({
       // REPLACE WITH ACTUAL COLUMN NAMES
-      vol_first_name: req.body.vol_first_name,
-      vol_last_name: req.body.vol_last_name,
-      phone: req.body.phone,
-      email: req.body.email,
-      est_vol_hours: req.body.num_vol_hours,
-      how_did_you_hear_id: req.body.how_did_you_hear_id,
-      sewing_level: req.body.sewing_level,
-      city: req.body.city,
-      state: req.body.state,
-      vol_address: req.body.vol_address,
-      teach_sewing: req.body.teach_sewing,
-      lead_event: req.body.lead_event,
+      vol_first_name: vol_first_name,
+      vol_last_name: vol_last_name,
+      phone: phone,
+      email: email,
+      est_vol_hours: est_vol_hours,
+      how_did_you_hear_id: how_did_you_hear_id,
+      sewing_level: sewing_level,
+      city: city,
+      state: state,
+      vol_address: vol_address,
+      teach_sewing: teach_sewing,
+      lead_event: lead_event,
     })
     .then(() => {
       res.redirect("/");
@@ -429,20 +441,18 @@ app.get("/edit_volunteer/:id", (req, res) => {
 
 app.post("/edit_volunteer/:id", (req, res) => {
   const { id } = req.params;
-  const {
-    vol_first_name,
-    vol_last_name,
-    phone,
-    email,
-    vol_address,
-    state,
-    city,
-    num_vol_hours,
-    how_did_you_hear_id,
-    sewing_level,
-    teach_sewing,
-    lead_event,
-  } = req.body;
+  const vol_first_name = req.body.vol_first_name;
+  const vol_last_name = req.body.vol_last_name;
+  const phone = req.body.phone;
+  const email = req.body.email;
+  const vol_address = req.body.vol_address;
+  const state = req.body.state;
+  const city = req.body.city;
+  const est_vol_hours = req.body.num_vol_hours;
+  const how_did_you_hear_id = req.body.how_did_you_hear_id;
+  const sewing_level = req.body.sewing_level;
+  const teach_sewing = req.body.teach_sewing === "true";
+  const lead_event = req.body.lead_event === "true";
 
   console.log(req.body);
 
@@ -457,17 +467,7 @@ app.post("/edit_volunteer/:id", (req, res) => {
       vol_address: vol_address,
       state: state,
       city: city,
-      est_vol_hours: parseInt(num_vol_hours),
-      how_did_you_hear_id: how_did_you_hear_id,
-      sewing_level: sewing_level,
-      teach_sewing: teach_sewing,
-      lead_event: lead_event,
-      phone: phone,
-      email: email,
-      vol_address: vol_address,
-      state: state,
-      city: city,
-      num_vol_hours: num_vol_hours,
+      est_vol_hours: parseInt(est_vol_hours),
       how_did_you_hear_id: how_did_you_hear_id,
       sewing_level: sewing_level,
       teach_sewing: teach_sewing,
@@ -485,16 +485,6 @@ app.post("/edit_volunteer/:id", (req, res) => {
 app.post("/delete_volunteer/:id", (req, res) => {
   const id = req.params.id;
 
-  knex("volunteers")
-    .where("id", id)
-    .delete()
-    .then(() => {
-      res.redirect("/manage_volunteers");
-    })
-    .catch((err) => {
-      console.error("Error deleting volunteer:", err);
-      res.status(500).send("Error updating volunteer information");
-    });
   knex("volunteers")
     .where("id", id)
     .delete()

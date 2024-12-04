@@ -97,7 +97,7 @@
             <label for="how_did_you_hear_id">How did you hear about us?</label>
             <select id="how_did_you_hear_id" name="how_did_you_hear_id">
                 <% how_did_you_hear.forEach(item => { %>
-                    <option value = "<% item.how_did_you_hear_id %>" <%= item.how_did_you_hear_id === volunteer.how_did_you_hear_id ? 'selected' : '' %>> 
+                    <option value = "<%= item.how_did_you_hear_id %>" <%= item.how_did_you_hear_id === volunteer.how_did_you_hear_id ? 'selected' : '' %>> 
                         <%= item.description %>"
                     </option>
                 <% }) %>
@@ -107,17 +107,17 @@
             <label for="sewing_level">Sewing Level</label>
             <select id="sewing_level" name="sewing_level">
                 <% sewing_level.forEach(level => { %>
-                    <option value = "<% level.sewing_level %>" <%= level.sewing_level === volunteer.sewing_level ? 'selected' : '' %> >
+                    <option value = "<%= level.sewing_level %>" <%= level.sewing_level === volunteer.sewing_level ? 'selected' : '' %> >
                         <%= level.description %>
                     </option>
                 <% }) %>
             </select>
           
             <label for="teach_sewing">Are you willing to teach sewing at events?</label>
-            <input type="checkbox" id="teach_sewing" name="teach_sewing" value="true" <%= volunteer.teach_sewing == 'Y' ? 'checked' : '' %> >
+            <input type="checkbox" id="teach_sewing" name="teach_sewing" value="true" <%= volunteer.teach_sewing ? 'checked' : '' %> >
 
             <label for="lead_event">Are you willing to take the lead at events?</label>
-            <input type="checkbox" id="lead_event" name="lead_event" value="true" <%= volunteer.lead_event == 'Y' ? 'checked' : '' %> >
+            <input type="checkbox" id="lead_event" name="lead_event" value="true" <%= volunteer.lead_event ? 'checked' : '' %> >
 
 
             <button type="submit">Submit</button>

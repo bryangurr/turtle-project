@@ -151,8 +151,8 @@
                         <td><%= volunteer.phone %></td>
                         <td><%= volunteer.how_did_you_hear_id %></td>
                         <td><%= volunteer.sewing_level %></td>
-                        <td><%= volunteer.lead_event == 'Y' ? 'Y' : 'N' %>%></td>
-                        <td><%= volunteer.teach_sewing == 'Y' ? 'Y' : 'N' %></td>
+                        <td><%= volunteer.lead_event ? 'Yes' : 'No' %>%></td>
+                        <td><%= volunteer.teach_sewing ? 'Yes' : 'No' %></td>
                         <td><%= volunteer.est_vol_hours %></td>
                         <td>
                             <form action="/edit_volunteer/<%= volunteer.id %>" method="GET" style="display: inline;">
