@@ -30,15 +30,13 @@ const knex = require("knex")({
   connection: {
     host: process.env.RDS_HOSTNAME || "localhost",
     user: process.env.RDS_USERNAME || "postgres",
-    password: process.env.RDS_PASSWORD || "Never1:3",
-    database: process.env.RDS_DB_NAME || "turtleshelter",
+    password: process.env.RDS_PASSWORD || "Winter12!",
+    database: process.env.RDS_DB_NAME || "turtletest",
     port: process.env.RDS_PORT || 5432,
     ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false,
   },
   debug: true,
 });
-
-
 
 app.get("/donate", (req, res) => {
   res.render("donate");
@@ -158,48 +156,50 @@ app.post("/schedule_event", (req, res) => {
 });
 
 // adding security to login page and authentication
-const session = require('express-session');
+const session = require("express-session");
 
 // Configure session middleware
-app.use(session({
-  secret: 'fortnite', // Replace with a strong secret key
-  resave: false, // Prevents session being saved on every request if unmodified
-  saveUninitialized: false, // Only saves sessions when initialized
-  cookie: { secure: false } // Set to true if using HTTPS
-}));
+app.use(
+  session({
+    secret: "fortnite", // Replace with a strong secret key
+    resave: false, // Prevents session being saved on every request if unmodified
+    saveUninitialized: false, // Only saves sessions when initialized
+    cookie: { secure: false }, // Set to true if using HTTPS
+  })
+);
 
 // POST route to handle login
-app.post('/login', (req, res) => {
+app.post("/login", (req, res) => {
   const { username, password } = req.body; // Extract username and password
 
   // Query the database for the user
-  knex('admin') // Replace 'admin' with your table name if different
+  knex("admin") // Replace 'admin' with your table name if different
     .where({ username }) // Check if username exists
     .first() // Fetch the first matching record
-    .then(admin => {
+    .then((admin) => {
       if (!admin) {
         // No matching username found
-        console.error('Invalid username');
-        return res.status(401).send('Invalid username or password.');
+        console.error("Invalid username");
+        return res.status(401).send("Invalid username or password.");
       }
 
       // Compare the entered plain-text password with the stored password
       if (password === admin.password) {
-        console.log('Login successful:', username);
+        console.log("Login successful:", username);
 
         // Store user info in the session
         req.session.user = { username: admin.username };
 
         // Redirect to a protected page
-        res.redirect('/employee_home');
+        res.redirect("/employee_home");
       } else {
-        console.error('Invalid password');
-        res.status(401).send('Invalid username or password.');
+        console.error("Invalid password");
+        res.status(401).send("Invalid username or password.");
       }
     })
-    .catch(err => {
-      console.error('Error during login:', err);
-      res.status(500).send('Internal server error.');
+    .catch((err) => {
+      console.error("Error during login:", err);
+      res.status(500).send("Internal server error.");
     });
 });
 
@@ -208,19 +208,17 @@ function isAuthenticated(req, res, next) {
   if (req.session.user) {
     return next(); // User is authenticated, proceed
   }
-  res.redirect('/login'); // Redirect to login if not authenticated
+  res.redirect("/login"); // Redirect to login if not authenticated
 }
 
 // Protected employee routes
-app.get('/employee_home', isAuthenticated, (req, res) => {
-  res.render('employee_home', { user: req.session.user });
+app.get("/employee_home", isAuthenticated, (req, res) => {
+  res.render("employee_home", { user: req.session.user });
 });
 
-
-
 // Employee Pages
-app.get('/create_employee', isAuthenticated, (req, res) => {
-  res.render('create_employee', { user: req.session.user });
+app.get("/create_employee", isAuthenticated, (req, res) => {
+  res.render("create_employee", { user: req.session.user });
 });
 
 app.get('/edit_employee/:id', isAuthenticated, (req, res) => {
@@ -241,12 +239,12 @@ app.get('/edit_employee/:id', isAuthenticated, (req, res) => {
       if (admin) {
         res.render('edit_employee', { user: req.session.user, admin });
       } else {
-        res.status(404).send('Employee not found');
+        res.status(404).send("Employee not found");
       }
     })
-    .catch(err => {
-      console.error('Error fetching employee:', err);
-      res.status(500).send('Internal server error.');
+    .catch((err) => {
+      console.error("Error fetching employee:", err);
+      res.status(500).send("Internal server error.");
     });
 });
 
@@ -281,74 +279,73 @@ app.post("/edit_employee/:id", async (req, res) => {
   }
 });
 // Event Management
-app.get('/manage_events', isAuthenticated, (req, res) => {
-  knex('events')
+app.get("/manage_events", isAuthenticated, (req, res) => {
+  knex("events")
     .select()
-    .then(events => {
-      res.render('manage_events', { user: req.session.user, events });
+    .then((events) => {
+      res.render("manage_events", { user: req.session.user, events });
     })
-    .catch(err => {
-      console.error('Error fetching events:', err);
-      res.status(500).send('Internal server error.');
+    .catch((err) => {
+      console.error("Error fetching events:", err);
+      res.status(500).send("Internal server error.");
     });
 });
 
-app.get('/edit_event/:id', isAuthenticated, (req, res) => {
-  knex('events')
+app.get("/edit_event/:id", isAuthenticated, (req, res) => {
+  knex("events")
     .where({ id: req.params.id })
     .first()
-    .then(event => {
+    .then((event) => {
       if (event) {
-        res.render('edit_event', { user: req.session.user, event });
+        res.render("edit_event", { user: req.session.user, event });
       } else {
-        res.status(404).send('Event not found');
+        res.status(404).send("Event not found");
       }
     })
-    .catch(err => {
-      console.error('Error fetching event:', err);
-      res.status(500).send('Internal server error.');
+    .catch((err) => {
+      console.error("Error fetching event:", err);
+      res.status(500).send("Internal server error.");
     });
 });
 
 // Volunteer Management
-app.get('/manage_volunteers', isAuthenticated, (req, res) => {
-  knex('volunteers')
+app.get("/manage_volunteers", isAuthenticated, (req, res) => {
+  knex("volunteers")
     .select()
-    .then(volunteers => {
-      res.render('manage_volunteers', { user: req.session.user, volunteers });
+    .then((volunteers) => {
+      res.render("manage_volunteers", { user: req.session.user, volunteers });
     })
-    .catch(err => {
-      console.error('Error fetching volunteers:', err);
-      res.status(500).send('Internal server error.');
+    .catch((err) => {
+      console.error("Error fetching volunteers:", err);
+      res.status(500).send("Internal server error.");
     });
 });
 
 // Event Reporting
-app.get('/report_event/:id', isAuthenticated, (req, res) => {
-  knex('events')
+app.get("/report_event/:id", isAuthenticated, (req, res) => {
+  knex("events")
     .where({ id: req.params.id })
     .first()
-    .then(event => {
+    .then((event) => {
       if (event) {
-        res.render('report_event', { user: req.session.user, event });
+        res.render("report_event", { user: req.session.user, event });
       } else {
-        res.status(404).send('Event not found');
+        res.status(404).send("Event not found");
       }
     })
-    .catch(err => {
-      console.error('Error fetching event:', err);
-      res.status(500).send('Internal server error.');
+    .catch((err) => {
+      console.error("Error fetching event:", err);
+      res.status(500).send("Internal server error.");
     });
 });
 
-
-app.post('/logout', (req, res) => {
-  req.session.destroy(err => {
+app.post("/logout", (req, res) => {
+  req.session.destroy((err) => {
     if (err) {
-      console.error('Error during logout:', err);
-      return res.status(500).send('Error during logout.');
+      console.error("Error during logout:", err);
+      return res.status(500).send("Error during logout.");
     }
-    res.redirect('/'); // Redirect to home page after logout
+    res.redirect("/"); // Redirect to home page after logout
   });
 });
 
@@ -412,8 +409,6 @@ app.get("/manage_employees", isAuthenticated, (req, res) => {
     });
 });
 
-
-
 app.get("/create_employee", (req, res) => {
   res.render("create_employee");
 });
@@ -447,6 +442,27 @@ app.post("/create_employee", (req, res) => {
     });
 });
 
+app.get("/edit_employee/:id", (req, res) => {
+  const id = req.params.id;
+  knex("admin")
+    .leftJoin("volunteers", "admin.username", "=", "volunteers.email")
+    .select(
+      "admin.id as id",
+      "admin.username as username",
+      "volunteers.vol_first_name as first_name",
+      "volunteers.vol_last_name as last_name",
+      "volunteers.phone as phone"
+    )
+    .where("id", id)
+    .first()
+    .then((admin) => {
+      res.render("edit_employee", { admin });
+    })
+    .catch((error) => {
+      console.error("Error finding employee:", error);
+      res.status(500).send("Internal Server Error");
+    });
+});
 
 
 
