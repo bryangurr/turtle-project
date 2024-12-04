@@ -43,7 +43,7 @@ const knex = require("knex")({
   connection: {
     host: process.env.RDS_HOSTNAME || "localhost",
     user: process.env.RDS_USERNAME || "postgres",
-    password: process.env.RDS_PASSWORD || "AFlacrosse#6",
+    password: process.env.RDS_PASSWORD || "Winter12!",
     database: process.env.RDS_DB_NAME || "turtletest",
     port: process.env.RDS_PORT || 5432,
     ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false,
@@ -467,19 +467,24 @@ app.get("/schedule_event", (req, res) => {
 app.post("/schedule_event", (req, res) => {
   knex("event")
     .insert({
-      Event_Date: req.body.eventDate,
-      Address: req.body.eventAddress,
-      Event_City: req.body.eventCity,
-      Event_State: req.body.eventState,
-      Start_Time: req.body.startTime,
-      Run_Time: req.body.duration,
-      Num_Attendees: req.body.numberOfAttendees,
-      Sewing_Non: req.body.eventType,
-      Coordinator_First_Name: req.body.firstName,
-      Coordinator_Last_Name: req.body.lastName,
-      Coordinator_Phone: req.body.phoneNumber,
-      Coordinator_Secondary_Phone: req.body.secondaryPhone,
-      Share_Story: req.body.shareStory,
+      event_date: req.body.event_date,
+      address: req.body.address,
+      event_city: req.body.event_city,
+      event_state: req.body.event_state,
+      start_time: req.body.start_time,
+      event_duration: req.body.event_duration,
+      adult_participants: req.body.adult_participants,
+      child_participants: req.body.child_participants || 0,
+      sewing_non: req.body.sewing_non,
+      coordinator_first_name: req.body.coordinator_first_name,
+      coordinator_last_name: req.body.coordinator_last_name,
+      coordinator_phone: req.body.coordinator_phone,
+      coordinator_secondary_phone: req.body.coordinator_secondary_phone || "",
+      share_story: req.body.share_story || false,
+      event_desc: req.body.event_desc,
+      num_sewers: req.body.num_sewers || 0,
+      num_sewing_machine: req.body.num_sewing_machine || 0,
+      num_serger_machine: req.body.num_serger_machine || 0,
     })
     .then(() => {
       res.redirect("/");
@@ -548,6 +553,21 @@ app.post("/edit_event/:id", (req, res) => {
     })
     .catch((err) => {
       console.error("Error updating event:", err);
+      res.status(500).send("Error updating event information");
+    });
+});
+
+app.post("/delete_event/:id", isAuthenticated, (req, res) => {
+  const id = req.params.id;
+
+  knex("event")
+    .where("id", id)
+    .delete()
+    .then(() => {
+      res.redirect("/manage_events");
+    })
+    .catch((err) => {
+      console.error("Error deleting event:", err);
       res.status(500).send("Error updating event information");
     });
 });
