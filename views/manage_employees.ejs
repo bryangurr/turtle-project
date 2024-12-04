@@ -6,130 +6,197 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Employees</title>
     <style>
-        body {
-            font-family: Futura, sans-serif;
-            margin: 0;
-            background-color: #f5f5f5;
-            padding: 20px;
-        }
+/* General Styles */
+body {
+    font-family: Futura, sans-serif;
+    margin: 0;
+    background-color: #f5f5f5;
+    padding: 20px;
+}
+/* General Body Style */
 
-        h1 {
-            color: #004d40;
-            text-align: center;
-            margin-bottom: 20px;
-        }
+/* Banner Section */
+.banner {
+    display: flex;
+    justify-content: space-between; /* Align title and buttons on opposite sides */
+    align-items: center;
+    background-color: #004d40;
+    padding: 10px 20px;
+    color: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
 
-        .header-buttons {
-            display: flex;
-            justify-content: flex-start;
-            margin-bottom: 20px;
-        }
+/* Title Styling */
+.banner .title h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #66bb6a;
+}
 
-        .btn {
-            padding: 10px 20px;
-            font-size: 14px;
-            color: white;
-            background-color: #66bb6a;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            margin-right: 10px;
-            transition: background-color 0.3s ease;
-        }
+/* Banner Buttons */
+.banner-buttons {
+    display: flex;
+    gap: 10px;
+}
 
-        .btn:hover {
-            background-color: #004d40;
-        }
+/* General Button Styling */
+.banner-buttons .btn {
+    background-color: #66bb6a;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 
-        .table-container {
-            margin: 0 auto;
-            width: 90%;
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        }
+.banner-buttons .btn:hover {
+    background-color: #004d40;
+}
 
-        .table-container table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-            background-color: #ffffff;
-            border: 1px solid #e0e0e0;
-        }
+/* Dropdown Container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
 
-        th,
-        td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid #e0e0e0;
-        }
+/* Dropdown Menu Styling */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    z-index: 1;
+    right: 0; /* Align dropdown to the right */
+}
 
-        th {
-            background-color: #66bb6a;
-            color: white;
-        }
+.dropdown-menu a {
+    color: #004d40;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+}
 
-        td {
-            font-size: 14px;
-            color: #333;
-        }
+.dropdown-menu a:hover {
+    background-color: #f1f1f1;
+    color: #004d40;
+}
 
-        .btn.edit {
-            background-color: #66bb6a;
-        }
+/* Show Dropdown Menu on Hover */
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
 
-        .btn.edit:hover {
-            background-color: #004d40;
-        }
+/* Main Content Section */
+h1 {
+    color: #004d40;
+    text-align: center;
+    margin-bottom: 20px;
+}
 
-        .btn.delete {
-            background-color: #e57373;
-        }
+.table-container {
+    margin: 0 auto;
+    width: 90%;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
 
-        .btn.delete:hover {
-            background-color: #d32f2f;
-        }
+/* Table Styling */
+.table-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
 
-        select {
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #e0e0e0;
-            font-size: 14px;
-        }
+th,
+td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
 
-        .add-event-btn {
-            margin-top: 20px;
-            margin-left: 4%;
-            display: block;
-            padding: 10px 20px;
-            background-color: #66bb6a;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            text-align: center;
-            text-decoration: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+th {
+    background-color: #66bb6a;
+    color: white;
+}
 
-        .add-event-btn:hover {
-            background-color: #004d40;
-        }
+td {
+    font-size: 14px;
+    color: #333;
+}
+
+/* Edit and Delete Buttons (Unchanged) */
+.btn.edit {
+    background-color: #66bb6a;
+}
+
+.btn.edit:hover {
+    background-color: #004d40;
+}
+
+.btn.delete {
+    background-color: #e57373;
+}
+
+.btn.delete:hover {
+    background-color: #d32f2f;
+}
+
+/* Add Employee Button */
+.add-event-btn {
+    margin-top: 20px;
+    display: block;
+    padding: 10px 20px;
+    background-color: #66bb6a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-event-btn:hover {
+    background-color: #004d40;
+}
+
     </style>
 
 </head>
 
 <body>
     <!-- Header Section -->
-
-    <div class="header-buttons">
-        <a href="/employee_home" class="btn">Return to Dashboard</a>
-    </div>
-
+    <header class="banner">
+        <div class="title">
+            <h1>Manage Employees</h1>
+        </div>
+        <div class="banner-buttons">
+            <form action="/employee_home" method="GET" style="display: inline;">
+                <button type="submit" class="btn">Employee Home</button>
+            </form>
+            <div class="dropdown">
+                <button class="btn">Manage</button>
+                <div class="dropdown-menu">
+                    <a href="/manage_employees">Manage Admin Accounts</a>
+                    <a href="/manage_volunteers">Manage Volunteers</a>
+                    <a href="/manage_events">Manage Events</a>
+                </div>
+            </div>
+            <form action="/logout" method="POST" style="display: inline;">
+                <button type="submit" class="btn">Logout</button>
+            </form>
+        </div>
+    </header>
+    
 
     <!-- Title -->
     <div class="table-container">
