@@ -30,8 +30,8 @@ const knex = require("knex")({
   connection: {
     host: process.env.RDS_HOSTNAME || "localhost",
     user: process.env.RDS_USERNAME || "postgres",
-    password: process.env.RDS_PASSWORD || "AFlacrosse#6",
-    database: process.env.RDS_DB_NAME || "turtletest",
+    password: process.env.RDS_PASSWORD || "Never1:3",
+    database: process.env.RDS_DB_NAME || "turtleshelter",
     port: process.env.RDS_PORT || 5432,
     ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false,
   },
@@ -74,19 +74,7 @@ app.post("/pay", async (req, res) => {
 
 // Route to display Pokemon records (root)
 app.get("/", (req, res) => {
-  const dbConfig = {
-    hostname: process.env.RDS_HOSTNAME,
-    username: process.env.RDS_USERNAME,
-    password: process.env.RDS_PASSWORD,
-    dbName: process.env.RDS_DB_NAME,
-    port: process.env.RDS_PORT,
-    ssl: process.env.DB_SSL,
-  };
-
-  console.log(dbConfig);
-
-  // Pass dbConfig to the EJS file
-  res.render("home", { dbConfig });
+  res.render("home");
 });
 
 app.get("/about", (req, res) => {
@@ -219,9 +207,7 @@ app.get('/employee_home', isAuthenticated, (req, res) => {
   res.render('employee_home', { user: req.session.user });
 });
 
-app.get('/manage_employees', isAuthenticated, (req, res) => {
-  res.render('manage_employees', { user: req.session.user });
-});
+
 
 app.post('/logout', (req, res) => {
   req.session.destroy(err => {
@@ -270,7 +256,11 @@ app.get("/employee_home", (req, res) => {
   res.render("employee_home");
 });
 
-app.get("/manage_employees", (req, res) => {
+// app.get('/manage_employees', isAuthenticated, (req, res) => {
+//   res.render('manage_employees', { user: req.session.user });
+// });
+
+app.get("/manage_employees", isAuthenticated, (req, res) => {
   knex("admin")
     .leftJoin("volunteers", "admin.username", "=", "volunteers.email")
     .select(
@@ -281,7 +271,7 @@ app.get("/manage_employees", (req, res) => {
       "volunteers.phone as phone"
     )
     .then((admins) => {
-      res.render("manage_employees", { admins });
+      res.render("manage_employees", { admins, user: req.session.user });
     })
     .catch((error) => {
       console.error("Error querying database:", error);
@@ -289,32 +279,7 @@ app.get("/manage_employees", (req, res) => {
     });
 });
 
-app.get("/manage_employees", async (req, res) => {
-  console.log({
-    host: process.env.RDS_HOSTNAME,
-    user: process.env.RDS_USERNAME,
-    database: process.env.RDS_DB_NAME,
-    ssl: process.env.DB_SSL,
-  });
 
-  try {
-    await knex.raw("SELECT 1+1 AS result");
-    console.log("Database connected successfully!");
-    const admins = await knex("admin").select();
-    res.render("manage_employees", { admins });
-  } catch (error) {
-    console.error("Error querying database:", error);
-    res.status(500).send("Internal Server Error");
-  }
-});
-
-// .select(
-//   'admin.id as id',
-//   'admin.email as email',
-//   'volunteers.vol_first_name as first_name',
-//   'volunteers.vol_last_name as last_name',
-//   'volunteers.phone as phone'
-// )
 
 app.get("/create_employee", (req, res) => {
   res.render("create_employee");
