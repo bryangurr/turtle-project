@@ -430,18 +430,6 @@ app.post("/create_employee", (req, res) => {
       console.error("Error querying database:", error);
       res.status(500).send("Internal Server Error");
     });
-  knex("admin")
-    .insert({
-      username: username,
-      password: password,
-    })
-    .then(() => {
-      res.redirect("/manage_employees");
-    })
-    .catch((error) => {
-      console.error("Error creating employee:", error);
-      res.status(500).send("Internal Server Error");
-    });
 });
 
 // EVENTS
