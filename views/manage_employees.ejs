@@ -140,10 +140,10 @@
                     <td><%= admin.username %></td>
                     <td><%= admin.password %></td>
                     <td>
-                        <form action="/edit_employee" method="GET" style="display: inline;">
+                        <form action="/edit_employee/<%=admin.username%>" method="GET" style="display: inline;">
                             <button class="btn edit" type="submit">Edit</button>
                         </form>
-                        <form action="/delete_employee" method="POST" style="display: inline;">
+                        <form action="/delete_employee/<%=admin.username%>" method="POST" style="display: inline;">
                             <button class="btn delete" type="submit">Delete</button>
                         </form>
                     </td>

@@ -29,8 +29,8 @@ const knex = require("knex")({
   connection: {
     host: process.env.RDS_HOSTNAME || "localhost",
     user: process.env.RDS_USERNAME || "postgres",
-    password: process.env.RDS_PASSWORD || "admin",
-    database: process.env.RDS_DB_NAME || "turtletest",
+    password: process.env.RDS_PASSWORD || "Never1:3",
+    database: process.env.RDS_DB_NAME || "turtleshelter",
     port: process.env.RDS_PORT || 5432,
     ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false
   },
@@ -242,13 +242,31 @@ app.post('/create_employee', (req, res) => {
     res.redirect('/manage_employees');
   })
   .catch(error => {
-    console.error('Error querying database:', error);
+    console.error('Error creating employee:', error);
     res.status(500).send('Internal Server Error');
   });
 });
 
-app.get('/edit_employee', (req, res) => {
-  res.render('edit_employee');
+app.get('/edit_employee/:username', (req, res) => {
+  const username = req.params.username;
+  knex('admin')
+  .where('username', username)
+  .first()
+  .then(admin => {
+    res.render('edit_employee', {admin});
+  })
+  .catch(error => {
+    console.error('Error finding employee:', error);
+    res.status(500).send('Internal Server Error');
+  });
+});
+
+app.post('/edit_employee', (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+  knex('admin')
+  .where('username', username)
+  
 });
 
 app.get('/manage_volunteers', (req, res) => {
