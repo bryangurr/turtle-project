@@ -5,96 +5,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Employees</title>
     <style>
-        /* General Styles */
-        body {
-            margin: 0;
-            font-family: Futura, sans-serif;
-            background-color: #f5f5f5;
-            padding: 20px;
-        }
+    body {
+        font-family: Futura, sans-serif;
+        margin: 0;
+        background-color: #f5f5f5;
+        padding: 20px;
+    }
 
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+    h1 {
+        color: #004d40;
+        text-align: center;
+        margin-bottom: 20px;
+    }
 
-        header .return-home-btn {
-            padding: 10px 20px;
-            background-color: #66bb6a;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            text-decoration: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+    .header-buttons {
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 20px;
+    }
 
-        header .return-home-btn:hover {
-            background-color: #004d40;
-        }
+    .btn {
+        padding: 10px 20px;
+        font-size: 14px;
+        color: white;
+        background-color: #66bb6a;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        margin-right: 10px;
+        transition: background-color 0.3s ease;
+    }
 
-        h1 {
-            color: #004d40;
-            text-align: center;
-            margin-bottom: 20px;
-        }
+    .btn:hover {
+        background-color: #004d40;
+    }
 
-        /* Table Styles */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 0 auto;
-            background-color: #ffffff;
-            border: 1px solid #e0e0e0;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        }
+    .table-container {
+        margin: 0 auto;
+        width: 110%;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
 
-        th, td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid #e0e0e0;
-        }
+    .table-container table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        background-color: #ffffff;
+        border: 1px solid #e0e0e0;
+    }
 
-        th {
-            background-color: #66bb6a;
-            color: white;
-        }
+    th, td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #e0e0e0;
+    }
 
-        td {
-            font-size: 14px;
-            color: #333;
-        }
+    th {
+        background-color: #66bb6a;
+        color: white;
+    }
 
-        td .btn {
-            padding: 8px 12px;
-            font-size: 14px;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+    td {
+        font-size: 14px;
+        color: #333;
+    }
 
-        td .btn.edit {
-            background-color: #66bb6a;
-        }
+    .btn.edit {
+        background-color: #66bb6a;
+    }
 
-        td .btn.edit:hover {
-            background-color: #004d40;
-        }
+    .btn.edit:hover {
+        background-color: #004d40;
+    }
 
-        td .btn.delete {
-            background-color: #e57373;
-        }
+    .btn.delete {
+        background-color: #e57373;
+    }
 
-        td .btn.delete:hover {
-            background-color: #d32f2f;
-        }
+    .btn.delete:hover {
+        background-color: #d32f2f;
+    }
 
-        .add-employee-btn {
+    select {
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border: 1px solid #e0e0e0;
+        font-size: 14px;
+    }
+
+    .add-event-btn {
             margin-top: 20px;
             display: block;
             padding: 10px 20px;
@@ -109,20 +113,22 @@
             transition: background-color 0.3s ease;
         }
 
-        .add-employee-btn:hover {
+        .add-event-btn:hover {
             background-color: #004d40;
         }
-    </style>
+</style>
+    
 </head>
 <body>
     <!-- Header Section -->
-    <header>
-        <form action="/employee_home" method="GET">
-            <button class="employee_home" type="submit">Return</button>
-        </form>
-    </header>
+    
+        <div class="header-buttons">
+            <a href="/employee_home" class="btn">Return to Dashboard</a>
+        </div>
+   
 
     <!-- Title -->
+    <div class="table-container">
     <h1>Manage Admin Accounts</h1>
 
     <!-- Table -->
@@ -153,8 +159,10 @@
     </table>
 
     <!-- Add Employee Button -->
-    <form action="/create_employee" method="GET">
-        <button class="add-employee-btn" type="submit">Add Admin</button>
-    </form>
+    
+</div>
+<form action="/create_employee" method="GET">
+    <button class="add-event-btn" type="submit">Add Admin</button>
+</form>
 </body>
 </html>
