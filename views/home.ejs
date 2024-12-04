@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,40 +15,46 @@
     }
 
     header {
-  background: #2e8b57;
-  color: #fff;
-  padding: 15px 0;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  display: flex; /* Enables flexible layout */
-  align-items: center; /* Centers content vertically */
-}
+      background: #2e8b57;
+      color: #fff;
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      /* Enables flexible layout */
+      align-items: center;
+      /* Centers content vertically */
+    }
 
-header img {
-  height: 50px; /* Adjust as needed */
-  margin-left: 15px; /* Adds some spacing from the edge */
-}
+    header img {
+      height: 50px;
+      /* Adjust as needed */
+      margin-left: 15px;
+      /* Adds some spacing from the edge */
+    }
 
-header nav {
-  flex-grow: 1; /* Makes the nav section expand to fill available space */
-  text-align: center; /* Centers the content horizontally */
-}
+    header nav {
+      flex-grow: 1;
+      /* Makes the nav section expand to fill available space */
+      text-align: center;
+      /* Centers the content horizontally */
+    }
 
-header nav a {
-  color: #fff;
-  margin: 0 15px;
-  text-decoration: none;
-  font-size: 1.1em;
-  font-weight: bold;
-  transition: color 0.3s ease;
-}
+    header nav a {
+      color: #fff;
+      margin: 0 15px;
+      text-decoration: none;
+      font-size: 1.1em;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
 
-header nav a:hover {
-  color: #c3e6cb;
-}
+    header nav a:hover {
+      color: #c3e6cb;
+    }
 
-    
+
 
     h2 {
       color: #2e8b57;
@@ -60,7 +67,7 @@ header nav a:hover {
       text-align: center;
       margin-bottom: 20px;
     }
-    
+
 
     p {
       font-size: 1.2em;
@@ -103,37 +110,47 @@ header nav a:hover {
     }
 
     .hero {
-  position: relative; /* Allows for an overlay */
-  background: url('images/Picture11.jpg') no-repeat center center / cover;
-  height: 50vh; /* Example height: full viewport height */
-  color: #fff; /* Ensures text is readable on dark background */
-  display: flex; /* Centers content inside the section */
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
+      position: relative;
+      /* Allows for an overlay */
+      background: url('images/Picture11.jpg') no-repeat center center / cover;
+      height: 50vh;
+      /* Example height: full viewport height */
+      color: #fff;
+      /* Ensures text is readable on dark background */
+      display: flex;
+      /* Centers content inside the section */
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
 
-.hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Dark haze effect */
-  z-index: 1; /* Ensures the overlay is behind content */
-}
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      /* Dark haze effect */
+      z-index: 1;
+      /* Ensures the overlay is behind content */
+    }
 
-.hero-content {
-  position: relative; /* Keeps it above the overlay */
-  z-index: 2; /* Ensures content appears on top of the overlay */
-}
+    .hero-content {
+      position: relative;
+      /* Keeps it above the overlay */
+      z-index: 2;
+      /* Ensures content appears on top of the overlay */
+    }
 
-.hero h1,
-.hero p {
-  z-index: 2; /* Ensures text stays on top of the haze */
-  color: #ffffff !important; /* Forces text to be white */
-}
+    .hero h1,
+    .hero p {
+      z-index: 2;
+      /* Ensures text stays on top of the haze */
+      color: #ffffff !important;
+      /* Forces text to be white */
+    }
 
 
 
@@ -175,11 +192,9 @@ header nav a:hover {
     footer a:hover {
       color: #c3e6cb;
     }
-
-    
-
   </style>
 </head>
+
 <body>
 
   <!-- Top Navigation Bar -->
@@ -195,79 +210,63 @@ header nav a:hover {
   </header>
 
   <!-- Hero Section -->
-  
+
   <section class="hero" style="background-color: #fff; color: #ffffff; text-align: center; padding: 100px 20px;">
     <div class="hero-content">
-    <h1 style="font-size: 2.8em; margin-bottom: 20px;">Helping to Save The Lives of People Experiencing Homelessness</h1>
-    <p style="font-size: 1.3em; margin-bottom: 30px;">Providing Insulated Vests as Portable Shelters to Those in Need.</p>
-    <a href="https://turtleshelterproject.org/donate" style="background: #2e8b57; color: #fff; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-size: 1.2em; font-weight: bold; transition: background 0.3s ease, color 0.3s ease;">Donate Now</a>
-    <h1>Database Configuration</h1>
-    <table border="1">
-      <tr>
-        <th>Key</th>
-        <th>Value</th>
-      </tr>
-      <tr>
-        <td>Hostname</td>
-        <td><%= dbConfig.hostname %></td>
-      </tr>
-      <tr>
-        <td>Username</td>
-        <td><%= dbConfig.username %></td>
-      </tr>
-      <tr>
-        <td>Password</td>
-        <td><%= dbConfig.password %></td>
-      </tr>
-      <tr>
-        <td>Database Name</td>
-        <td><%= dbConfig.dbName %></td>
-      </tr>
-      <tr>
-        <td>Port</td>
-        <td><%= dbConfig.port %></td>
-      </tr>
-      <tr>
-        <td>SSL</td>
-        <td><%= dbConfig.ssl %></td>
-      </tr>
-    </table>
-  </div>
+      <h1 style="font-size: 2.8em; margin-bottom: 20px;">Helping to Save The Lives of People Experiencing Homelessness
+      </h1>
+      <p style="font-size: 1.3em; margin-bottom: 30px;">Providing Insulated Vests as Portable Shelters to Those in Need.
+      </p>
+      <a href="https://turtleshelterproject.org/donate"
+        style="background: #2e8b57; color: #fff; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-size: 1.2em; font-weight: bold; transition: background 0.3s ease, color 0.3s ease;">Donate
+        Now</a>
+
+    </div>
   </section>
-  
+
 
   <!-- What is a Turtle Shelter Vest Section -->
-  <section style="background-color: #fff; padding: 2rem; max-width: 800px; margin: 20px auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+  <section
+    style="background-color: #fff; padding: 2rem; max-width: 800px; margin: 20px auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
     <h2 style="color: #2e8b57; text-align: left;">What is a Turtle Shelter?</h2>
     <div style="text-align: left;">
-      <img src="images/Original+logo+low+resolution.png" alt="Description of the image" style="max-width: 100%; height: auto;">
-  </div>  
-    <p style="text-align: left; font-size: 1.2em; line-height: 1.6;">A high-tech but simple solution to help save lives - </p>
-    <p style="text-align: left; font-size: 1.2em; line-height: 1.6;">It's a portable "shelter" you can carry with you, just like a turtle...</p>
-    <p style="text-align: left; font-size: 1.2em; line-height: 1.6;">One winter when Jen was homeless, <B>7</B> of her friends froze to death.</p>
-    <p style="text-align: left; font-size: 1.2em; line-height: 1.6;">Jen is no longer homeless and has figured out a solution:</p>
-    <p style="text-align: left; font-size: 1.2em; line-height: 1.6;">High-tech foam vests that are inexpensive, keep a person warm up to 10 degrees below zero, and help <B>SAVE</B> lives.</p>
-    <p style="text-align: left; font-size: 1.2em; line-height: 1.6;"><B>YOU</B> can request vests for your community - and you can make vests and have your friends, business colleagues, church members, or club make vests too!</p>
-</section>
+      <img src="images/Original+logo+low+resolution.png" alt="Description of the image"
+        style="max-width: 100%; height: auto;">
+    </div>
+    <p style="text-align: left; font-size: 1.2em; line-height: 1.6;">A high-tech but simple solution to help save lives
+      - </p>
+    <p style="text-align: left; font-size: 1.2em; line-height: 1.6;">It's a portable "shelter" you can carry with you,
+      just like a turtle...</p>
+    <p style="text-align: left; font-size: 1.2em; line-height: 1.6;">One winter when Jen was homeless, <B>7</B> of her
+      friends froze to death.</p>
+    <p style="text-align: left; font-size: 1.2em; line-height: 1.6;">Jen is no longer homeless and has figured out a
+      solution:</p>
+    <p style="text-align: left; font-size: 1.2em; line-height: 1.6;">High-tech foam vests that are inexpensive, keep a
+      person warm up to 10 degrees below zero, and help <B>SAVE</B> lives.</p>
+    <p style="text-align: left; font-size: 1.2em; line-height: 1.6;"><B>YOU</B> can request vests for your community -
+      and you can make vests and have your friends, business colleagues, church members, or club make vests too!</p>
+  </section>
 
 
   <!-- How You Can Help Section -->
   <section>
     <h2>Contact Us</h2>
     <p>
-      Turtle Shelter Project, PO Box 382, Kaysville, UT 84037 | 801-872-3190 | 
+      Turtle Shelter Project, PO Box 382, Kaysville, UT 84037 | 801-872-3190 |
       <a href="mailto:turtleshelterproject@gmail.com">turtleshelterproject@gmail.com</a>
-      <p style="text-align: center;">
-        <a href="https://www.facebook.com/TurtleShelterProject" target="_blank">
-            <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" style="width: 40px; height: 40px;">
-        </a>
+    <p style="text-align: center;">
+      <a href="https://www.facebook.com/TurtleShelterProject" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"
+          style="width: 40px; height: 40px;">
+      </a>
     </p>
     <p style="text-align: center; margin-top: 10px; font-size: 0.8em;">
-        <a href="https://www.flaticon.com/free-icons/facebook" title="facebook icons" style="color: #fff; text-decoration: none;">
-            Facebook Icon Source
-        </a>
+      <a href="https://www.flaticon.com/free-icons/facebook" title="facebook icons"
+        style="color: #fff; text-decoration: none;">
+        Facebook Icon Source
+      </a>
     </p>
-    
+
   </section>
 
   <!-- Footer -->
@@ -276,4 +275,5 @@ header nav a:hover {
   </footer>
 
 </body>
+
 </html>
