@@ -140,7 +140,13 @@ td {
 /* Banner Buttons */
 .banner-buttons {
     display: flex;
-    gap: 10px; /* Spacing between buttons */
+    justify-content: flex-start;
+}
+
+.banner-buttons form {
+    margin: 0; /* Remove default margins */
+    padding: 0; /* Remove default padding */
+    display: inline; /* Inline ensures consistent layout for forms */
 }
 
 /* Standard Button Styling */
