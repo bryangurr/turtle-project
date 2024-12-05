@@ -43,7 +43,7 @@ const knex = require("knex")({
   connection: {
     host: process.env.RDS_HOSTNAME || "localhost",
     user: process.env.RDS_USERNAME || "postgres",
-    password: process.env.RDS_PASSWORD || "admin",
+    password: process.env.RDS_PASSWORD || "Never1:3",
     database: process.env.RDS_DB_NAME || "turtletest",
     port: process.env.RDS_PORT || 5432,
     ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false,
@@ -411,6 +411,20 @@ app.post("/edit_employee/:id", async (req, res) => {
     console.error("Error updating employee:", error);
     res.status(500).send("Internal Server Error");
   }
+});
+
+app.post('/delete_employee/:id', (req, res) => {
+  const id = req.params.id;
+  knex('admin')
+  .where('id', id)
+  .del()
+  .then(() => {
+    res.redirect('/manage_employees');
+  })
+  .catch((err) => {
+    console.error("Error deleting employee:", err);
+    res.status(500).send("Internal server error.");
+  });
 });
 
 app.get("/create_employee", isAuthenticated, (req, res) => {
