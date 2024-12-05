@@ -13,7 +13,7 @@ const bodyParser = require("body-parser");
 const stripe = require("stripe")(
   "sk_test_51QRlsmAe0EglwwiJYbVjdKmn1KRcMSeorCaWrNKRYiB1T0kQslBg6ocayIqDhZQIXnami5kdKLV4miC1DlZYfhLr00hCkegHWZ"
 );
-const port = process.env.PORT || 5003;
+const port = process.env.PORT || 5004;
 
 // adding security to login page and authentication
 const session = require("express-session");
@@ -594,12 +594,35 @@ app.get("/report_event", isAuthenticated, (req, res) => {
 });
 
 
-app.post("/report_event/:id", (req, res) => {
-  //const id = req.params.id;
-  //knex('events').update({
-  //actual event stats
-  //}).where('id', id)
-});
+// app.post("/report_event/:id", (req, res) => {
+//   const { id } = req.params;
+//   const actual_participants = req.body.people_attended;
+//   const pockets_sewn = req.body.pockets_sewn;
+//   const collars = req.body.collars;
+//   const envelopes = req.body.envelopes;
+//   const vests = req.body.vests;
+  
+
+//   console.log(req.body);
+
+//   knex("event")
+//     .where({ id: req.params.id })
+//     .first()
+//     .update({
+//       actual_participants: parseInt(actual_participants),
+//       pockets_sewn: parseInt(pockets_sewn),
+//       collars: parseInt(collars),
+//       envelopes: parseInt(envelopes),
+//       vests: parseInt(vests),
+//     })
+//     .then(() => {
+//       res.redirect("/employee_home"); // Redirect to the manage volunteers page
+//     })
+//     .catch((err) => {
+//       console.error("Error updating volunteer:", err);
+//       //res.status(500).send('Error updating volunteer information');
+//     });
+// });
 
 app.post("/approve_event/:id", (req, res) => {
   const id = req.params.id;
