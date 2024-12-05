@@ -19,6 +19,7 @@ header {
     display: flex;
     align-items: center; /* Centers content vertically */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for depth */
+    height: 85px;
 }
 
 header a img {
@@ -31,7 +32,7 @@ header a img {
     font-size: 1.2em; /* Slightly larger font size for emphasis */
     font-weight: bold; /* Makes it stand out */
     color: #fff; /* Matches the header text color */
-    padding: 10px 20px; /* Adds padding for a button-like look */
+    padding: 0px 20px; /* Adds padding for a button-like look */
     background-color: #1c4d3f; /* Matches the header background */
     border-radius: 5px; /* Rounded edges */
     text-decoration: none; /* Removes underline */
@@ -71,7 +72,7 @@ header nav a:hover {
 }
 
 main {
-    padding: 20px; /* Adds padding around the main content */
+    padding: 30px; /* Adds padding around the main content */
     max-width: 1200px; /* Optional: limit content width for readability */
     margin: 0 auto; /* Centers the content */
 }

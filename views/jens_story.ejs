@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles/header.css">
   <title>Jen's Story</title>
   <style>
     body {
@@ -12,9 +13,10 @@
       background-color: #f4f4f4;
       color: #333;
       line-height: 1.6;
+      padding-top: 100px;
     }
 
-    header {
+    /* header {
       background: #004d40;
       color: #fff;
       padding: 15px 0;
@@ -35,7 +37,7 @@
 
     header nav a:hover {
       color: #c3e6cb;
-    }
+    } */
 
     .container {
       max-width: 800px;
@@ -91,17 +93,9 @@
 </head>
 <body>
   <!-- Header -->
-  <header>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/jens_story">Jen's Story</a>
-      <a href="/sponsors">Sponsors</a>
-      <a href="/about">About</a>
-      <a href="/schedule_event">Schedule an Event</a>
-      <a href="/volunteer">Volunteer</a>
-      <a href="/login">Login</a>
-    </nav>
-  </header>
+   
+  <%- include('partials/header') %>
+
 
   <!-- Content Section -->
   <div class="container">
