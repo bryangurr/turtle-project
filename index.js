@@ -43,7 +43,7 @@ const knex = require("knex")({
   connection: {
     host: process.env.RDS_HOSTNAME || "localhost",
     user: process.env.RDS_USERNAME || "postgres",
-    password: process.env.RDS_PASSWORD || "Winter12!",
+    password: process.env.RDS_PASSWORD || "Never1:3",
     database: process.env.RDS_DB_NAME || "turtletest",
     port: process.env.RDS_PORT || 5432,
     ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false,
@@ -188,6 +188,8 @@ app.get("/manage_volunteers", isAuthenticated, (req, res) => {
 
 // Create volunteer
 app.post("/addVolunteer", (req, res) => {
+  const source = req.body.source;
+  let message = req.body.message;
   const vol_first_name = req.body.vol_first_name;
   const vol_last_name = req.body.vol_last_name;
   const phone = req.body.phone;
@@ -216,7 +218,8 @@ app.post("/addVolunteer", (req, res) => {
       lead_event: lead_event,
     })
     .then(() => {
-      res.redirect("/");
+      message = encodeURIComponent(message);
+      res.redirect(`${source}?message=${message}`);
     })
     .catch((err) => {
       console.error("Error inserting record:", err);
@@ -447,7 +450,8 @@ app.post("/create_employee", (req, res) => {
     })
     .then((volunteer) => {
       if (!volunteer) {
-        return res.redirect('/volunteer');
+        const message = 'Please add more information'
+        return res.render('volunteer', {email: username, source: '/manage_employees', message});
       }
       res.redirect("/manage_employees");
     })
