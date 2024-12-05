@@ -43,8 +43,7 @@ const knex = require("knex")({
   connection: {
     host: process.env.RDS_HOSTNAME || "localhost",
     user: process.env.RDS_USERNAME || "postgres",
-    password: process.env.RDS_PASSWORD || "Winter12!",
-    password: process.env.RDS_PASSWORD || "Never1:3",
+    password: process.env.RDS_PASSWORD || "admin",
     database: process.env.RDS_DB_NAME || "turtletest",
     port: process.env.RDS_PORT || 5432,
     ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false,
@@ -575,23 +574,25 @@ app.post("/delete_event/:id", isAuthenticated, (req, res) => {
     });
 });
 
+
 // Event Reporting
-app.get("/report_event/:id", isAuthenticated, (req, res) => {
+app.get("/report_event", isAuthenticated, (req, res) => {
   knex("event")
-    .where({ id: req.params.id })
-    .first()
+    .select()
+    .where({ event_status: "A", actual_participants: null })
     .then((event) => {
-      if (event) {
+      if (event.length > 0) {
         res.render("report_event", { user: req.session.user, event });
       } else {
-        res.status(404).send("Event not found");
+        res.status(404).send("No events found with the specified criteria.");
       }
     })
     .catch((err) => {
-      console.error("Error fetching event:", err);
+      console.error("Error fetching events:", err);
       res.status(500).send("Internal server error.");
     });
 });
+
 
 app.post("/report_event/:id", (req, res) => {
   //const id = req.params.id;

@@ -36,10 +36,11 @@
   <table>
     <thead>
       <tr>
-        <th>Event Date</th>
-        <th>Event City</th>
-        <th>Event State</th>
-        <th>People Attended</th>
+        <th>Date</th>
+        <th>City</th>
+        <th>Address</th>
+        <th>Coordinator Name</th>
+        <th>Total Participants</th>
         <th>Pockets Sewn</th>
         <th>Collars</th>
         <th>Envelopes</th>
@@ -51,9 +52,10 @@
       <% event.forEach(event => { %>
         <tr>
           <form action="/report_event/<%= event.id %>" method="POST">
-            <td><%= event.Event_Date %></td>
-            <td><%= event.Event_City %></td>
-            <td><%= event.Event_State %></td>
+            <td><%= event.event_date %></td>
+            <td><%= event.event_city %></td>
+            <td><%= event.address %></td>
+            <td><%= event.coordinator_first_name + ' ' + event.coordinator_last_name %></td>
             <td><input type="number" name="people_attended" required /></td>
             <td><input type="number" name="pockets_sewn" required /></td>
             <td><input type="number" name="collars" required /></td>
