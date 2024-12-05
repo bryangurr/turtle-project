@@ -43,7 +43,7 @@ const knex = require("knex")({
   connection: {
     host: process.env.RDS_HOSTNAME || "localhost",
     user: process.env.RDS_USERNAME || "postgres",
-    password: process.env.RDS_PASSWORD || "AFlacrosse#6",
+    password: process.env.RDS_PASSWORD || process.env.RDS_PASSWORD_LOCAL,
     database: process.env.RDS_DB_NAME || "turtletest",
     port: process.env.RDS_PORT || 5432,
     ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false,
@@ -596,7 +596,7 @@ app.get("/report_event", isAuthenticated, (req, res) => {
       if (event.length > 0) {
         res.render("report_event", { user: req.session.user, event });
       } else {
-        res.status(404).send("No events found with the specified criteria.");
+        res.status(404).send("No Unreported Events.");
       }
     })
     .catch((err) => {
@@ -605,35 +605,65 @@ app.get("/report_event", isAuthenticated, (req, res) => {
     });
 });
 
-// app.post("/report_event/:id", (req, res) => {
-//   const { id } = req.params;
-//   const actual_participants = req.body.people_attended;
-//   const pockets_sewn = req.body.pockets_sewn;
-//   const collars = req.body.collars;
-//   const envelopes = req.body.envelopes;
-//   const vests = req.body.vests;
-  
+app.post("/report_event/:id", async (req, res) => {
+  const { id } = req.params;
+  const {
+    actual_participants,
+    hip_pocket,
+    collar,
+    envelope,
+    vest,
+    complete_vest,
+    chest_pocket
+  } = req.body;
 
-//   console.log(req.body);
+  try {
+    // Start a transaction
+    await knex.transaction(async (trx) => {
+      // Update the event table with actual participants
+      await trx('event')
+        .where('id', id)
+        .update({ actual_participants: actual_participants });
 
-//   knex("event")
-//     .where({ id: req.params.id })
-//     .first()
-//     .update({
-//       actual_participants: parseInt(actual_participants),
-//       pockets_sewn: parseInt(pockets_sewn),
-//       collars: parseInt(collars),
-//       envelopes: parseInt(envelopes),
-//       vests: parseInt(vests),
-//     })
-//     .then(() => {
-//       res.redirect("/employee_home"); // Redirect to the manage volunteers page
-//     })
-//     .catch((err) => {
-//       console.error("Error updating volunteer:", err);
-//       //res.status(500).send('Error updating volunteer information');
-//     });
-// });
+      // Prepare items to be processed
+      const itemsToProcess = [
+        { itemId: 1, value: hip_pocket },
+        { itemId: 2, value: collar },
+        { itemId: 3, value: envelope },
+        { itemId: 4, value: vest },
+        { itemId: 6, value: complete_vest },
+        { itemId: 5, value: chest_pocket }
+      ];
+
+      // Filter out items with zero or null values
+      const validItems = itemsToProcess.filter(item => item.value > 0);
+
+      // Prepare bulk insert data
+      const itemsToInsert = validItems.map(item => ({
+        event_id: id,
+        item_id: item.itemId,
+        actual_items: item.value
+      }));
+
+      // Bulk insert items produced at events
+      if (itemsToInsert.length > 0) {
+        await trx('items_produced_at_events')
+          .insert(itemsToInsert);
+      }
+    });
+
+    // If transaction is successful
+    res.redirect('/report_event');
+
+  } catch (error) {
+    // Handle any errors
+    console.error(error);
+    res.status(500).json({
+      message: "Error reporting event",
+      error: error.message
+    });
+  }
+});
 
 app.post("/approve_event/:id", (req, res) => {
   const id = req.params.id;
