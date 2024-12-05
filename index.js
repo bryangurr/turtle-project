@@ -116,8 +116,14 @@ app.get("/sponsors", (req, res) => {
 // Login routes
 
 app.get("/login", (req, res) => {
-  res.render("login");
+  console.log('fortnite' + req.session.isAuthenticated)
+  if (req.session.isAuthenticated) { // Check if user is authenticated in the session
+    res.render("employee_home", { user: req.session.user });
+  } else {
+    res.render("login"); // Render login page if not authenticated
+  }
 });
+
 
 // POST route to handle login
 app.post("/login", (req, res) => {
