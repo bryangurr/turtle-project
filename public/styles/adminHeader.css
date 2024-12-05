@@ -38,6 +38,11 @@
     color: #004d40;
 }
 
+/* Show Dropdown Menu on Hover */
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
 .dropdown {
     position: relative;
     display: inline-block;
