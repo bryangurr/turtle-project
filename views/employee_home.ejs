@@ -1,214 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-    <link rel="icon" href="/1507115.png" type="image/png">
+<link rel="icon" href="/1507115.png" type="image/png">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/adminHeader.css">
     <title>Turtle Shelter Project</title>
     <style>
-    /* General Styles */
-    body {
-    margin: 0;
-    font-family: Futura, sans-serif;
-    background-color: #f5f5f5;
-}
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Futura, sans-serif;
+            background-color: #f5f5f5;
+        }
 
-/* Banner Section */
-.banner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #004d40;
-    padding: 10px 20px;
-    color: white;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
+        /* Main Dashboard Section */
+        .dashboard {
+            padding: 20px;
+            text-align: center;
+            height: 90vh;
+            /* Use most of the vertical height of the viewport */
+            width: 90vw;
+            /* Use most of the horizontal width of the viewport */
+        }
 
-.banner .title h1 {
-    margin: 0;
-    font-size: 24px;
-    color: white;
-}
-
-/* Align buttons container to the right */
-.banner-buttons {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end; /* Align to the right */
-    align-items: center;
-}
-
-/* Dropdown container */
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-/* Dropdown button */
-.dropdown .btn {
-    background-color: #66bb6a;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-/* Dropdown button hover effect */
-.dropdown .btn:hover {
-    background-color: #004d40;
-}
-
-/* Dropdown menu (initially hidden) */
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    background-color: white;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    z-index: 1;
-    text-align: left;
-    right: 0; /* Align dropdown menu to the right */
-}
-
-/* Dropdown menu links */
-.dropdown-menu a {
-    color: #004d40;
-    padding: 10px 15px;
-    text-decoration: none;
-    display: block;
-    font-size: 14px;
-}
-
-/* Dropdown menu links hover effect */
-.dropdown-menu a:hover {
-    background-color: #f1f1f1;
-    color: #004d40;
-}
-
-/* Show dropdown menu on hover */
-.dropdown:hover .dropdown-menu {
-    display: block;
-}
-
-/* Button styles */
-.banner-buttons .btn {
-    background-color: #66bb6a;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-/* Button hover effect */
-.banner-buttons .btn:hover {
-    background-color: #004d40;
-}
-
-/* rotating arrow */
-.arrow {
-    display: inline-block;
-    transform: rotate(90deg); /* Point it down */
-    margin-left: 5px;
-    font-size: 12px; /* Adjust size */
-    transition: transform 0.3s;
-}
-
-.dropdown:hover .arrow {
-    transform: rotate(270deg); /* Point it up */
-}
+        .dashboard h2 {
+            color: #004d40;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
 
 
-/* Main Dashboard Section */
-.dashboard {
-    padding: 20px;
-    text-align: center;
-    height: 90vh; /* Use most of the vertical height of the viewport */
-    width: 90vw; /* Use most of the horizontal width of the viewport */
-}
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            /* Removes border for a clean look */
+            border-radius: 8px;
+            /* Matches the container's border radius */
+        }
 
-.dashboard h2 {
-    color: #004d40;
-    font-size: 28px;
-    margin-bottom: 20px;
-}
+        /* Main Content */
+        .tableau-container {
+            display: grid;
+            place-items: center;
+            /* Centers the child element both horizontally and vertically */
+            height: 100vh;
+        }
 
-
-iframe {
-    width: 100%;
-    height: 100%;
-    border: none; /* Removes border for a clean look */
-    border-radius: 8px; /* Matches the container's border radius */
-}
-
-/* Main Content */
-.tableau-container {
-    display: grid;
-    place-items: center; /* Centers the child element both horizontally and vertically */
-    height: 100vh;      
-}
-
-.tableauPlaceholder {
-    width: 70%; /* Or any width you want */
-}
-
-
-
+        .tableauPlaceholder {
+            width: 70%;
+            /* Or any width you want */
+        }
     </style>
 </head>
+
+    <!-- Header navigation -->
+    <%- include('partials/adminHeader') %>
 <body>
-    <!-- Banner Section -->
-    <header class="banner">
-        <div class="title">
-            <h1>Dashboard</h1>
-        </div>
-        <div class="banner-buttons">
-            <form action="/" method="GET" style="display: inline;">
-                <button type="submit" class="btn">Return to Home Page</button>
-            </form>
-            <div class="dropdown">
-                <button class="btn dropdown-btn">Manage <span class="arrow">&#x276F;</span></button>
-                <div class="dropdown-menu">
-                    <a href="/manage_employees">Manage Admin Accounts</a>
-                    <a href="/manage_volunteers">Manage Volunteers</a>
-                    <a href="/manage_events">Manage Events</a>
-                    <a href="/report_event">Report Events</a>
-                </div>
+
+
+
+
+        <!-- Main Content -->
+
+        <div class="tableau-container">
+            <div class="tableauPlaceholder" id="viz1733361520910">
+                <object class="tableauViz" style="width: 100%; height: 850px;">
+                    <param name="host_url" value="https://public.tableau.com/" />
+                    <param name="embed_code_version" value="3" />
+                    <param name="site_root" value="" />
+                    <param name="name" value="INTEX_DASHBOARD_17333563512380/Dashboard1" />
+                    <param name="tabs" value="no" />
+                    <param name="toolbar" value="no" />
+                    <param name="display_static_image" value="no" />
+                    <param name="display_spinner" value="no" />
+                    <param name="display_overlay" value="no" />
+                    <param name="display_count" value="no" />
+                    <param name="language" value="en-US" />
+                </object>
             </div>
-            <form action="/logout" method="POST" style="display: inline;">
-                <button type="submit" class="btn">Logout</button>
-            </form>
         </div>
-    </header>
-    
-          
-  
-    <!-- Main Content -->
-    
-    <div class="tableau-container">
-        <div class="tableauPlaceholder" id="viz1733361520910">
-            <object class="tableauViz" style="width: 100%; height: 850px;">
-                <param name="host_url" value="https://public.tableau.com/" />
-                <param name="embed_code_version" value="3" />
-                <param name="site_root" value="" />
-                <param name="name" value="INTEX_DASHBOARD_17333563512380/Dashboard1" />
-                <param name="tabs" value="no" />
-                <param name="toolbar" value="no" />
-                <param name="display_static_image" value="no" />
-                <param name="display_spinner" value="no" />
-                <param name="display_overlay" value="no" />
-                <param name="display_count" value="no" />
-                <param name="language" value="en-US" />
-            </object>
-        </div>
-    </div>
-    
-    <script type="text/javascript" src="https://public.tableau.com/javascripts/api/viz_v1.js"></script>
+
+        <script type="text/javascript" src="https://public.tableau.com/javascripts/api/viz_v1.js"></script>
 </body>
+
 </html>

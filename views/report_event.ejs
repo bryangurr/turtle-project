@@ -1,262 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
-  <link rel="icon" href="/1507115.png" type="image/png">
+<link rel="icon" href="/1507115.png" type="image/png">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Report Past Events</title>
-  <style>
-  /* Existing styles */
-  body {
-     font-family: Futura, sans-serif;
-     margin: 0;
-     background-color: #f5f5f5;
-     padding: 20px;
- }
- 
- h1 {
-     color: #004d40;
-     text-align: center;
-     margin-bottom: 20px;
- }
- 
- 
- 
- .btn {
-     padding: 10px 20px;
-     font-size: 14px;
-     color: white;
-     background-color: #66bb6a;
-     border: none;
-     border-radius: 5px;
-     cursor: pointer;
-     text-decoration: none;
-     margin-right: 10px;
-     transition: background-color 0.3s ease;
- }
- 
- .btn:hover {
-     background-color: #004d40;
- }
- 
- .table-container {
-     margin: 0 auto;
-     width: 90%;
-     background-color: #ffffff;
-     padding: 20px;
-     border-radius: 8px;
-     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
- }
- 
- .table-container table {
-     width: 100%;
-     border-collapse: collapse;
-     margin-bottom: 20px;
-     background-color: #ffffff;
-     border: 1px solid #e0e0e0;
- }
- 
- th,
- td {
-     padding: 15px;
-     text-align: left;
-     border-bottom: 1px solid #e0e0e0;
- }
- 
- th {
-     background-color: #66bb6a;
-     color: white;
- }
- 
- td {
-     font-size: 14px;
-     color: #333;
- }
- 
- .btn.edit {
-     background-color: #66bb6a;
- }
- 
- .btn.edit:hover {
-     background-color: #004d40;
- }
- 
- .btn.delete {
-     background-color: #e57373;
- }
- 
- .btn.delete:hover {
-     background-color: #d32f2f;
- }
- 
- select {
-     padding: 10px;
-     margin: 10px 0;
-     border-radius: 5px;
-     border: 1px solid #e0e0e0;
-     font-size: 14px;
- }
- 
- /* Banner Section */
- .banner {
-     display: flex;
-     justify-content: space-between; /* Align content to fill the space */
-     align-items: center;
-     background-color: #004d40;
-     padding: 10px 20px;
-     color: white;
-     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-     margin-bottom: 20px;
- }
- 
- /* Title in Banner */
- .banner .title h1 {
-     margin: 0;
-     font-size: 24px;
-     color: white;
- }
- 
- /* Banner Buttons */
- .banner-buttons {
-     display: flex;
- }
- 
- /* General Button Styles */
- .banner .btn, .dropdown .btn {
-     background-color: #66bb6a;
-     color: white;
-     border: none;
-     padding: 10px 15px;
-     border-radius: 5px;
-     font-size: 16px;
-     cursor: pointer;
-     transition: background-color 0.3s ease;
- }
- 
- /* Button Hover Effect */
- .banner .btn:hover, .dropdown .btn:hover {
-     background-color: #004d40;
- }
- 
- /* Dropdown Specific Styles */
- .dropdown {
-     position: relative;
-     display: inline-block;
- }
- 
- .dropdown-menu {
-     display: none;
-     position: absolute;
-     background-color: white;
-     min-width: 160px;
-     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-     border-radius: 5px;
-     z-index: 1;
- }
- 
- .dropdown-menu a {
-     color: #004d40;
-     padding: 10px 15px;
-     text-decoration: none;
-     display: block;
-     font-size: 14px;
- }
- 
- /* Dropdown Hover Effect */
- .dropdown-menu a:hover {
-     background-color: #f1f1f1;
- }
- 
- .dropdown:hover .dropdown-menu {
-     display: block;
- }
- 
- .arrow {
-     display: inline-block;
-     transform: rotate(90deg); /* Point it down */
-     margin-left: 5px;
-     font-size: 12px; /* Adjust size */
-     transition: transform 0.3s;
- }
- 
- .dropdown:hover .arrow {
-     transform: rotate(270deg); /* Point it up */
- }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/adminHeader.css">
+    <title>Report Past Events</title>
+    <style>
+        /* Existing styles */
+        body {
+            font-family: Futura, sans-serif;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
 
- input[type="number"] {
-    width: 60px;
-    padding: 5px;
-    text-align: center;
-    border-radius: 4px;
-    border: 1px solid #004d40;
-}
- 
-     </style>
+        h1 {
+            color: #004d40;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 14px;
+            color: white;
+            background-color: #66bb6a;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-right: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #004d40;
+        }
+
+        .table-container {
+            margin: 0 auto;
+            width: 90%;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-container table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+        }
+
+        th,
+        td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background-color: #66bb6a;
+            color: white;
+        }
+
+        td {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .btn.edit {
+            background-color: #66bb6a;
+        }
+
+        .btn.edit:hover {
+            background-color: #004d40;
+        }
+
+        .btn.delete {
+            background-color: #e57373;
+        }
+
+        .btn.delete:hover {
+            background-color: #d32f2f;
+        }
+
+        select {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            font-size: 14px;
+        }
+
+
+        /* General Button Styles */
+        .btn,
+        .btn {
+            background-color: #66bb6a;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Button Hover Effect */
+        .btn:hover,
+        .btn:hover {
+            background-color: #004d40;
+        }
+
+
+        input[type="number"] {
+            width: 60px;
+            padding: 5px;
+            text-align: center;
+            border-radius: 4px;
+            border: 1px solid #004d40;
+        }
+    </style>
 </head>
-<body>
+<!-- Header navigation -->
+<%- include('partials/adminHeader') %>
 
-  <header class="banner">
-    <div class="title">
-        <h1>Report Events</h1>
-    </div>
-    <div class="banner-buttons">
-        <form action="/employee_home" method="GET" style="display: inline;">
-            <button type="submit" class="btn">Employee Home</button>
-        </form>
-        <div class="dropdown manage-center">
-            <button class="btn dropdown-btn">Manage <span class="arrow">&#x276F;</span></button>
-            <div class="dropdown-menu">
-                <a href="/manage_employees">Manage Admin Accounts</a>
-                <a href="/manage_volunteers">Manage Volunteers</a>
-                <a href="/manage_events">Manage Events</a>
-                <a href="/report_event">Report Events</a>
+    <body>
+
+        <header class="banner">
+            <div class="title">
+                <h1>Report Events</h1>
             </div>
-        </div>
-        <form action="/logout" method="POST" style="display: inline;">
-            <button type="submit" class="btn">Logout</button>
-        </form>
-    </div>
-</header>
+            <div class="banner-buttons">
+                <form action="/employee_home" method="GET" style="display: inline;">
+                    <button type="submit" class="btn">Employee Home</button>
+                </form>
+                <div class="dropdown manage-center">
+                    <button class="btn dropdown-btn">Manage <span class="arrow">&#x276F;</span></button>
+                    <div class="dropdown-menu">
+                        <a href="/manage_employees">Manage Admin Accounts</a>
+                        <a href="/manage_volunteers">Manage Volunteers</a>
+                        <a href="/manage_events">Manage Events</a>
+                        <a href="/report_event">Report Events</a>
+                    </div>
+                </div>
+                <form action="/logout" method="POST" style="display: inline;">
+                    <button type="submit" class="btn">Logout</button>
+                </form>
+            </div>
+        </header>
 
 
-  <h1 style="text-align: center;">Report Past Events</h1>
-  <table>
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>City</th>
-        <th>Address</th>
-        <th>Coordinator Name</th>
-        <th>Total Participants</th>
-        <th>Hip Pockets</th>
-        <th>Collars</th>
-        <th>Envelopes</th>
-        <th>Vests</th>
-        <th>Chest Pockets</th>
-        <th>Vests Completed</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% event.forEach(event => { %>
-        <tr>
-          <form action="/report_event/<%= event.id %>" method="POST">
-            <td><%= new Date(event.event_date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }) + ' @ ' + new Date('1970-01-01T' + event.start_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }) %></td>
-            <td><%= event.event_city %></td>
-            <td><%= event.address %></td>
-            <td><%= event.coordinator_first_name + ' ' + event.coordinator_last_name %></td>
-            <td><input type="number" name="actual_participants" required /></td>
-            <td><input type="number" name="hip_pocket" required /></td>
-            <td><input type="number" name="collar" required /></td>
-            <td><input type="number" name="envelope" required /></td>
-            <td><input type="number" name="vest" required /></td>
-            <td><input type="number" name="chest_pocket" required /></td>
-            <td><input type="number" name="complete_vest" required /></td>
-            <td><button class="btn" type="submit" onclick="return confirm('Report Event?')">Submit Report</button></td>
-          </form>
-        </tr>
-      <% }) %>
-    </tbody>
-  </table>
-</body>
+        <h1 style="text-align: center;">Report Past Events</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>City</th>
+                    <th>Address</th>
+                    <th>Coordinator Name</th>
+                    <th>Total Participants</th>
+                    <th>Hip Pockets</th>
+                    <th>Collars</th>
+                    <th>Envelopes</th>
+                    <th>Vests</th>
+                    <th>Chest Pockets</th>
+                    <th>Vests Completed</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% event.forEach(event=> { %>
+                    <tr>
+                        <form action="/report_event/<%= event.id %>" method="POST">
+                            <td>
+                                <%= new Date(event.event_date).toLocaleDateString('en-US', { weekday: 'short' ,
+                                    month: 'short' , day: 'numeric' , year: 'numeric' }) + ' @ ' + new
+                                    Date('1970-01-01T' + event.start_time).toLocaleTimeString([], { hour: '2-digit' ,
+                                    minute: '2-digit' , second: '2-digit' }) %>
+                            </td>
+                            <td>
+                                <%= event.event_city %>
+                            </td>
+                            <td>
+                                <%= event.address %>
+                            </td>
+                            <td>
+                                <%= event.coordinator_first_name + ' ' + event.coordinator_last_name %>
+                            </td>
+                            <td><input type="number" name="actual_participants" required /></td>
+                            <td><input type="number" name="hip_pocket" required /></td>
+                            <td><input type="number" name="collar" required /></td>
+                            <td><input type="number" name="envelope" required /></td>
+                            <td><input type="number" name="vest" required /></td>
+                            <td><input type="number" name="chest_pocket" required /></td>
+                            <td><input type="number" name="complete_vest" required /></td>
+                            <td><button class="btn" type="submit" onclick="return confirm('Report Event?')">Submit
+                                    Report</button></td>
+                        </form>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+    </body>
+
 </html>
