@@ -6,6 +6,8 @@ let app = express();
 
 let path = require("path");
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 require("dotenv").config();
 
 // Declare environmental variables
@@ -59,8 +61,7 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "styles")));
 app.use("/images", express.static(path.join(__dirname, "images")));
-app.use(express.static('public'));
-
+app.use(express.static("public"));
 
 /* ---------------------------------------------------------------------- */
 // Application routes
@@ -118,14 +119,14 @@ app.get("/sponsors", (req, res) => {
 // Login routes
 
 app.get("/login", (req, res) => {
-  console.log('fortnite' + req.session.isAuthenticated)
-  if (req.session.isAuthenticated) { // Check if user is authenticated in the session
+  console.log("fortnite" + req.session.isAuthenticated);
+  if (req.session.isAuthenticated) {
+    // Check if user is authenticated in the session
     res.render("employee_home", { user: req.session.user });
   } else {
     res.render("login"); // Render login page if not authenticated
   }
 });
-
 
 // POST route to handle login
 app.post("/login", (req, res) => {
@@ -452,14 +453,16 @@ app.post("/create_employee", (req, res) => {
   knex("admin")
     .insert({ username, password })
     .then(() => {
-      return knex("volunteers")
-        .where('email', username)
-        .first();
+      return knex("volunteers").where("email", username).first();
     })
     .then((volunteer) => {
       if (!volunteer) {
-        const message = 'Please add more information'
-        return res.render('volunteer', {email: username, source: '/manage_employees', message});
+        const message = "Please add more information";
+        return res.render("volunteer", {
+          email: username,
+          source: "/manage_employees",
+          message,
+        });
       }
       res.redirect("/manage_employees");
     })
@@ -622,15 +625,15 @@ app.post("/report_event/:id", async (req, res) => {
     envelope,
     vest,
     complete_vest,
-    chest_pocket
+    chest_pocket,
   } = req.body;
 
   try {
     // Start a transaction
     await knex.transaction(async (trx) => {
       // Update the event table with actual participants
-      await trx('event')
-        .where('id', id)
+      await trx("event")
+        .where("id", id)
         .update({ actual_participants: actual_participants });
 
       // Prepare items to be processed
@@ -640,35 +643,33 @@ app.post("/report_event/:id", async (req, res) => {
         { itemId: 3, value: envelope },
         { itemId: 4, value: vest },
         { itemId: 6, value: complete_vest },
-        { itemId: 5, value: chest_pocket }
+        { itemId: 5, value: chest_pocket },
       ];
 
       // Filter out items with zero or null values
-      const validItems = itemsToProcess.filter(item => item.value > 0);
+      const validItems = itemsToProcess.filter((item) => item.value > 0);
 
       // Prepare bulk insert data
-      const itemsToInsert = validItems.map(item => ({
+      const itemsToInsert = validItems.map((item) => ({
         event_id: id,
         item_id: item.itemId,
-        actual_items: item.value
+        actual_items: item.value,
       }));
 
       // Bulk insert items produced at events
       if (itemsToInsert.length > 0) {
-        await trx('items_produced_at_events')
-          .insert(itemsToInsert);
+        await trx("items_produced_at_events").insert(itemsToInsert);
       }
     });
 
     // If transaction is successful
-    res.redirect('/report_event');
-
+    res.redirect("/report_event");
   } catch (error) {
     // Handle any errors
     console.error(error);
     res.status(500).json({
       message: "Error reporting event",
-      error: error.message
+      error: error.message,
     });
   }
 });
