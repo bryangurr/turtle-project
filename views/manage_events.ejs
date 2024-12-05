@@ -208,6 +208,19 @@ td {
     z-index: 2;
 }
 
+.arrow {
+    display: inline-block;
+    transform: rotate(90deg); /* Point it down */
+    margin-left: 5px;
+    font-size: 12px; /* Adjust size */
+    transition: transform 0.3s;
+}
+
+.dropdown:hover .arrow {
+    transform: rotate(270deg); /* Point it up */
+}
+
+
 </style>
     
 </head>
@@ -222,8 +235,8 @@ td {
             <button type="submit" class="btn">Employee Home</button>
         </form>
         <div class="dropdown">
-            <button class="btn">Manage</button>
-            <div class="dropdown-menu">
+          <button class="btn dropdown-btn">Manage <span class="arrow">&#x276F;</span></button>
+          <div class="dropdown-menu">
                 <a href="/manage_employees">Manage Admin Accounts</a>
                 <a href="/manage_volunteers">Manage Volunteers</a>
                 <a href="/manage_events">Manage Events</a>
@@ -270,7 +283,7 @@ td {
               %>
             </td>
             <td><%= event.coordinator_first_name %> <%= event.coordinator_last_name %></td>
-            <td><%= event.event_duration %></td>
+            <td><%= event.event_duration %> Hours</td>
             <td><%= event.adult_participants + event.child_participants%></td>
            
             <td>
