@@ -52,7 +52,7 @@
       <% event.forEach(event => { %>
         <tr>
           <form action="/report_event/<%= event.id %>" method="POST">
-            <td><%= event.event_date %></td>
+            <td><%= new Date(event.event_date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }) + ' @ ' + new Date('1970-01-01T' + event.start_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }) %></td>
             <td><%= event.event_city %></td>
             <td><%= event.address %></td>
             <td><%= event.coordinator_first_name + ' ' + event.coordinator_last_name %></td>
