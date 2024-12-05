@@ -140,7 +140,13 @@ td {
 /* Banner Buttons */
 .banner-buttons {
     display: flex;
-    gap: 10px; /* Spacing between buttons */
+    justify-content: flex-start;
+}
+
+.banner-buttons form {
+    margin: 0; /* Remove default margins */
+    padding: 0; /* Remove default padding */
+    display: inline; /* Inline ensures consistent layout for forms */
 }
 
 /* Standard Button Styling */
@@ -297,7 +303,7 @@ td {
 
               <% if (event.event_status == 'P') { %>
                 <form action="/approve_event/<%= event.id %>" method="POST" style="display:inline;">
-                  <button class="btn delete" type="submit" name="event_status" value="A" onclick="return confirm('Are you sure you want to approve this event? If yes, Please contact the coordinator.');" >Approve</button>
+                  <button style="height: 30px; background-color: burlywood; color: white; border: none; border-radius: 5px; font-size: 12px; cursor: pointer; transition: background-color 0.3s ease;" type="submit" name="event_status" value="A" onclick="return confirm('Are you sure you want to approve this event? If yes, Please contact the coordinator.');" >Approve</button>
                 </form>       
               <% } %>
             </td>
