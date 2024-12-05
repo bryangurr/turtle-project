@@ -6,149 +6,169 @@
   <title>About Homelessness and the Cold</title>
   <style>
     /* Global Styles */
-body {
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f4f4;
-  color: #333;
-}
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
 
-/* Header */
-header {
-  background: #2e8b57;
-  color: #fff;
-  padding: 15px 0;
-  text-align: center;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  border-bottom: 3px solid #1c6c40;
-}
+    /* Header */
+    header {
+      background: #004d40;
+      color: #fff;
+      padding: 15px 0;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
 
-header nav a {
-  color: #fff;
-  margin: 0 15px;
-  text-decoration: none;
-  font-size: 1.1em;
-  font-weight: bold;
-  transition: color 0.3s ease;
-}
+    header nav a {
+      color: #fff;
+      margin: 0 15px;
+      text-decoration: none;
+      font-size: 1.1em;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
 
-header nav a:hover {
-  color: #c3e6cb;
-  border-bottom: 2px solid #c3e6cb;
-}
+    header nav a:hover {
+      color: #c3e6cb;
+      border-bottom: 2px solid #c3e6cb;
+    }
 
-/* Content Wrapper */
-.content-wrapper {
-  display: flex;
-  padding: 30px;
-  gap: 30px;
-}
+    /* Content Wrapper */
+    .content-wrapper {
+      display: flex;
+      gap: 30px;
+      padding: 20px;
+    }
 
-/* Sidebar */
-aside {
-  position: sticky;
-  top: 100px;
-  flex: 1;
-  background: #e0e0e0;
-  padding: 20px;
-  height: 100vh;
-  overflow-y: auto;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
+    /* Sidebar */
+    aside {
+      flex: 1;
+      padding: 20px;
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+      background: none; /* Removed gray background */
+    }
 
-aside nav a {
-  display: block;
-  color: #2e8b57;
-  text-decoration: none;
-  margin-bottom: 12px;
-  font-size: 1.1em;
-  transition: color 0.3s ease;
-}
+    aside nav a {
+      display: block;
+      color: #2e8b57;
+      text-decoration: none;
+      margin-bottom: 12px;
+      font-size: 1.1em;
+      transition: color 0.3s ease, padding-left 0.3s ease;
+    }
 
-aside nav a:hover {
-  color: #1c6c40;
-  border-left: 5px solid #2e8b57;
-  padding-left: 10px;
-}
+    aside nav a:hover {
+      color: #1c6c40;
+      padding-left: 10px;
+    }
 
-/* Main Content */
-main {
-  flex: 3;
-  padding: 20px;
-  overflow-y: auto;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
+    /* Main Content */
+    main {
+      flex: 3;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
 
-/* Sections */
-section {
-  margin-bottom: 40px;
-}
+    /* Sections */
+    section {
+      margin-bottom: 40px;
+    }
 
-/* Article */
-article {
-  padding: 20px;
-  background-color: #fafafa;
-  border: 2px solid #2e8b57;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-}
+    section article {
+      padding: 20px;
+      background-color: #fdfdfd;
+      border-left: 5px solid #2e8b57;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
 
-/* Blockquotes */
-blockquote {
-  background-color: #f9f9f9;
-  border-left: 5px solid #2e8b57;
-  padding: 15px;
-  margin: 20px 0;
-  font-style: italic;
-  color: #666;
-}
+    /* Headings */
+    h1, h3 {
+      font-family: 'Futura', sans-serif;
+      color: #2e8b57;
+    }
 
-/* Footer */
-footer {
-  text-align: center;
-  padding: 15px 0;
-  background: #2e8b57;
-  color: #fff;
-  border-top: 3px solid #1c6c40;
-}
+    h1 {
+      font-size: 1.8em;
+      margin-bottom: 15px;
+    }
 
-/* Links for Interactive Sections */
-a {
-  text-decoration: none;
-  color: #2e8b57;
-  font-weight: bold;
-  transition: color 0.3s ease;
-}
+    h3 {
+      font-size: 1.2em;
+      border-bottom: 2px solid #2e8b57;
+      padding-bottom: 5px;
+      margin-bottom: 15px;
+    }
 
-a:hover {
-  color: #1c6c40;
-}
+    /* Blockquotes */
+    blockquote {
+      background-color: #f9f9f9;
+      border-left: 5px solid #2e8b57;
+      padding: 15px;
+      margin: 20px 0;
+      font-style: italic;
+      color: #666;
+    }
 
-/* Hover Effects for Cards and Buttons */
-article:hover, footer:hover, aside:hover {
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
-}
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 15px 0;
+      background: #2e8b57;
+      color: #fff;
+      border-top: 3px solid #1c6c40;
+    }
 
-h1, h3 {
-  font-family: 'Futura', serif;
-  color: #2e8b57;
-}
+    footer p {
+      margin: 0;
+    }
 
-h3 {
-  border-bottom: 2px solid #2e8b57;
-  padding-bottom: 5px;
-  margin-bottom: 15px;
-}
-</style>
+    /* Links */
+    a {
+      text-decoration: none;
+      color: #2e8b57;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: #1c6c40;
+    }
+
+    /* Improved Hover Effects */
+    section article:hover {
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .content-wrapper {
+        flex-direction: column;
+      }
+
+      aside {
+        order: 2;
+        margin-top: 20px;
+      }
+
+      main {
+        order: 1;
+      }
+    }
+  </style>
 </head>
 <body>
-
   <!-- Top Navigation Bar -->
   <header>
     <nav>
@@ -186,8 +206,7 @@ h3 {
         <article>
           <h1>Homelessness and Hypothermia</h1>
           <p>Each year, as winter approaches and the temperature begins to drop, many homeless people move from the streets to their city’s shelter system to escape the cold. However, few communities have city-wide cold-weather response plans, and many of the plans currently in place leave gaping holes in accessibility.</p>
-          <p>In rural areas, shelters often have no outside resources to help them cope with the increased demand caused by cold weather conditions. Many shelters or cities offer expanded winter services only during certain months or only when the temperature falls below a pre-determined and arbitrary cut-off temperature. Above those cut-offs, many cities do not offer resources to help the homeless people escape from the cold.</p>
-          <p>Without a carefully constructed winter plan, homeless service facilities may find themselves unable to accommodate the influx of residents, and some of those people who seek shelter are turned out into the cold. These conditions can be life-threatening and may increase the risk of dying from unrelated conditions in the future.</p>
+          <p>In rural areas, shelters often have no outside resources to help them cope with the increased demand caused by cold weather conditions. Many shelters or cities offer expanded winter services only during certain months or only when the temperature falls below a pre-determined and arbitrary cut-off temperature. Above those cut-offs (hypothermia can occur in weather as warm as 50 degrees Fahrenheit) many cities do not offer resources to help the homeless people escape from the cold.</p>
           <p>Without a carefully constructed winter plan, homeless service facilities may find themselves unable to accommodate the influx of residents, and some of those people who seek shelter are turned out into the cold. With nowhere to stay except the streets, people experiencing homelessness have a much higher risk than the general population of developing exposure-related conditions such as hypothermia and frostbite. These conditions can be immediately life threatening and may also increase the risk of dying from unrelated conditions in the future. Increased homeless services, especially additional shelter availability, are necessary to accommodate the amplified need in the winter.</p>
         </article>
       </section>
@@ -196,13 +215,14 @@ h3 {
       <section id="our-tech">
         <article>
           <h1>Our Tech</h1>
-          <p>Jim Phillips' foam clothing is brilliant technology because of what it can do to help save a person's life in freezing temperatures. The insulation layer foam clothing provides is so effective that even if a person gets wet it will keep them warm -- BUT, wearing synthetic fabrics is an important layer to include with the foam clothing. Foam clothing can be effective while wearing cotton if the wearer stays dry, but if the wearer gets wet, the cotton will absorb and hold water and keep the wearer cold. If a person is not wearing any cotton with the foam clothing, and they happen to get wet, they will still be able to maintain their core body temperature. The reason why this works is because the shell and lining fabrics and the foam are all synthetic and breathable - providing moisture wicking properties and allowing perspiration and other moisture to evaporate.</p>
           <p>Foam clothing technology was invented by outdoor survival expert Jim Phillips. He has done extensive testing using open-cell polyurethane foam as the insulation layer in jackets, hoods, pants, boots, gloves, and sleeping bags.</p>
-          <p>We created a foam vest that covers the core and called it the Turtle Shelter because it acts like a shelter and harnesses the wearer's body heat even while wet and even in freezing temperatures.</p>
-          <blockquote><p>Jen's perspective: Every life has value!</p></blockquote>
+          <p>Jim Phillips' foam clothing is brilliant technology because of what it can do to help save a person's life in freezing temperatures. The insulation layer foam clothing provides is so effective that even if a person gets wet it will keep them warm -- BUT, wearing synthetic fabrics is an important layer to include with the foam clothing. Foam clothing can be effective while wearing cotton if the wearer stays dry, but if the wearer gets wet, the cotton will absorb and hold water and keep the wearer cold.  If a person is not wearing any cotton with the foam clothing, and they happen to get wet, they will still be able to maintain their core body temperature.  The reason why this works is because the shell and lining fabrics and the foam are all synthetic and breathable - providing moisture wicking properties and allowing perspiration and other moisture to evaporate.</p>
+          <b>Foam clothing dramatically reduces moisture as being a threat to a person's life in the cold!</b>
+          <p>Foam clothing is marketed to emergency preparedness and extreme sports audiences because of its ability to keep you warm in winter conditions.  Being cold is one thing, but being cold and wet is miserable. Being cold, wet, and without shelter can be life threatening. </p>
+          <p>This technology is usually sold in emergency preparedness venues and super expensive. It does make sense because the technology is super valuable that the clothing should cost a lot, but we disagree:  nobody likes to be cold and people function a lot better when they are not freezing to death!  So we created a foam vest that covers the core and we called the Turtle Shelter because it acts like a shelter and harnesses the wearer's body heat even while wet and even in freezing temperatures. </p>
+          <b>Jen's perspective:  Every life has value!</b>
           <p>"Hearing about this technology in an emergency Preparedness venue provoked a lot of thought about how many homeless peoples lives could not only be saved but also improved by this technology? Emergency preparedness is all about people getting prepared for when disaster strikes...and it seems like to get prepared can be pretty pricey...but isn't a person who is homeless living in their emergency right this very moment? They are not waiting for disaster to strike because for them it already has and I know from experience that once the disaster of homelessness strikes it can be extremely hard to recover from it. For many it is far more than simply losing a home or a place to stay...for me and many others it was also about losing my confidence, my energy, my drive, and even my hope...I felt completely broken and defeated!</p>
-          <p>I remember how every simple task felt like an overwhelming obstacle but even more so when it was so cold I couldn't even think. Everything just felt harder when it was cold and wet and miserable...
-            I believe that this foam clothing can help relieve some of the suffering for anyone who is homeless and living in the cold...I believe it doesn't have to cost a lot to make these. Not for the homeless and not for our families...lives can be saved from this technology."</p>
+          <p>I remember how every simple task felt like an overwhelming obstacle but even more so when it was so cold I couldn't even think. Everything just felt harder when it was cold and wet and miserable...I believe that this foam clothing can help relieve some of the suffering for anyone who is homeless and living in the cold...I believe it doesn't have to cost a lot to make these. Not for the homeless and not for our families...lives can be saved from this technology."</p>
         </article>
       </section>
 
@@ -219,26 +239,35 @@ h3 {
         <article>
           <h1>Board of Directors</h1>
           <p>Our dedicated board of directors ensures that the Turtle Shelter Project operates with integrity, efficiency, and compassion to serve those in need.</p>
-          <p>Jen Spencer
-            <br>
-            Bill Evans
-            <br>
-            Karen Ackerlow
-            <br>
-            Linda Evans
-            <br>
-            Marian Edmonds-Allen</p>
+          <p>Jen Spencer<br>Bill Evans<br>Karen Ackerlow<br>Linda Evans<br>Marian Edmonds-Allen</p>
         </article>
       </section>
 
       <!-- FAQs Section -->
       <section id="faqs">
         <article>
-          <h1>FAQs</h1>
-          <h3>Who benefits from the Turtle Shelter Project?</h3>
-          <p>Homeless individuals, especially those facing life-threatening cold weather conditions, are the primary beneficiaries of the Turtle Shelter Project. We provide foam vests that offer warmth and protection from the cold.</p>
-          <h3>How can I donate to the Turtle Shelter Project?</h3>
-          <p>You can donate funds, clothing, or your time to help the project distribute foam vests and provide other critical services to homeless individuals.</p>
+          <h1>Frequently Asked Questions</h1>
+          <b>How long have you been doing this?</b>
+          <p>Jen got the idea for the Turtle Shelter Project in 2015 to help keep people experiencing homelessness from freezing to death. We officially incorporated 3 April 2017, on Jen's sobriety anniversary. Our 501c3 status was granted in 2018.</p>
+          <p>Between September 2017 and January 2018, with a combined 450 volunteer hours, we completed 50 prototype vests to be tested.</p>
+          <b>If you want to help homeless people be warm, why not just do a coat drive?</b>
+          <p>The foam insulation layer combined with moisture wicking fabrics creates a more effective insulation layer than other winter clothing. Clothing made from foam will provide warmth even if it is wet – it allows the wearer to maintain their core body temperature. You can read more about it in “OUR TECH.”</p>
+          <b>What does the turtle in your logo have to do with your project?</b>
+          <p>A turtle carries it’s shelter wherever it goes. Our insulated vests are intended to be a portable “shelter.” Instead of having to find shelter, a person can carry their shelter on their back, like a turtle. </p>
+          <b>How/where are the vests distributed?</b>
+          <p>During the winter of 2017-18, the distribution and testing were done mainly in the Ogden area with the help and support of The Episcopal Church of the Good Shepherd and the staff at Youth Futures.</p>
+          <p>Winter 2018-19 we have been able to distribute vests both to shelters and to individuals in the Ogden and Salt Lake City communities.</p>
+          <b>Why don’t you just have a professional sewing shop make the vests?</b>
+          <p>We talked about this idea early in our planning stages, but ultimately decided that our mission had 2 parts - help the homeless or others in need of warm clothing, and provide an opportunity for any willing person to serve. That was how we came up with our motto: Every Life Has Value; Every Person Can Serve. </p>
+          <b>I want to help, but I don’t sew.</b>
+          <p>Turtle Shelter Project vests are designed to be made by volunteers who have no special sewing skills. We can put any willing volunteer to work who can use a marker or a pair of scissors. Although we do need people with basic and advanced sewing skills, there are lots of the steps that can be done by those with no sewing skills. The final construction is done by our expert staff.   The completed vests are then returned to the community where volunteers made them - or to another area with need.</p>
+          <b>We don’t live close to your Northern Utah operation. Can we still help?</b>
+          <p>Yes! Yes! Yes!</p>
+          <p>We can send parts of the vests to be cut, marked, and/or completed by your group and sent back to us, or we can provide materials and training so you can complete entire vests and distribute them in your area.</p>
+          <p>We live by the motto that every person can serve, and we will accommodate anyone who wants to help - we are only limited by our funding. Send us a note in CONTACT US or SCHEDULE YOUR OWN EVENT and we will coordinate the best project for you and/or your group. </p>
+          <b>How much of my donation goes to overhead?</b>
+          <p>Our overhead costs are very limited because our staff is 100% volunteer. We have no paid employees. Our yearly operating costs include business registration, website hosting and support, post office box rental, and liability insurance. Other expenses have been to purchase things like scissors and sewing machines. During 2018 these costs were about 25% of our total budget.</p>
+          <p>Also, if you would like to make a donation specifically for materials or a certain part of our project, we will honor your request.</p>
         </article>
       </section>
 
@@ -246,9 +275,8 @@ h3 {
       <section id="contact">
         <article>
           <h1>Contact Us</h1>
-          <p>For more information about the Turtle Shelter Project, volunteering, or donating, please contact us:</p>
           <p>Email: info@turtleshelter.org</p>
-          <p>Phone: (123) 456-7890</p>
+          <p>Phone: 801-872-3190</p>
         </article>
       </section>
     </main>
@@ -258,6 +286,5 @@ h3 {
   <footer>
     <p>&copy; 2024 The Turtle Shelter Project | All Rights Reserved</p>
   </footer>
-
 </body>
 </html>
