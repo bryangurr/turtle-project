@@ -15,7 +15,7 @@
     }
 
     header {
-      background: #2e8b57;
+      background: #004d40;
       color: #fff;
       padding: 15px 0;
       position: sticky;
@@ -177,7 +177,7 @@
     footer {
       text-align: center;
       padding: 20px;
-      background: #2e8b57;
+      background: #004d40;
       color: #fff;
       font-size: 1em;
     }
@@ -192,6 +192,53 @@
     footer a:hover {
       color: #c3e6cb;
     }
+
+    #statistics {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.stat {
+  flex: 1;
+  padding: 10px;
+}
+
+.stat-number {
+  font-size: 4em; /* Numbers are 4 times bigger */
+  font-weight: bold;
+  margin: 0;
+  color: #1d6d45;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.stat-number::after {
+  content: attr(data-value);
+  visibility: hidden;
+  position: absolute;
+}
+
+.stat-label {
+  font-size: 1em;
+  color: #333;
+}
+
+
+/* Animation for incrementing numbers */
+@keyframes countUp {
+  from {
+    content: "0";
+  }
+  to {
+    content: attr(data-value);
+  }
+}
+
+/* JavaScript will trigger animation */
+
   </style>
 </head>
 
@@ -225,6 +272,21 @@
   </section>
 
 
+  <section id="statistics" class="visible">
+    <div class="stat">
+        <h2 class="stat-number" data-value="908">908</h2>
+        <p class="stat-label">Vests Distributed in November of this Year</p>
+    </div>
+    <div class="stat">
+        <h2 class="stat-number" data-value="5900">5900</h2>
+        <p class="stat-label">Total Vests Delivered</p>
+    </div>
+    <div class="stat">
+        <h2 class="stat-number" data-value="12843">12843</h2>
+        <p class="stat-label">Involved Volunteers</p>
+    </div>
+  </section>
+
   <!-- What is a Turtle Shelter Vest Section -->
   <section
     style="background-color: #fff; padding: 2rem; max-width: 800px; margin: 20px auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); text-align: center;">
@@ -249,33 +311,70 @@
   </section>
 
 
-
   <!-- How You Can Help Section -->
-  <section>
+  <section style="background-color: #fff; padding: 2rem; max-width: 800px; margin: 20px auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); text-align: center;">
     <h2>Contact Us</h2>
-    <p>
-      Turtle Shelter Project, PO Box 382, Kaysville, UT 84037 | 801-872-3190 |
-      <a href="mailto:turtleshelterproject@gmail.com">turtleshelterproject@gmail.com</a>
-    <p style="text-align: center;">
+    <p style="text-align: center; display: flex; justify-content: center; align-items: center; gap: 10px;">
       <a href="https://www.facebook.com/TurtleShelterProject" target="_blank">
         <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"
           style="width: 40px; height: 40px;">
       </a>
-    </p>
-    <p style="text-align: center; margin-top: 10px; font-size: 0.8em;">
-      <a href="https://www.flaticon.com/free-icons/facebook" title="facebook icons"
-        style="color: #fff; text-decoration: none;">
-        Facebook Icon Source
+      <a href="https://www.youtube.com/@turtleshelterproject7915" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733646.png" alt="YouTube"
+          style="width: 40px; height: 40px;">
       </a>
-    </p>
-
+      <a href="https://www.instagram.com/turtleshelterproject/" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram"
+          style="width: 40px; height: 40px;">
+      </a>
+    </p>    
   </section>
 
   <!-- Footer -->
   <footer>
     © 2024 Turtle Shelter Project. All rights reserved.
   </footer>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const stats = document.querySelectorAll(".stat-number");
+  
+    const animateNumber = (element) => {
+      const targetValue = parseInt(element.getAttribute("data-value"), 10);
+      let startValue = 0;
+      const duration = 850; // Animation duration in milliseconds
+      const increment = Math.ceil(targetValue / (duration / 16));
+  
+      const updateNumber = () => {
+        startValue += increment;
+        if (startValue >= targetValue) {
+          element.textContent = targetValue;
+          return;
+        }
+        element.textContent = startValue;
+        requestAnimationFrame(updateNumber);
+      };
+  
+      updateNumber();
+    };
+  
+    const onScroll = () => {
+      stats.forEach((stat) => {
+        const rect = stat.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          // Only animate once the element is in view
+          if (!stat.classList.contains('animated')) {
+            animateNumber(stat);
+            stat.classList.add('animated'); // Prevent re-animation
+          }
+        }
+      });
+    };
+  
+    window.addEventListener("scroll", onScroll);
+  });
+  
 
+  </script>
   <script>
     const urlParams = new URLSearchParams(window.location.search);
     const message = urlParams.get('message');
