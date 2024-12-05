@@ -297,7 +297,7 @@ td {
 
               <% if (event.event_status == 'P') { %>
                 <form action="/approve_event/<%= event.id %>" method="POST" style="display:inline;">
-                  <button class="btn delete" type="submit" name="event_status" value="A" onclick="return confirm('Are you sure you want to approve this event? If yes, Please contact the coordinator.');" >Approve</button>
+                  <button style="height: 30px; background-color: burlywood; color: white; border: none; border-radius: 5px; font-size: 12px; cursor: pointer; transition: background-color 0.3s ease;" type="submit" name="event_status" value="A" onclick="return confirm('Are you sure you want to approve this event? If yes, Please contact the coordinator.');" >Approve</button>
                 </form>       
               <% } %>
             </td>
