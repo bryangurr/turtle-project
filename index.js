@@ -43,7 +43,7 @@ const knex = require("knex")({
   connection: {
     host: process.env.RDS_HOSTNAME || "localhost",
     user: process.env.RDS_USERNAME || "postgres",
-    password: process.env.RDS_PASSWORD || "Never1:3",
+    password: process.env.RDS_PASSWORD || "Winter12!",
     database: process.env.RDS_DB_NAME || "turtletest",
     port: process.env.RDS_PORT || 5432,
     ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false,
@@ -583,6 +583,24 @@ app.post("/report_event/:id", (req, res) => {
   //knex('events').update({
   //actual event stats
   //}).where('id', id)
+});
+
+app.post("/approve_event/:id", (req, res) => {
+  const id = req.params.id;
+
+  knex("event")
+    .where("id", id)
+    .first()
+    .update({
+      event_status: req.body.event_status,
+    })
+    .then(() => {
+      res.redirect("/manage_events");
+    })
+    .catch((err) => {
+      console.error("Error approving event:", err);
+      res.status(500).send("Internal server error.");
+    });
 });
 
 // should always come last

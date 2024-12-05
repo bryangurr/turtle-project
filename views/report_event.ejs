@@ -48,7 +48,7 @@
       </tr>
     </thead>
     <tbody>
-      <% events.forEach(event => { %>
+      <% event.forEach(event => { %>
         <tr>
           <form action="/report_event/<%= event.id %>" method="POST">
             <td><%= event.Event_Date %></td>
