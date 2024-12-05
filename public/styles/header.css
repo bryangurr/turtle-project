@@ -1,0 +1,39 @@
+header {
+    background: #2e8b57;
+    color: #fff;
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    /* Enables flexible layout */
+    align-items: center;
+    /* Centers content vertically */
+  }
+
+  header img {
+    height: 50px;
+    /* Adjust as needed */
+    margin-left: 15px;
+    /* Adds some spacing from the edge */
+  }
+
+  header nav {
+    flex-grow: 1;
+    /* Makes the nav section expand to fill available space */
+    text-align: center;
+    /* Centers the content horizontally */
+  }
+
+  header nav a {
+    color: #fff;
+    margin: 0 15px;
+    text-decoration: none;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+
+  header nav a:hover {
+    color: #c3e6cb;
+  }
