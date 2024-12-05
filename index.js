@@ -6,6 +6,8 @@ let app = express();
 
 let path = require("path");
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 require("dotenv").config();
 
 // Declare environmental variables
