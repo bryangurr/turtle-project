@@ -42,13 +42,27 @@
 
         .form-box input[type="text"], 
         .form-box input[type="email"], 
-        .form-box input[type="tel"] {
+        .form-box input[type="tel"], 
+        .form-box input[type="number"] {
             width: 100%;
             padding: 10px;
             margin-bottom: 20px;
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 16px;
+        }
+
+        .form-box select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-box input[type="checkbox"] {
+            margin-bottom: 20px;
         }
 
         .form-box button {
@@ -66,12 +80,28 @@
             background-color: #004d40;
         }
 
-        @media (max-height: 600px) {
-        .form-box {
-        margin-top: 10px; 
+        /* Delete Button Styling */
+        .form-box .btn.delete {
+            background-color: #e57373;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px; /* Ensure consistent spacing */
         }
-        }   
 
+        .form-box .btn.delete:hover {
+            background-color: #d32f2f; /* Darker red on hover */
+        }
+
+        @media (max-height: 600px) {
+            .form-box {
+                margin-top: 10px; 
+            }
+        }   
     </style>
 </head>
 <body>
@@ -79,6 +109,7 @@
         <h1>Edit Volunteer</h1>
         <form action="/edit_volunteer/<%= volunteer.id %>" method="POST">
             <input type="hidden" name="id" value="<%= volunteer.id %>">
+            
             <label for="vol_first_name">First Name</label>
             <input type="text" id="vol_first_name" name="vol_first_name" value="<%= volunteer.vol_first_name %>" required>
 
@@ -106,30 +137,34 @@
             <label for="how_did_you_hear_id">How did you hear about us?</label>
             <select id="how_did_you_hear_id" name="how_did_you_hear_id">
                 <% how_did_you_hear.forEach(item => { %>
-                    <option value = "<%= item.how_did_you_hear_id %>" <%= item.how_did_you_hear_id === volunteer.how_did_you_hear_id ? 'selected' : '' %>> 
-                        <%= item.description %>"
+                    <option value="<%= item.how_did_you_hear_id %>" <%= item.how_did_you_hear_id === volunteer.how_did_you_hear_id ? 'selected' : '' %>>
+                        <%= item.description %>
                     </option>
                 <% }) %>
             </select>
-            
 
             <label for="sewing_level">Sewing Level</label>
             <select id="sewing_level" name="sewing_level">
                 <% sewing_level.forEach(level => { %>
-                    <option value = "<%= level.sewing_level %>" <%= level.sewing_level === volunteer.sewing_level ? 'selected' : '' %> >
+                    <option value="<%= level.sewing_level %>" <%= level.sewing_level === volunteer.sewing_level ? 'selected' : '' %>>
                         <%= level.description %>
                     </option>
                 <% }) %>
             </select>
-          
+            
             <label for="teach_sewing">Are you willing to teach sewing at events?</label>
-            <input type="checkbox" id="teach_sewing" name="teach_sewing" value="true" <%= volunteer.teach_sewing ? 'checked' : '' %> >
+            <input type="checkbox" id="teach_sewing" name="teach_sewing" value="true" <%= volunteer.teach_sewing ? 'checked' : '' %>>
 
             <label for="lead_event">Are you willing to take the lead at events?</label>
-            <input type="checkbox" id="lead_event" name="lead_event" value="true" <%= volunteer.lead_event ? 'checked' : '' %> >
-
-
-            <button type="submit">Submit</button>
+            <input type="checkbox" id="lead_event" name="lead_event" value="true" <%= volunteer.lead_event ? 'checked' : '' %>>
+            
+            <div style="margin-top: 20px;">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+        
+        <form action="/delete_volunteer/<%= volunteer.id %>" method="POST" style="display: inline;">
+            <button class="btn delete" type="submit" onclick="return confirm('Are you sure you want to delete this volunteer?');">Delete</button>
         </form>
     </div>
 </body>
