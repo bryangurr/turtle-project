@@ -39,13 +39,20 @@
             color: #333;
         }
 
-        .form-box input[type="text"] {
+        .form-box input[type="text"],
+        .form-box input[type="password"] {
             width: 100%;
             padding: 10px;
             margin-bottom: 20px;
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 16px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
         }
 
         .form-box button {
@@ -64,20 +71,11 @@
         }
 
         .btn.delete {
-            border: none;
-            /* No border */
-            border-radius: 5px;
-            /* Rounded corners */
-            padding: 10px 15px;
-            font-size: 16px;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
             background-color: #e57373;
         }
 
-        .btn.edit:hover {
-            background-color: #004d40;
+        .btn.delete:hover {
+            background-color: #c62828;
         }
     </style>
 </head>
@@ -85,25 +83,29 @@
 <body>
     <div class="form-box">
         <h1>Edit Admin</h1>
-        <form action="/edit_employee/<%=admin.id%>" method="POST">
+        <form action="/edit_employee/<%= admin.id %>" method="POST">
             <input type="hidden" name="id" value="<%= admin.id %>">
             <input type="hidden" name="old_email" value="<%= admin.username %>">
             <input type="hidden" name="old_password" value="<%= admin.password %>">
             <label for="first_name">First Name</label>
-            <input type="text" id="first_name" name="first_name" value="<%=admin.first_name %>" required>
+            <input type="text" id="first_name" name="first_name" value="<%= admin.first_name %>" required>
             <label for="last_name">Last Name</label>
-            <input type="text" id="last_name" name="last_name" value="<%=admin.last_name %>" required>
+            <input type="text" id="last_name" name="last_name" value="<%= admin.last_name %>" required>
             <label for="username">Username</label>
             <input type="text" id="username" name="username" value="<%= admin.username %>" required>
             <label for="password">Password</label>
             <input type="password" id="text" name="password" value="<%= admin.password %>">
             <label for="phone">Phone</label>
-            <input type="text" id="phone" name="phone" value="<%= admin.phone%>" required>
-            <button type="submit">Submit</button>
+            <input type="text" id="phone" name="phone" value="<%= admin.phone %>" required>
+
+            <!-- Buttons are now in a container -->
+            <div class="button-container">
+                <button type="submit">Submit</button>
         </form>
-        <form action="/delete_employee/<%=admin.id%>" method="POST" style="display: inline;">
-            <button class="btn delete" type="submit">Delete</button>
-        </form>
+                <form action="/delete_employee/<%= admin.id %>" method="POST" style="margin: 0;">
+                    <button class="btn delete" type="submit">Delete</button>
+                </form>
+            </div>
     </div>
 </body>
 
