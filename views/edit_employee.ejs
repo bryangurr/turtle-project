@@ -69,7 +69,7 @@
         <form action="/edit_employee/<%=admin.id%>" method="POST">
             <input type="hidden" name="id" value="<%= admin.id %>">
             <input type="hidden" name="old_email" value="<%= admin.username %>">
-            <input type="hidden" name="old_password" value="<%= admin.password %>"
+            <input type="hidden" name="old_password" value="<%= admin.password %>">
             <label for="first_name">First Name</label>
             <input type="text" id="first_name" name="first_name" value="<%=admin.first_name %>" required>
             <label for="last_name">Last Name</label>
@@ -81,6 +81,9 @@
             <label for="phone">Phone</label>
             <input type="text" id="phone" name="phone" value="<%= admin.phone%>" required>
             <button type="submit">Submit</button>
+        </form>
+        <form action="/delete_employee/<%=admin.id%>" method="POST" style="display: inline;">
+            <button class="btn delete" type="submit">Delete</button>
         </form>
     </div>
 </body>
