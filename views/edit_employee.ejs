@@ -4,17 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/adminHeader.css">
     <title>Edit Admin</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
             background: linear-gradient(135deg, #004d40, #66bb6a);
             height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
         .form-box {
@@ -25,6 +23,8 @@
             width: 400px;
             max-width: 100%;
             text-align: center;
+            margin-top: 20px;
+
         }
 
         .form-box h1 {
@@ -81,27 +81,32 @@
 </head>
 
 <body>
-    <div class="form-box">
-        <h1>Edit Admin</h1>
-        <form action="/edit_employee/<%= admin.id %>" method="POST">
-            <input type="hidden" name="id" value="<%= admin.id %>">
-            <input type="hidden" name="old_email" value="<%= admin.username %>">
-            <input type="hidden" name="old_password" value="<%= admin.password %>">
-            <label for="first_name">First Name</label>
-            <input type="text" id="first_name" name="first_name" value="<%= admin.first_name %>" required>
-            <label for="last_name">Last Name</label>
-            <input type="text" id="last_name" name="last_name" value="<%= admin.last_name %>" required>
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" value="<%= admin.username %>" required>
-            <label for="password">Password</label>
-            <input type="password" id="text" name="password" value="<%= admin.password %>">
-            <label for="phone">Phone</label>
-            <input type="text" id="phone" name="phone" value="<%= admin.phone %>" required>
+    <!-- Header navigation -->
+    <div class="page-container">
+        <%- include('partials/adminHeader') %>
+            <div class="form-box">
+                <h1>Edit Admin</h1>
+                <form action="/edit_employee/<%= admin.id %>" method="POST">
+                    <input type="hidden" name="id" value="<%= admin.id %>">
+                    <input type="hidden" name="old_email" value="<%= admin.username %>">
+                    <input type="hidden" name="old_password" value="<%= admin.password %>">
+                    <label for="first_name">First Name</label>
+                    <input type="text" id="first_name" name="first_name" value="<%= admin.first_name %>" required>
+                    <label for="last_name">Last Name</label>
+                    <input type="text" id="last_name" name="last_name" value="<%= admin.last_name %>" required>
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" value="<%= admin.username %>" required>
+                    <label for="password">Password</label>
+                    <input type="password" id="text" name="password" value="<%= admin.password %>">
+                    <label for="phone">Phone</label>
+                    <input type="text" id="phone" name="phone" value="<%= admin.phone %>" required>
 
-            <!-- Buttons are now in a container -->
-            <div class="button-container">
-                <button type="submit">Submit</button>
-        </form>
+                    <!-- Buttons are now in a container -->
+                    <div class="button-container">
+                        <button type="submit">Submit</button>
+                    </div>
+
+                </form>
                 <form action="/delete_employee/<%= admin.id %>" method="POST" style="margin: 0;">
                     <button class="btn delete" type="submit">Delete</button>
                 </form>
