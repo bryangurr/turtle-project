@@ -227,25 +227,26 @@
 
   <!-- What is a Turtle Shelter Vest Section -->
   <section
-  style="background-color: #fff; padding: 2rem; max-width: 800px; margin: 20px auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); text-align: center;">
-  <h2 style="color: #2e8b57; text-align: center;">What is a Turtle Shelter?</h2>
-  <div style="text-align: center;">
-    <img src="images/Original+logo+low+resolution.png" alt="Description of the image"
-      style="max-width: 100%; height: auto;">
-  </div>
-  <p style="text-align: center; font-size: 1.2em; line-height: 1.6;">A high-tech but simple solution to help save lives
-    - </p>
-  <p style="text-align: center; font-size: 1.2em; line-height: 1.6;">It's a portable "shelter" you can carry with you,
-    just like a turtle...</p>
-  <p style="text-align: center; font-size: 1.2em; line-height: 1.6;">One winter when Jen was homeless, <B>7</B> of her
-    friends froze to death.</p>
-  <p style="text-align: center; font-size: 1.2em; line-height: 1.6;">Jen is no longer homeless and has figured out a
-    solution:</p>
-  <p style="text-align: center; font-size: 1.2em; line-height: 1.6;">High-tech foam vests that are inexpensive, keep a
-    person warm up to 10 degrees below zero, and help <B>SAVE</B> lives.</p>
-  <p style="text-align: center; font-size: 1.2em; line-height: 1.6;"><B>YOU</B> can request vests for your community - 
-    and you can make vests and have your friends, business colleagues, church members, or club make vests too!</p>
-</section>
+    style="background-color: #fff; padding: 2rem; max-width: 800px; margin: 20px auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); text-align: center;">
+    <h2 style="color: #2e8b57; text-align: center;">What is a Turtle Shelter?</h2>
+    <div style="text-align: center;">
+      <img src="images/Original+logo+low+resolution.png" alt="Description of the image"
+        style="max-width: 100%; height: auto;">
+    </div>
+    <p style="text-align: center; font-size: 1.2em; line-height: 1.6;">A high-tech but simple solution to help save
+      lives
+      - </p>
+    <p style="text-align: center; font-size: 1.2em; line-height: 1.6;">It's a portable "shelter" you can carry with you,
+      just like a turtle...</p>
+    <p style="text-align: center; font-size: 1.2em; line-height: 1.6;">One winter when Jen was homeless, <B>7</B> of her
+      friends froze to death.</p>
+    <p style="text-align: center; font-size: 1.2em; line-height: 1.6;">Jen is no longer homeless and has figured out a
+      solution:</p>
+    <p style="text-align: center; font-size: 1.2em; line-height: 1.6;">High-tech foam vests that are inexpensive, keep a
+      person warm up to 10 degrees below zero, and help <B>SAVE</B> lives.</p>
+    <p style="text-align: center; font-size: 1.2em; line-height: 1.6;"><B>YOU</B> can request vests for your community -
+      and you can make vests and have your friends, business colleagues, church members, or club make vests too!</p>
+  </section>
 
 
 
@@ -281,9 +282,9 @@
     console.log(message);  // Add this line to see if the message is correctly extracted
 
     if (message) {
-        const messageBox = document.createElement('div');
-        messageBox.id = 'messageBox';
-        messageBox.style.cssText = `
+      const messageBox = document.createElement('div');
+      messageBox.id = 'messageBox';
+      messageBox.style.cssText = `
             position: fixed;
             top: 0;
             left: 0;
@@ -296,15 +297,15 @@
             z-index: 1000;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         `;
-        messageBox.textContent = message;
-        document.body.appendChild(messageBox);
+      messageBox.textContent = message;
+      document.body.appendChild(messageBox);
 
-        // Hide the message box after 10 seconds
-        setTimeout(() => {
-            messageBox.remove();
-        }, 10000);
+      // Hide the message box after 10 seconds
+      setTimeout(() => {
+        messageBox.remove();
+      }, 10000);
     }
-</script>
+  </script>
 
 </body>
 
