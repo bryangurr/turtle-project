@@ -1,0 +1,121 @@
+.arrow {
+    display: inline-block;
+    transform: rotate(90deg);
+    /* Point it down */
+    margin-left: 5px;
+    font-size: 12px;
+    /* Adjust size */
+    transition: transform 0.3s;
+}
+
+.dropdown:hover .arrow {
+    transform: rotate(270deg);
+    /* Point it up */
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    z-index: 1;
+    right: 0;
+    /* Align dropdown to the right */
+}
+
+.dropdown-menu a {
+    color: #004d40;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f1f1f1;
+    color: #004d40;
+}
+
+/* Show Dropdown Menu on Hover */
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Banner Section */
+.banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #004d40;
+    padding: 10px 20px;
+    color: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.banner .title h1 {
+    margin: 0;
+    font-size: 24px;
+    color: white;
+    text-align: left;
+}
+
+/* Banner Buttons */
+.banner-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+/* general Button Styling */
+.banner .btn {
+    background-color: transparent;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.3em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    height: 100%;
+}
+
+.banner .btn:hover {
+    background-color: #fff;
+    color: #2e8b57;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+header a img {
+    height: 50px;
+    vertical-align: middle;
+    margin-right:10px;
+}
+
+.logo_style {
+    font-size: 1.2em; /* Slightly larger font size for emphasis */
+    font-weight: bold; /* Makes it stand out */
+    color: #fff; /* Matches the header text color */
+    padding: 0px 20px; /* Adds padding for a button-like look */
+    background-color: transparent; /* Matches the header background */
+    border-radius: 5px; /* Rounded edges */
+    text-decoration: none; /* Removes underline */
+    display: inline-flex; /* Aligns text and image nicely */
+    align-items: center; /* Centers text and image vertically */
+    transition: background-color 0.3s ease; /* Smooth background color transition */
+    line-height: 1.1; /* Adjust the line height to reduce the space between lines */
+
+}
+
+.logo_style:hover {
+    background-color: #fff; /* Inverts the background color */
+    color: #2e8b57; /* Matches the hover text color */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Adds hover shadow for depth */
+}

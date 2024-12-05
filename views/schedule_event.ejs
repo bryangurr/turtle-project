@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/header.css">
     <title>Request an Event</title>
     <style>
        * {
@@ -19,6 +20,8 @@ body {
     min-height: 100vh;
     line-height: 1.6;
     padding: 2rem; /* Adds space around the container */
+    padding-top: 100px; /* Offset for the fixed header */
+
 }
 
 .container {
@@ -120,6 +123,8 @@ body {
 </style>
 </head>
 <body>
+    <%- include('partials/header') %>
+
     <div class="container">
         <h2 class="form-title">Request Your Own Event</h2>
         <form action="/schedule_event" method="POST">

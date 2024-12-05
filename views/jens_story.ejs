@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles/header.css">
   <title>Jen's Story</title>
   <style>
     body {
@@ -12,29 +13,7 @@
       background-color: #f4f4f4;
       color: #333;
       line-height: 1.6;
-    }
-
-    header {
-      background: #004d40;
-      color: #fff;
-      padding: 15px 0;
-      text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    header nav a {
-      color: #fff;
-      margin: 0 15px;
-      text-decoration: none;
-      font-size: 1.1em;
-      font-weight: bold;
-      transition: color 0.3s ease;
-    }
-
-    header nav a:hover {
-      color: #c3e6cb;
+      padding-top: 100px;
     }
 
     .container {
@@ -52,7 +31,7 @@
       margin-bottom: 20px;
     }
 
-    img {
+    .img_style {
       float: left;
       margin: 0 20px 20px 0;
       max-width: 40%;
@@ -91,22 +70,14 @@
 </head>
 <body>
   <!-- Header -->
-  <header>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/jens_story">Jen's Story</a>
-      <a href="/sponsors">Sponsors</a>
-      <a href="/about">About</a>
-      <a href="/schedule_event">Schedule an Event</a>
-      <a href="/volunteer">Volunteer</a>
-      <a href="/login">Login</a>
-    </nav>
-  </header>
+   
+  <%- include('partials/header') %>
+
 
   <!-- Content Section -->
   <div class="container">
     <h1>Jen's Story</h1>
-    <img src="https://images.squarespace-cdn.com/content/v1/5b5a266fcef372310148d6d6/1533210401082-OHXC52YJMSFVE4B7I8KY/Jen.png" alt="Jen">
+    <img class="img_style" src="https://images.squarespace-cdn.com/content/v1/5b5a266fcef372310148d6d6/1533210401082-OHXC52YJMSFVE4B7I8KY/Jen.png" alt="Jen">
     <p>My journey began with personal struggle. Addiction had led me to experience homelessness multiple times, and during those harsh winters, I witnessed the devastating reality of survival on the streets. I personally knew seven people who tragically froze to death.</p>
     
     <div class="quote">

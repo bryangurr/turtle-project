@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles/header.css">
   <title>Our Sponsors</title>
   <style>
     body {
@@ -15,7 +16,7 @@
       flex-direction: column;
       min-height: 100vh;
     }
-
+/* 
     header {
       background: #004d40;
       color: #fff;
@@ -37,7 +38,7 @@
 
     header nav a:hover {
       color: #c3e6cb;
-    }
+    } */
 
     main {
       flex: 1;
@@ -68,7 +69,9 @@
 </head>
 <body>
   <!-- Top Navigation Bar -->
-  <header>
+   
+  <%- include('partials/header') %>
+  <!-- <header>
     <nav>
       <a href="/">Home</a>
       <a href="/jens_story">Jen's Story</a>
@@ -78,7 +81,7 @@
       <a href="/volunteer">Volunteer</a>
       <a href="/login">Login</a>
     </nav>
-  </header>
+  </header> -->
 
   <!-- Sponsors Section -->
   <main>
