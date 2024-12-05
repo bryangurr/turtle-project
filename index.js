@@ -126,7 +126,6 @@ app.get("/login", (req, res) => {
   }
 });
 
-
 // POST route to handle login
 app.post("/login", (req, res) => {
   const { username, password } = req.body; // Extract username and password
