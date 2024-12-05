@@ -14,6 +14,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
+            height: auto;
         }
 
         .form-box {
@@ -63,6 +65,13 @@
         .form-box button:hover {
             background-color: #004d40;
         }
+
+        @media (max-height: 600px) {
+        .form-box {
+        margin-top: 10px; 
+        }
+        }   
+
     </style>
 </head>
 <body>
