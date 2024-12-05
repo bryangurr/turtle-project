@@ -335,7 +335,7 @@ app.post("/delete_volunteer/:id", (req, res) => {
 app.get("/employee_home", isAuthenticated, (req, res) => {
   const tableauURL =
     "https://public.tableau.com/views/INTEX_DASHBOARD_17333563512380/Dashboard1?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link";
-  res.render("employee_home", { user: req.session.user });
+  res.render("employee_home", { user: req.session.user, tableauURL });
 });
 
 app.get("/manage_employees", isAuthenticated, (req, res) => {
