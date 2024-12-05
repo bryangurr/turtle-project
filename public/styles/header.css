@@ -39,6 +39,8 @@ header a img {
     display: inline-flex; /* Aligns text and image nicely */
     align-items: center; /* Centers text and image vertically */
     transition: background-color 0.3s ease; /* Smooth background color transition */
+    line-height: 1.1; /* Adjust the line height to reduce the space between lines */
+
 }
 
 .logo_style:hover {
