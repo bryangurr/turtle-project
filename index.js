@@ -36,6 +36,7 @@ function isAuthenticated(req, res, next) {
   res.redirect("/login"); // Redirect to login if not authenticated
 }
 
+
 //connect to the database
 
 const knex = require("knex")({
@@ -43,7 +44,7 @@ const knex = require("knex")({
   connection: {
     host: process.env.RDS_HOSTNAME || "localhost",
     user: process.env.RDS_USERNAME || "postgres",
-    password: process.env.RDS_PASSWORD || "AFlacrosse#6",
+    password: process.env.RDS_PASSWORD || "Never1:3",
     database: process.env.RDS_DB_NAME || "turtletest",
     port: process.env.RDS_PORT || 5432,
     ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false,
@@ -57,11 +58,11 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "styles")));
+app.use(express.static(path.join(__dirname, "styles"))); 
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 /* ---------------------------------------------------------------------- */
-// Application routes
+// Application routes 
 
 // Home route (root)
 app.get("/", (req, res) => {
@@ -168,7 +169,7 @@ app.post("/logout", (req, res) => {
 // FORMS
 
 // VOLUNTEERS
-// Public facing volunteer form
+// Public facing volunteer form 
 app.get("/volunteer", (req, res) => {
   res.render("volunteer");
 });
@@ -248,7 +249,7 @@ app.get("/edit_volunteer/:id", isAuthenticated, (req, res) => {
                 volunteer,
                 sewing_level,
                 how_did_you_hear,
-                user: req.session.user,
+                user: req.session.user
               });
             })
             .catch((err) => {
@@ -329,6 +330,7 @@ app.post("/delete_volunteer/:id", (req, res) => {
     });
 });
 
+
 // EMPLOYEES
 
 // Protected employee routes
@@ -355,10 +357,10 @@ app.get("/manage_employees", isAuthenticated, (req, res) => {
     });
 });
 
-app.get("/edit_employee/:id", isAuthenticated, (req, res) => {
-  const id = req.params.id;
-  knex("admin")
-    .where("admin.id", id)
+app.get('/edit_employee/:id', isAuthenticated, (req, res) => {
+  const id = req.params.id
+  knex('admin')
+    .where('admin.id', id)
     .leftJoin("volunteers", "admin.username", "=", "volunteers.email")
     .select(
       "admin.id as id",
@@ -369,9 +371,9 @@ app.get("/edit_employee/:id", isAuthenticated, (req, res) => {
       "volunteers.phone as phone"
     )
     .first()
-    .then((admin) => {
+    .then(admin => {
       if (admin) {
-        res.render("edit_employee", { user: req.session.user, admin });
+        res.render('edit_employee', { user: req.session.user, admin });
       } else {
         res.status(404).send("Employee not found");
       }
@@ -382,17 +384,21 @@ app.get("/edit_employee/:id", isAuthenticated, (req, res) => {
     });
 });
 
+
+
 app.post("/edit_employee/:id", async (req, res) => {
   const id = req.params.id;
-  const { username, password, phone, first_name, last_name, old_email } =
-    req.body;
+  const { username, password, phone, first_name, last_name, old_email } = req.body;
 
   try {
     // Update `admin` table
-    await knex("admin").where("id", id).update({
-      username,
-      password,
-    });
+    await knex("admin")
+      .where("id", id)
+      .update({
+        username,
+        password,
+        
+      });
 
     // Update `volunteers` table
     await knex("volunteers")
@@ -401,7 +407,7 @@ app.post("/edit_employee/:id", async (req, res) => {
         email: username,
         vol_first_name: first_name,
         vol_last_name: last_name,
-        phone,
+        phone
       });
 
     res.redirect("/manage_employees");
@@ -410,6 +416,7 @@ app.post("/edit_employee/:id", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
+
 
 app.get("/create_employee", isAuthenticated, (req, res) => {
   res.render("create_employee", { user: req.session.user });
@@ -443,6 +450,8 @@ app.post("/create_employee", (req, res) => {
       res.status(500).send("Internal Server Error");
     });
 });
+
+
 
 // EVENTS
 
@@ -489,6 +498,8 @@ app.post("/schedule_event", (req, res) => {
     });
 });
 
+
+
 app.get("/edit_event/:id", isAuthenticated, (req, res) => {
   knex("event")
     .where({ id: req.params.id })
@@ -506,42 +517,41 @@ app.get("/edit_event/:id", isAuthenticated, (req, res) => {
     });
 });
 
+
 app.post("/edit_event/:id", (req, res) => {
   const { id } = req.params;
   const {
-    event_date,
-    address,
-    event_city,
-    event_state,
-    start_time,
-    event_duration,
-    child_participants,
-    adult_participants,
-    sewing_non,
-    coordinator_first_name,
-    coordinator_last_name,
-    coordinator_phone,
-    coordinator_secondary_phone,
-    share_story,
+    eventDate,
+    eventAddress,
+    eventCity,
+    eventState,
+    startTime,
+    duration,
+    numberOfAttendees,
+    eventType,
+    firstName,
+    lastName,
+    phoneNumber,
+    secondaryPhone,
+    shareStory,
   } = req.body;
 
   knex("event")
     .where({ id })
     .update({
-      event_date: event_date,
-      address: address,
-      event_city: event_city,
-      event_state: event_state,
-      start_time: start_time,
-      event_duration: event_duration,
-      child_participants: child_participants,
-      adult_participants: adult_participants,
-      sewing_non: sewing_non,
-      coordinator_first_name: coordinator_first_name,
-      coordinator_last_name: coordinator_last_name,
-      coordinator_phone: coordinator_phone,
-      coordinator_secondary_phone: coordinator_secondary_phone,
-      share_story: share_story ? true : false,
+      event_date: eventDate,
+      event_address: eventAddress,
+      event_city: eventCity,
+      event_state: eventState,
+      start_time: startTime,
+      run_time: duration,
+      num_attendees: numberOfAttendees,
+      sewing_non: eventType,
+      coordinator_first_name: firstName,
+      coordinator_last_name: lastName,
+      coordinator_phone: phoneNumber,
+      coordinator_secondary_phone: secondaryPhone,
+      share_story: shareStory ? true : false,
     })
     .then(() => {
       res.redirect("/manage_events"); // Redirect to manage events page
@@ -570,12 +580,14 @@ app.get("/report_event/:id", isAuthenticated, (req, res) => {
     });
 });
 
+
 app.post("/report_event/:id", (req, res) => {
   //const id = req.params.id;
   //knex('events').update({
   //actual event stats
   //}).where('id', id)
 });
+
 
 // should always come last
 app.listen(port, () =>
