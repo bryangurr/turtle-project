@@ -43,7 +43,7 @@ const knex = require("knex")({
   connection: {
     host: process.env.RDS_HOSTNAME || "localhost",
     user: process.env.RDS_USERNAME || "postgres",
-    password: process.env.RDS_PASSWORD || "admin",
+    password: process.env.RDS_PASSWORD || "Winter12!",
     database: process.env.RDS_DB_NAME || "turtletest",
     port: process.env.RDS_PORT || 5432,
     ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false,
@@ -574,7 +574,6 @@ app.post("/delete_event/:id", isAuthenticated, (req, res) => {
     });
 });
 
-
 // Event Reporting
 app.get("/report_event", isAuthenticated, (req, res) => {
   knex("event")
@@ -592,7 +591,6 @@ app.get("/report_event", isAuthenticated, (req, res) => {
       res.status(500).send("Internal server error.");
     });
 });
-
 
 app.post("/report_event/:id", (req, res) => {
   //const id = req.params.id;
