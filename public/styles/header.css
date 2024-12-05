@@ -1,39 +1,77 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    padding-top: 70px; /* Offset for the fixed header */
+}
+
 header {
-    background: #2e8b57;
+    background: #1c4d3f;
     color: #fff;
-    padding: 15px 0;
-    position: sticky;
+    padding: 0px 0;
+    position: fixed; /* Makes the header float at the top */
     top: 0;
-    z-index: 1000;
+    left: 0;
+    width: 100%; /* Ensures it spans the width of the screen */
+    z-index: 1000; /* Keeps it above other elements */
     display: flex;
-    /* Enables flexible layout */
-    align-items: center;
-    /* Centers content vertically */
-  }
+    align-items: center; /* Centers content vertically */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for depth */
+}
 
-  header img {
+header a img {
     height: 50px;
-    /* Adjust as needed */
-    margin-left: 15px;
-    /* Adds some spacing from the edge */
-  }
+    vertical-align: middle; /* Aligns text and image */
+    margin-right: 10px; /* Spacing between logo and text */
+}
 
-  header nav {
+.logo_style {
+    font-size: 1.5em; /* Slightly larger font size for emphasis */
+    font-weight: bold; /* Makes it stand out */
+    color: #fff; /* Matches the header text color */
+    padding: 10px 20px; /* Adds padding for a button-like look */
+    background-color: #1c4d3f; /* Matches the header background */
+    border-radius: 5px; /* Rounded edges */
+    text-decoration: none; /* Removes underline */
+    display: inline-flex; /* Aligns text and image nicely */
+    align-items: center; /* Centers text and image vertically */
+    transition: background-color 0.3s ease; /* Smooth background color transition */
+}
+
+.logo_style:hover {
+    background-color: #fff; /* Inverts the background color */
+    color: #2e8b57; /* Matches the hover text color */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Adds hover shadow for depth */
+}
+
+header nav {
     flex-grow: 1;
-    /* Makes the nav section expand to fill available space */
-    text-align: center;
-    /* Centers the content horizontally */
-  }
+    text-align: center; /* Centers the content horizontally */
+}
 
-  header nav a {
+header nav a {
     color: #fff;
     margin: 0 15px;
     text-decoration: none;
-    font-size: 1.1em;
+    font-size: 1.5em;
     font-weight: bold;
-    transition: color 0.3s ease;
-  }
+    padding: 10px 20px; /* Add padding for button-like appearance */
+    background-color: transparent; /* Background color matches header */
+    border-radius: 5px; /* Adds rounded corners */
+    transition: background-color 0.3s ease; /* Smooth background color transition */
+    height: 100%;
+}
 
-  header nav a:hover {
-    color: #c3e6cb;
-  }
+header nav a:hover {
+    background-color: #fff; /* Change background on hover */
+    color: #2e8b57; /* Swap text color to match header */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Adds hover shadow for depth */
+}
+
+main {
+    padding: 20px; /* Adds padding around the main content */
+    max-width: 1200px; /* Optional: limit content width for readability */
+    margin: 0 auto; /* Centers the content */
+}

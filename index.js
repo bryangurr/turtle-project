@@ -13,7 +13,7 @@ const bodyParser = require("body-parser");
 const stripe = require("stripe")(
   "sk_test_51QRlsmAe0EglwwiJYbVjdKmn1KRcMSeorCaWrNKRYiB1T0kQslBg6ocayIqDhZQIXnami5kdKLV4miC1DlZYfhLr00hCkegHWZ"
 );
-const port = process.env.PORT || 5005;
+const port = process.env.PORT || process.env.PORT_LOCAL;
 
 // adding security to login page and authentication
 const session = require("express-session");
@@ -59,6 +59,8 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "styles")));
 app.use("/images", express.static(path.join(__dirname, "images")));
+app.use(express.static('public'));
+
 
 /* ---------------------------------------------------------------------- */
 // Application routes

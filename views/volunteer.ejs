@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/header.css">
     <title>Turtle Shelter Volunteer Signup</title>
     <style>
         * {
@@ -19,6 +20,9 @@
      min-height: 100vh;
      line-height: 1.6;
      padding: 2rem; /* Adds space around the container */
+     padding-top: 100px; /* Offset for the fixed header */
+
+
  }
  
  .container {
@@ -127,6 +131,7 @@
             }, 10000);
         </script>
     <% } %>
+    <%- include('partials/header') %>
     
     <div class="container">
         <h2 class="form-title">Become a Volunteer!</h2>
