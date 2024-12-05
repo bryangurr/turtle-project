@@ -55,7 +55,7 @@ header nav a {
     color: #fff;
     margin: 0 15px;
     text-decoration: none;
-    font-size: 1.5em;
+    font-size: 1.3em;
     font-weight: bold;
     padding: 10px 20px; /* Add padding for button-like appearance */
     background-color: transparent; /* Background color matches header */
@@ -74,4 +74,35 @@ main {
     padding: 20px; /* Adds padding around the main content */
     max-width: 1200px; /* Optional: limit content width for readability */
     margin: 0 auto; /* Centers the content */
+}
+
+@media (max-width: 600px) {
+    header {
+        flex-direction: column; /* Stack header items vertically */
+        padding: 10px; /* Adjust padding for better spacing */
+    }
+
+    header nav {
+        flex-direction: column; /* Stack nav links vertically */
+        gap: 10px; /* Add space between links */
+    }
+
+    header nav a {
+        font-size: 1.1em; /* Adjust font size for smaller screens */
+        margin: 10px 0; /* Add margin for better spacing */
+        padding: 8px 16px; /* Adjust padding for a more compact appearance */
+    }
+
+    main {
+        padding: 10px; /* Reduce padding around main content */
+    }
+
+    .logo_style {
+        font-size: 1.2em; /* Adjust logo size for smaller screens */
+        padding: 8px 16px; /* Adjust padding for logo */
+    }
+
+    header a img {
+        height: 40px; /* Adjust logo image size for smaller screens */
+    }
 }
