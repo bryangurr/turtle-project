@@ -18,7 +18,7 @@
 
 
         /* Main Content Section */
-        
+
 
         h1 {
             color: #004d40;
@@ -102,64 +102,62 @@
         .add-event-btn:hover {
             background-color: #004d40;
         }
-
-
     </style>
 
 </head>
 
 <body>
-
+    <!-- Header navigation -->
     <%- include('partials/adminHeader') %>
 
-    <!-- Header Section -->
-    <div id="messageBox"></div>
+        <!-- Header Section -->
+        <div id="messageBox"></div>
 
 
 
-    <!-- Title -->
-    <div class="table-container">
-        <h1>Manage Admins</h1>
+        <!-- Title -->
+        <div class="table-container">
+            <h1>Manage Admins</h1>
 
-        <!-- Table -->
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Username (Email)</th>
-                    <th>Phone</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% admins.forEach(admin=> { %>
+            <!-- Table -->
+            <table>
+                <thead>
                     <tr>
-                        <td>
-                            <%= admin.first_name %>
-                                <%= admin.last_name %>
-                        </td>
-                        <td>
-                            <%= admin.username %>
-                        </td>
-                        <td>
-                            <%= admin.phone %>
-                        </td>
-                        <td>
-                            <form action="/edit_employee/<%=admin.id%>" method="GET" style="display: inline;">
-                                <button class="btn edit" type="submit">Edit</button>
-                            </form>
-                        </td>
+                        <th>Name</th>
+                        <th>Username (Email)</th>
+                        <th>Phone</th>
+                        <th>Actions</th>
                     </tr>
-                    <% }); %>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <% admins.forEach(admin=> { %>
+                        <tr>
+                            <td>
+                                <%= admin.first_name %>
+                                    <%= admin.last_name %>
+                            </td>
+                            <td>
+                                <%= admin.username %>
+                            </td>
+                            <td>
+                                <%= admin.phone %>
+                            </td>
+                            <td>
+                                <form action="/edit_employee/<%=admin.id%>" method="GET" style="display: inline;">
+                                    <button class="btn edit" type="submit">Edit</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <% }); %>
+                </tbody>
+            </table>
 
-        <!-- Add Employee Button -->
+            <!-- Add Employee Button -->
 
-    </div>
-    <form action="/create_employee" method="GET">
-        <button class="add-event-btn" type="submit">Add Admin</button>
-    </form>
+        </div>
+        <form action="/create_employee" method="GET">
+            <button class="add-event-btn" type="submit">Add Admin</button>
+        </form>
 </body>
 <script>
     const urlParams = new URLSearchParams(window.location.search);
