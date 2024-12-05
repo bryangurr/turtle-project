@@ -28,7 +28,7 @@ header a img {
 }
 
 .logo_style {
-    font-size: 1.5em; /* Slightly larger font size for emphasis */
+    font-size: 1.2em; /* Slightly larger font size for emphasis */
     font-weight: bold; /* Makes it stand out */
     color: #fff; /* Matches the header text color */
     padding: 10px 20px; /* Adds padding for a button-like look */
@@ -48,12 +48,12 @@ header a img {
 
 header nav {
     flex-grow: 1;
-    text-align: center; /* Centers the content horizontally */
+    text-align: right; /* Centers the content horizontally */
 }
 
 header nav a {
     color: #fff;
-    margin: 0 15px;
+    margin: 0 5px;
     text-decoration: none;
     font-size: 1.3em;
     font-weight: bold;
