@@ -179,6 +179,19 @@ td {
     background-color: #004d40;
 }
 
+.arrow {
+    display: inline-block;
+    transform: rotate(90deg); /* Point it down */
+    margin-left: 5px;
+    font-size: 12px; /* Adjust size */
+    transition: transform 0.3s;
+}
+
+.dropdown:hover .arrow {
+    transform: rotate(270deg); /* Point it up */
+}
+
+
 
     </style>
 
@@ -195,7 +208,7 @@ td {
                 <button type="submit" class="btn">Employee Home</button>
             </form>
             <div class="dropdown">
-                <button class="btn">Manage</button>
+                <button class="btn dropdown-btn">Manage <span class="arrow">&#x276F;</span></button>
                 <div class="dropdown-menu">
                     <a href="/manage_employees">Manage Admin Accounts</a>
                     <a href="/manage_volunteers">Manage Volunteers</a>

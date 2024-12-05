@@ -110,6 +110,20 @@
     background-color: #004d40;
 }
 
+/* rotating arrow */
+.arrow {
+    display: inline-block;
+    transform: rotate(90deg); /* Point it down */
+    margin-left: 5px;
+    font-size: 12px; /* Adjust size */
+    transition: transform 0.3s;
+}
+
+.dropdown:hover .arrow {
+    transform: rotate(270deg); /* Point it up */
+}
+
+
 /* Main Dashboard Section */
 .dashboard {
     padding: 20px;
@@ -156,7 +170,7 @@ iframe {
                 <button type="submit" class="btn">Return to Home Page</button>
             </form>
             <div class="dropdown">
-                <button class="btn">Manage</button>
+                <button class="btn dropdown-btn">Manage <span class="arrow">&#x276F;</span></button>
                 <div class="dropdown-menu">
                     <a href="/manage_employees">Manage Admin Accounts</a>
                     <a href="/manage_volunteers">Manage Volunteers</a>
