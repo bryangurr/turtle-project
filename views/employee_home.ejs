@@ -146,6 +146,18 @@ iframe {
     border-radius: 8px; /* Matches the container's border radius */
 }
 
+/* Main Content */
+.tableau-container {
+    display: grid;
+    place-items: center; /* Centers the child element both horizontally and vertically */
+    height: 100vh;      
+}
+
+.tableauPlaceholder {
+    width: 70%; /* Or any width you want */
+}
+
+
 
     </style>
 </head>
@@ -178,25 +190,24 @@ iframe {
   
     <!-- Main Content -->
     
-    <div style="display: flex; justify-content: center; align-items: center; margin-top: 15px;">
-        <div style="display: inline-block; width: 80%; max-width: 1200px;">
-            <div class="tableauPlaceholder" id="viz1733361520910">
-                <object class="tableauViz" style="width:100%; height:850px;">
-                    <param name="host_url" value="https://public.tableau.com/" /> 
-                    <param name="embed_code_version" value="3" /> 
-                    <param name="site_root" value="" /> 
-                    <param name="name" value="INTEX_DASHBOARD_17333563512380/Dashboard1" /> 
-                    <param name="tabs" value="no" /> 
-                    <param name="toolbar" value="no" /> 
-                    <param name="display_static_image" value="no" /> 
-                    <param name="display_spinner" value="no" /> 
-                    <param name="display_overlay" value="no" /> 
-                    <param name="display_count" value="no" /> 
-                    <param name="language" value="en-US" /> 
-                </object>
-            </div>
+    <div class="tableau-container">
+        <div class="tableauPlaceholder" id="viz1733361520910">
+            <object class="tableauViz" style="width: 100%; height: 850px;">
+                <param name="host_url" value="https://public.tableau.com/" />
+                <param name="embed_code_version" value="3" />
+                <param name="site_root" value="" />
+                <param name="name" value="INTEX_DASHBOARD_17333563512380/Dashboard1" />
+                <param name="tabs" value="no" />
+                <param name="toolbar" value="no" />
+                <param name="display_static_image" value="no" />
+                <param name="display_spinner" value="no" />
+                <param name="display_overlay" value="no" />
+                <param name="display_count" value="no" />
+                <param name="language" value="en-US" />
+            </object>
         </div>
     </div>
+    
     <script type="text/javascript" src="https://public.tableau.com/javascripts/api/viz_v1.js"></script>
 </body>
 </html>
