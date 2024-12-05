@@ -36,7 +36,6 @@ function isAuthenticated(req, res, next) {
   res.redirect("/login"); // Redirect to login if not authenticated
 }
 
-
 //connect to the database
 
 const knex = require("knex")({
@@ -58,11 +57,11 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "styles"))); 
+app.use(express.static(path.join(__dirname, "styles")));
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 /* ---------------------------------------------------------------------- */
-// Application routes 
+// Application routes
 
 // Home route (root)
 app.get("/", (req, res) => {
@@ -169,7 +168,7 @@ app.post("/logout", (req, res) => {
 // FORMS
 
 // VOLUNTEERS
-// Public facing volunteer form 
+// Public facing volunteer form
 app.get("/volunteer", (req, res) => {
   res.render("volunteer");
 });
@@ -249,7 +248,7 @@ app.get("/edit_volunteer/:id", isAuthenticated, (req, res) => {
                 volunteer,
                 sewing_level,
                 how_did_you_hear,
-                user: req.session.user
+                user: req.session.user,
               });
             })
             .catch((err) => {
@@ -330,13 +329,13 @@ app.post("/delete_volunteer/:id", (req, res) => {
     });
 });
 
-
 // EMPLOYEES
 
 // Protected employee routes
 app.get("/employee_home", isAuthenticated, (req, res) => {
-  const tableauURL = 'https://public.tableau.com/views/INTEX_DASHBOARD_17333563512380/Dashboard1?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link';
-  res.render("employee_home", { user: req.session.user, tableauURL: tableauURL });
+  const tableauURL =
+    "https://public.tableau.com/views/INTEX_DASHBOARD_17333563512380/Dashboard1?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link";
+  res.render("employee_home", { user: req.session.user });
 });
 
 app.get("/manage_employees", isAuthenticated, (req, res) => {
@@ -358,10 +357,10 @@ app.get("/manage_employees", isAuthenticated, (req, res) => {
     });
 });
 
-app.get('/edit_employee/:id', isAuthenticated, (req, res) => {
-  const id = req.params.id
-  knex('admin')
-    .where('admin.id', id)
+app.get("/edit_employee/:id", isAuthenticated, (req, res) => {
+  const id = req.params.id;
+  knex("admin")
+    .where("admin.id", id)
     .leftJoin("volunteers", "admin.username", "=", "volunteers.email")
     .select(
       "admin.id as id",
@@ -372,9 +371,9 @@ app.get('/edit_employee/:id', isAuthenticated, (req, res) => {
       "volunteers.phone as phone"
     )
     .first()
-    .then(admin => {
+    .then((admin) => {
       if (admin) {
-        res.render('edit_employee', { user: req.session.user, admin });
+        res.render("edit_employee", { user: req.session.user, admin });
       } else {
         res.status(404).send("Employee not found");
       }
@@ -385,21 +384,17 @@ app.get('/edit_employee/:id', isAuthenticated, (req, res) => {
     });
 });
 
-
-
 app.post("/edit_employee/:id", async (req, res) => {
   const id = req.params.id;
-  const { username, password, phone, first_name, last_name, old_email } = req.body;
+  const { username, password, phone, first_name, last_name, old_email } =
+    req.body;
 
   try {
     // Update `admin` table
-    await knex("admin")
-      .where("id", id)
-      .update({
-        username,
-        password,
-        
-      });
+    await knex("admin").where("id", id).update({
+      username,
+      password,
+    });
 
     // Update `volunteers` table
     await knex("volunteers")
@@ -408,7 +403,7 @@ app.post("/edit_employee/:id", async (req, res) => {
         email: username,
         vol_first_name: first_name,
         vol_last_name: last_name,
-        phone
+        phone,
       });
 
     res.redirect("/manage_employees");
@@ -417,7 +412,6 @@ app.post("/edit_employee/:id", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
-
 
 app.get("/create_employee", isAuthenticated, (req, res) => {
   res.render("create_employee", { user: req.session.user });
@@ -439,8 +433,6 @@ app.post("/create_employee", (req, res) => {
       res.status(500).send("Internal Server Error");
     });
 });
-
-
 
 // EVENTS
 
@@ -492,8 +484,6 @@ app.post("/schedule_event", (req, res) => {
     });
 });
 
-
-
 app.get("/edit_event/:id", isAuthenticated, (req, res) => {
   knex("event")
     .where({ id: req.params.id })
@@ -510,7 +500,6 @@ app.get("/edit_event/:id", isAuthenticated, (req, res) => {
       res.status(500).send("Internal server error.");
     });
 });
-
 
 app.post("/edit_event/:id", (req, res) => {
   const { id } = req.params;
@@ -589,14 +578,12 @@ app.get("/report_event/:id", isAuthenticated, (req, res) => {
     });
 });
 
-
 app.post("/report_event/:id", (req, res) => {
   //const id = req.params.id;
   //knex('events').update({
   //actual event stats
   //}).where('id', id)
 });
-
 
 // should always come last
 app.listen(port, () =>
