@@ -432,14 +432,23 @@ app.get("/create_employee", isAuthenticated, (req, res) => {
 });
 
 app.post("/create_employee", (req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res.status(400).send("Username and password are required.");
+  }
+
   knex("admin")
-    .insert({
-      username: username,
-      password: password,
-    })
+    .insert({ username, password })
     .then(() => {
+      return knex("volunteers")
+        .where('email', username)
+        .first();
+    })
+    .then((volunteer) => {
+      if (!volunteer) {
+        return res.redirect('/volunteer');
+      }
       res.redirect("/manage_employees");
     })
     .catch((error) => {
