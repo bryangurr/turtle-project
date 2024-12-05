@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/adminHeader.css">
     <title>Manage Employees</title>
     <style>
         /* General Styles */
@@ -15,7 +16,7 @@
         }
 
         /* Banner Section */
-        .banner {
+        /* .banner {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -30,17 +31,17 @@
             margin: 0;
             font-size: 24px;
             color: white;
-            text-align: left;
-        }
+            text-align: left; 
+        } */
 
         /* Banner Buttons */
-        .banner-buttons {
+        /* .banner-buttons {
             display: flex;
             gap: 10px;
-        }
+        } */
 
         /* general Button Styling */
-        .banner .btn {
+        /* .banner .btn {
             background-color: #66bb6a;
             color: white;
             border: none;
@@ -53,16 +54,16 @@
 
         .banner .btn:hover {
             background-color: #004d40;
-        }
+        } */
 
         /* Dropdown Container */
-        .dropdown {
+        /* .dropdown {
             position: relative;
             display: inline-block;
-        }
+        } */
 
         /* Dropdown Menu Styling */
-        .dropdown-menu {
+        /* .dropdown-menu {
             display: none;
             position: absolute;
             background-color: white;
@@ -71,10 +72,9 @@
             border-radius: 5px;
             z-index: 1;
             right: 0;
-            /* Align dropdown to the right */
-        }
+        } */
 
-        .dropdown-menu a {
+        /* .dropdown-menu a {
             color: #004d40;
             padding: 10px 15px;
             text-decoration: none;
@@ -85,12 +85,12 @@
         .dropdown-menu a:hover {
             background-color: #f1f1f1;
             color: #004d40;
-        }
+        } */
 
         /* Show Dropdown Menu on Hover */
-        .dropdown:hover .dropdown-menu {
+        /* .dropdown:hover .dropdown-menu {
             display: block;
-        }
+        } */
 
         /* Main Content Section */
         h1 {
@@ -176,20 +176,17 @@
             background-color: #004d40;
         }
 
-        .arrow {
+        /* .arrow {
             display: inline-block;
             transform: rotate(90deg);
-            /* Point it down */
             margin-left: 5px;
             font-size: 12px;
-            /* Adjust size */
             transition: transform 0.3s;
-        }
+        } */
 
-        .dropdown:hover .arrow {
+        /* .dropdown:hover .arrow {
             transform: rotate(270deg);
-            /* Point it up */
-        }
+        } */
 
         /* #messageBox {
             position: fixed;
@@ -211,9 +208,11 @@
 
 <body>
 
+    <%- include('partials/adminHeader') %>
+
     <!-- Header Section -->
     <div id="messageBox"></div>
-    <header class="banner">
+    <!-- <header class="banner">
         <div class="title">
             <h1>Manage Admins</h1>
         </div>
@@ -234,7 +233,7 @@
                 <button type="submit" class="btn">Logout</button>
             </form>
         </div>
-    </header>
+    </header> -->
 
 
     <!-- Title -->
