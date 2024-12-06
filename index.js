@@ -541,38 +541,40 @@ app.get("/edit_event/:id", isAuthenticated, (req, res) => {
 
 app.post("/edit_event/:id", (req, res) => {
   const { id } = req.params;
-  const {
-    eventDate,
-    eventAddress,
-    eventCity,
-    eventState,
-    startTime,
-    duration,
-    numberOfAttendees,
-    eventType,
-    firstName,
-    lastName,
-    phoneNumber,
-    secondaryPhone,
-    shareStory,
-  } = req.body;
+  const event_date = req.body.event_date;
+  const address = req.body.address;
+  const event_city = req.body.event_city;
+  const event_state = req.body.event_state;
+  const start_time = req.body.start_time;
+  const event_duration = req.body.event_duration;
+  const child_participants = req.body.child_participants;
+  const adult_participants = req.body.adult_participants;
+  const sewing_non = req.body.sewing_non;
+  const coordinator_first_name = req.body.coordinator_first_name;
+  const coordinator_last_name = req.body.coordinator_last_name;
+  const coordinator_phone = req.body.coordinator_phone;
+  const coordinator_secondary_phone = req.body.coordinator_secondary_phone;
+  const share_story = req.body.share_story;
+
 
   knex("event")
     .where({ id })
     .update({
-      event_date: eventDate,
-      event_address: eventAddress,
-      event_city: eventCity,
-      event_state: eventState,
-      start_time: startTime,
-      run_time: duration,
-      num_attendees: numberOfAttendees,
-      sewing_non: eventType,
-      coordinator_first_name: firstName,
-      coordinator_last_name: lastName,
-      coordinator_phone: phoneNumber,
-      coordinator_secondary_phone: secondaryPhone,
-      share_story: shareStory ? true : false,
+      event_date: event_date,
+      address: address,
+      event_city: event_city,
+      event_state: event_state,
+      start_time: start_time,
+      event_duration: event_duration,
+      child_participants: child_participants,
+      adult_participants: adult_participants,
+
+      sewing_non: sewing_non,
+      coordinator_first_name: coordinator_first_name,
+      coordinator_last_name: coordinator_last_name,
+      coordinator_phone: coordinator_phone,
+      coordinator_secondary_phone: coordinator_secondary_phone,
+      share_story: share_story === "on"
     })
     .then(() => {
       res.redirect("/manage_events"); // Redirect to manage events page
@@ -586,11 +588,16 @@ app.post("/edit_event/:id", (req, res) => {
 app.post("/delete_event/:id", isAuthenticated, (req, res) => {
   const id = req.params.id;
 
-  knex("event")
-    .where("id", id)
+  knex('items_produced_at_events')
+    .where("event_id", id)
     .delete()
     .then(() => {
-      res.redirect("/manage_events");
+      knex('event')
+        .where("id", id)
+        .delete()
+        .then(() => {
+          res.redirect("/manage_events");
+        })
     })
     .catch((err) => {
       console.error("Error deleting event:", err);
