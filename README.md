@@ -4,6 +4,6 @@
 
 # login info:
 
-# username: bryan.gurr@example.com
+# username: admin@admin.com
 
 # password: admin
