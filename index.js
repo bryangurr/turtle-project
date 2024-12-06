@@ -585,24 +585,26 @@ app.post("/edit_event/:id", (req, res) => {
     });
 });
 
-app.post("/delete_event/:id", isAuthenticated, (req, res) => {
+app.post("/delete_event/:id", isAuthenticated, async (req, res) => {
   const id = req.params.id;
 
-  knex('items_produced_at_events')
-    .where("event_id", id)
-    .delete()
-    .then(() => {
-      knex('event')
-        .where("id", id)
-        .delete()
-        .then(() => {
-          res.redirect("/manage_events");
-        })
-    })
-    .catch((err) => {
-      console.error("Error deleting event:", err);
-      res.status(500).send("Error updating event information");
+  try {
+    await knex.transaction(async (trx) => {
+      // Delete related records from volunteer_item_event
+      await trx('volunteer_item_event').where('event_id', id).delete();
+
+      // Delete related items from items_produced_at_events
+      await trx('items_produced_at_events').where('event_id', id).delete();
+
+      // Finally, delete the event
+      await trx('event').where('id', id).delete();
     });
+
+    res.redirect("/manage_events");
+  } catch (err) {
+    console.error("Error deleting event:", err);
+    res.status(500).send("Error deleting event information");
+  }
 });
 
 // Event Reporting
