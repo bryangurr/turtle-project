@@ -15,7 +15,7 @@ const bodyParser = require("body-parser");
 const stripe = require("stripe")(
   "sk_test_51QRlsmAe0EglwwiJYbVjdKmn1KRcMSeorCaWrNKRYiB1T0kQslBg6ocayIqDhZQIXnami5kdKLV4miC1DlZYfhLr00hCkegHWZ"
 );
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || process.env.PORT_LOCAL;
 
 // adding security to login page and authentication
 const session = require("express-session");
@@ -47,7 +47,7 @@ const knex = require("knex")({
     user: process.env.RDS_USERNAME || "postgres",
     password: process.env.RDS_PASSWORD || process.env.RDS_PASSWORD_LOCAL,
     database: process.env.RDS_DB_NAME || "turtletest",
-    port: process.env.RDS_PORT || port,
+    port: process.env.RDS_PORT || 5432,
     ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false,
   },
   debug: true,
